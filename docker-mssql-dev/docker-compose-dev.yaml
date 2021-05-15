@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  mssql_db:
+    build:
+      context: .
+      dockerfile: "mssql.Dockerfile"
+    container_name: "mssql_db"
+    networks:
+      - "mssql_db-network"
+    ports:
+      - "1433:1433"
+    env_file:
+      - sqlserver.env
+    # volumes: 
+    #   - "./_mssql/mssql:/home/mssql"
+    restart: always
+networks:
+    mssql_db-network:
+        driver: bridge
