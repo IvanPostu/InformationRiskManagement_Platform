@@ -1,0 +1,60 @@
+{
+	"folders": [
+    {
+      "path": "irme-central-server"
+    },
+    {
+      "path": "BashScripts"
+    }
+  ],
+  "settings": {
+    "java.format.settings.profile": "GoogleStyle",
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "breadcrumbs.enabled": true,
+    "terminal.integrated.fontFamily": "",
+    "terminal.integrated.fontSize": 12,
+    "debug.console.fontSize": 12,
+    "debug.console.lineHeight": 13,
+    "debug.console.fontFamily": "",
+    "search.showLineNumbers": true,
+    "workbench.colorCustomizations": {
+      "editorWarning.foreground": "#ff9100",
+      "editorError.foreground": "#ff0000",
+      "editorError.border": "#b80000",
+      "statusBar.background": "#333333",
+      "statusBar.noFolderBackground": "#333333",
+      "statusBar.debuggingBackground": "#333333"
+    },
+    "zenMode.centerLayout": false,
+    "zenMode.hideLineNumbers": false,
+    "editor.tokenColorCustomizations": {
+      "textMateRules": [
+        {
+          "scope": "comment",
+          "settings": {
+            "foreground": "#416863"
+          }
+        },
+        {
+          "scope": "string.quoted.single",
+          "settings": {
+            "foreground": "#3fad8e"
+          }
+        },
+        {
+          "scope": "string.quoted.double",
+          "settings": {
+            "foreground": "#229977"
+          }
+        },
+        {
+          "scope": "string.quoted",
+          "settings": {
+            "foreground": "#5ab399"
+          }
+        }
+      ]
+    }
+  }
+}
