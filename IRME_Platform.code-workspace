@@ -5,6 +5,12 @@
     },
     {
       "path": "BashScripts"
+    },
+    {
+      "path": "irme-db-migration"
+    },
+    {
+      "path": "docker-mssql-dev"
     }
   ],
   "settings": {

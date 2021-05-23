@@ -1,0 +1,11 @@
+# contexts=test # prod test dev
+contexts: dev
+changeLogFile: classpath:db/changelog/db.changelog-master.xml
+url: jdbc:sqlserver://localhost:1433;databaseName=InformationRiskManagementDatabase;
+username: sa
+password: Testing1122990
+driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+verbose: true
+logging: debug
+
+
