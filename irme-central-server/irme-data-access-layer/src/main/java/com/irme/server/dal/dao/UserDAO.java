@@ -1,6 +1,7 @@
 package com.irme.server.dal.dao;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,4 +39,7 @@ public class UserDAO {
     @Setter
     private Boolean active;
 
+    @Getter
+    @Setter
+    private Collection<String> roles;
 }

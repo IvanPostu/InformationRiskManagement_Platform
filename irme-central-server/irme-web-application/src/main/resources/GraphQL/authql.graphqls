@@ -1,0 +1,24 @@
+
+
+type VehicleResult {
+	id: ID!,
+	type: String,
+	modelCode: String,
+	brandName: String,
+	launchDate: String
+}
+
+type AuthResult {
+	email: String,
+	token: String
+}
+
+
+type Query {
+	vehicle(id: ID):VehicleResult
+    authUser(email: String, password: String):AuthResult
+}
+
+type Mutation {
+	createVehicle(type: String!, modelCode: String!, brandName: String, launchDate: String):VehicleResult
+}

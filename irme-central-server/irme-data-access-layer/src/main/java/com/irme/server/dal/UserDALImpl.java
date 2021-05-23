@@ -9,8 +9,13 @@ import com.irme.server.dal.dao.UserDAO;
 
 public class UserDALImpl implements UserDAL {
 
-    private List<UserDAO> internalList = Arrays
-            .asList(new UserDAO(1, "q@mail.ru", "qwerty", "Jimmy", "Bob", LocalDate.now(), true));
+    private List<UserDAO> internalList = Arrays.asList(
+            new UserDAO(1, "q@mail.ru", "q", "Jimmy", "Bob", LocalDate.now(), true,
+                    Arrays.asList("ROLE_USER")),
+            new UserDAO(1, "w@mail.ru", "q", "Jimmy", "Bob", LocalDate.now(), true,
+                    Arrays.asList("ROLE_ADMIN"))
+
+    );
     private static int incrementor = 0;
 
     public void saveUser(UserDAO user) {
