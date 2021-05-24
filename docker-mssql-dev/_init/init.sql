@@ -42,34 +42,31 @@ GO
 USE [InformationRiskManagementDatabase]
 CREATE USER jim FOR LOGIN MigrationUserLogin 
 GO
-GRANT ALL PRIVILEGES 
-ON DATABASE::InformationRiskManagementDatabase TO jim 
+EXECUTE sp_addrolemember 'db_owner', N'jim'
 GO
 GRANT ALTER ON SCHEMA::dbo TO [jim] 
-GO
 
 USE [InformationRiskManagementDatabase_Test]
 CREATE USER jim FOR LOGIN MigrationUserLogin 
 GO
-GRANT ALL PRIVILEGES 
-ON DATABASE::InformationRiskManagementDatabase_Test TO jim 
+EXECUTE sp_addrolemember 'db_owner', N'jim'
 GO
 GRANT ALTER ON SCHEMA::dbo TO [jim] 
-GO
+
 
 -- Application user with CRUD priveleges
 USE [InformationRiskManagementDatabase]
-CREATE USER bob FOR LOGIN ApplicationUserLogin 
+CREATE USER bob FOR LOGIN ApplicationUserLogin WITH DEFAULT_SCHEMA=[dbo];
 GO
-GRANT INSERT, UPDATE, DELETE, SELECT 
-ON DATABASE :: InformationRiskManagementDatabase TO bob 
+GRANT INSERT, UPDATE, DELETE, SELECT, EXECUTE
+ON DATABASE :: InformationRiskManagementDatabase TO [bob] 
 GO
 
 USE [InformationRiskManagementDatabase]
-CREATE USER bob FOR LOGIN ApplicationUserLogin 
+CREATE USER bob FOR LOGIN ApplicationUserLogin WITH DEFAULT_SCHEMA=[dbo];
 GO
-GRANT INSERT, UPDATE, DELETE, SELECT 
-ON DATABASE :: InformationRiskManagementDatabase_Test TO bob 
+GRANT INSERT, UPDATE, DELETE, SELECT, EXECUTE
+ON DATABASE :: InformationRiskManagementDatabase_Test TO [bob] 
 GO
 
 
