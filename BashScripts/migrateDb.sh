@@ -9,4 +9,8 @@ then
     exit -1
 fi
 
-$ROOT_PROJECT_DIR//mvnw -f ./irme-db-migration/pom.xml liquibase:$1 "-Dprofile=dev"
+$ROOT_PROJECT_DIR//mvnw -f ./irme-db-migration/pom.xml \
+    process-resources \
+    liquibase:$1 "-Dprofile=dev" \
+
+
