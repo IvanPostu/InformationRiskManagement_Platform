@@ -18,7 +18,7 @@ public class UserDALImpl implements UserDAL {
     );
     private static int incrementor = 0;
 
-    public void saveUser(UserDAO user) {
+    public void insertUser(UserDAO user) {
 
         if (user.getId() != null) {
             throw new IllegalArgumentException("user id should be null");
@@ -29,7 +29,7 @@ public class UserDALImpl implements UserDAL {
         internalList.add(user);
     }
 
-    public List<UserDAO> getUsers(int offset, int limit) {
+    public List<UserDAO> selectUsers(int offset, int limit) {
         List<UserDAO> users = new ArrayList<>(limit);
 
         try {
@@ -43,7 +43,7 @@ public class UserDALImpl implements UserDAL {
         return users;
     }
 
-    public Optional<UserDAO> getUserById(int id) {
+    public Optional<UserDAO> selectUserById(int id) {
 
         for (UserDAO u : internalList) {
             if (u.getId().equals(id)) {
@@ -54,7 +54,7 @@ public class UserDALImpl implements UserDAL {
         return Optional.ofNullable(null);
     }
 
-    public Optional<UserDAO> getUserByEmail(String email) {
+    public Optional<UserDAO> selectUserByEmail(String email) {
 
         for (UserDAO u : internalList) {
             if (u.getEmail().equals(email)) {
@@ -80,4 +80,5 @@ public class UserDALImpl implements UserDAL {
 
         return Optional.ofNullable(null);
     }
+
 }

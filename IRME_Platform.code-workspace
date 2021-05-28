@@ -62,6 +62,9 @@
         }
       ]
     },
-    "java.dependency.syncWithFolderExplorer": false
+    "java.dependency.syncWithFolderExplorer": true,
+    "java.project.sourcePaths": [
+      "irme-common/src/test/java/com/irme/common"
+    ]
   }
 }

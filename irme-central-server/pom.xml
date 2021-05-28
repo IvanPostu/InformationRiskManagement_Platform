@@ -25,6 +25,7 @@
     <module>irme-data-access-layer</module>
     <module>irme-web-application</module>
     <module>irme-business-layer</module>
+    <module>irme-common</module>
   </modules>
 
   <build>

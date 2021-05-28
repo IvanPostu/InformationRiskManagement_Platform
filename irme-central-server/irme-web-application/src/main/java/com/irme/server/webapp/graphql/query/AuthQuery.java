@@ -23,7 +23,7 @@ public class AuthQuery implements GraphQLQueryResolver {
     public Optional<SuccessAuthResult> authUser(final String email, final String password) {
         SuccessAuthResult result = new SuccessAuthResult();
 
-        userDAL.getUserByEmail(email).ifPresent(u -> {
+        userDAL.selectUserByEmail(email).ifPresent(u -> {
             String token = tokenProvider.createToken(email, u.getRoles());
 
             result.setEmail(email);

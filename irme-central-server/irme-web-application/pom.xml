@@ -35,6 +35,11 @@
       <artifactId>irme-business-layer</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.irme.common</groupId>
+      <artifactId>irme-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- External libs -->
     <dependency>

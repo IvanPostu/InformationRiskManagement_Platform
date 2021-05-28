@@ -67,7 +67,7 @@ public class JWTTokenProvider {
 
     public Authentication getAuthentication(String token) {
         String userName = getUsername(token);
-        UserDAO user = userDAL.getUserByEmail(userName).orElse(null);
+        UserDAO user = userDAL.selectUserByEmail(userName).orElse(null);
         UserDetails userDetails = JWTUserFactory.createJWTUserFromDataAccessLayerUserDAO(user);
         return new UsernamePasswordAuthenticationToken(userDetails, "",
                 userDetails.getAuthorities());

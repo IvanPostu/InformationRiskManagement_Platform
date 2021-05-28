@@ -6,13 +6,13 @@ import com.irme.server.dal.dao.UserDAO;
 
 public interface UserDAL {
 
-    void saveUser(UserDAO user);
+    void insertUser(UserDAO user);
 
-    List<UserDAO> getUsers(int offset, int limit);
+    List<UserDAO> selectUsers(int offset, int limit);
 
-    Optional<UserDAO> getUserById(int id);
+    Optional<UserDAO> selectUserById(int id);
 
     Optional<UserDAO> deleteUserById(int id);
 
-    Optional<UserDAO> getUserByEmail(String email);
+    Optional<UserDAO> selectUserByEmail(String email);
 }
