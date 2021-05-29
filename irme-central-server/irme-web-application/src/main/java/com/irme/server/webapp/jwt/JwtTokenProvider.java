@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
@@ -42,7 +41,9 @@ public class JwtTokenProvider {
     @SuppressWarnings({"deprecation"})
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
+        PasswordEncoder passwordEncoder =
+                org.springframework.security.crypto.password.NoOpPasswordEncoder
+                        .getInstance();
         return passwordEncoder;
     }
 

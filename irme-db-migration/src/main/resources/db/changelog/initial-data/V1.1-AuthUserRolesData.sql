@@ -1,7 +1,4 @@
 
-
-
-	
 --liquibase formatted sql
 --changeset IvanPostu:ddl-data-V1.1 splitStatements:true endDelimiter:;
 

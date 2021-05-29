@@ -12,9 +12,9 @@ public class App {
     }
 
     public static void main(String[] args) throws SQLException {
-        String dbURL =
-                "jdbc:sqlserver://0.0.0.0:1433;databaseName=InformationRiskManagementDatabase;user=sa;password=Testing1122990";
-        DataAccessObjectFactory factory = new DataAccessObjectFactory(dbURL);
+        // String dbURL =
+        //         "jdbc:sqlserver://0.0.0.0:1433;databaseName=InformationRiskManagementDatabase;user=sa;password=Testing1122990";
+        // DataAccessObjectFactory factory = new DataAccessObjectFactory(dbURL);
 
 
 
