@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-tables-V1.3 splitStatements:true endDelimiter:;
+--changeset IvanPostu:ddl-tables-V1.3 splitStatements:true endDelimiter:GO context:default
 
 CREATE TABLE [dbo].[countries] (
     [country_code] CHAR(2) NOT NULL,

@@ -1,6 +1,6 @@
 
 --liquibase formatted sql
---changeset IvanPostu:test_profile/test-data-V1.0 splitStatements:true endDelimiter:GO
+--changeset IvanPostu:test-data-V1.0 splitStatements:true endDelimiter:GO context:test
 
 INSERT INTO dbo.auth_roles (role_id, role_name)
 VALUES 

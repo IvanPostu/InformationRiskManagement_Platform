@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-procedures-V1.4 splitStatements:true endDelimiter:GO
+--changeset IvanPostu:ddl-procedures-V1.4 splitStatements:true endDelimiter:GO context:default
 
 CREATE OR ALTER PROCEDURE [dbo].[auth_user_by_email]
     @email VARCHAR(256)

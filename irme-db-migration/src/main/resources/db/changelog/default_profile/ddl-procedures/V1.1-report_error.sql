@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-procedures-V1.1 splitStatements:true endDelimiter:;
+--changeset IvanPostu:ddl-procedures-V1.1 splitStatements:true endDelimiter:GO context:default
 
 
 CREATE OR ALTER PROCEDURE [dbo].[report_error]
@@ -12,7 +12,7 @@ BEGIN
         ERROR_LINE ()       AS err_line,
         ERROR_PROCEDURE()   AS err_procedure,
         ERROR_MESSAGE()     AS err_message
-END
+END;
 
 --rollback <rollback SQL statements>
 --rollback <rollback SQL statements>

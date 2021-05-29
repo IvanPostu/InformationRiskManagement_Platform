@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-tables-V1.7 splitStatements:true endDelimiter:;
+--changeset IvanPostu:ddl-tables-V1.7 splitStatements:true endDelimiter:GO context:default
 
 ALTER TABLE
     [dbo].[auth_user_roles]

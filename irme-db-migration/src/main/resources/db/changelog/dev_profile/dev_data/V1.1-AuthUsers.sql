@@ -1,6 +1,6 @@
 
 --liquibase formatted sql
---changeset IvanPostu:dev_profile/dev-data-V1.1 splitStatements:true endDelimiter:GO
+--changeset IvanPostu:dev-data-V1.1 splitStatements:true endDelimiter:GO context:dev
 
 EXECUTE dbo.auth_user_with_info_add
 	'q@mail.ru', 

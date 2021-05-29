@@ -1,5 +1,6 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-tables-V1.0 splitStatements:true endDelimiter:;
+--changeset IvanPostu:ddl-tables-V1.0 splitStatements:true endDelimiter:GO context:default
+
 CREATE TABLE [dbo].[auth_users] (
     [auth_user_id]   		INTEGER  IDENTITY(1, 1) NOT NULL,
     [email_address]  		VARCHAR (128)   NOT NULL,

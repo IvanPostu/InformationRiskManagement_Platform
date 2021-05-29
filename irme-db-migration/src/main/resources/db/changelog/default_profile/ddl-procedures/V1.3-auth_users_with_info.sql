@@ -1,5 +1,5 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-procedures-V1.3 splitStatements:true endDelimiter:GO
+--changeset IvanPostu:ddl-procedures-V1.3 splitStatements:true endDelimiter:GO context:default
 
 CREATE OR ALTER PROCEDURE [dbo].[auth_users_with_info]
     @offset_  				INTEGER,
