@@ -1,4 +1,4 @@
-package com.irme.server.dal.dao;
+package com.irme.server.dal.dto;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDAO {
+public class UserDto {
 
     @Getter
     @Setter

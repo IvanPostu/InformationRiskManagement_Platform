@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class JWTUser implements UserDetails {
+public class JwtUser implements UserDetails {
 
     private static final long serialVersionUID = -7085532138161198242L;
 

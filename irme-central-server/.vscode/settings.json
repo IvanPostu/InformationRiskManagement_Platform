@@ -38,8 +38,9 @@
     "editor.rulers": [100],
     "editor.formatOnSave": true,
   },
-//   "java.format.settings.profile": "GoogleStyle",
-//   "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  "java.format.enabled": true,
+  "java.format.settings.profile": "MyStyle",
+  "java.format.settings.url": "${workspaceRoot}/java-code-style.xml",
   "java.configuration.updateBuildConfiguration": "disabled",
   "java.home": "/usr/lib/jvm/java-8-openjdk",
   "java.configuration.runtimes": [

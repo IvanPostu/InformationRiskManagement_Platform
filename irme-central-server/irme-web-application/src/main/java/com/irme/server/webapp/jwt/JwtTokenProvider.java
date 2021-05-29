@@ -1,36 +1,33 @@
 package com.irme.server.webapp.jwt;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Base64;
+import java.util.Collection;
+import java.util.Date;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import com.irme.server.dal.UserDataAccessObject;
+import com.irme.server.dal.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import com.irme.server.dal.UserDAL;
-import com.irme.server.dal.dao.UserDAO;
-import java.util.Base64;
-import java.util.Collection;
-import java.util.Date;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @Component
-public class JWTTokenProvider {
+public class JwtTokenProvider {
 
     @Value("${jwt.token.secret}")
     private String secret;
@@ -40,7 +37,7 @@ public class JWTTokenProvider {
 
 
     @Autowired
-    private UserDAL userDAL;
+    private UserDataAccessObject userDAL;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,8 +64,8 @@ public class JWTTokenProvider {
 
     public Authentication getAuthentication(String token) {
         String userName = getUsername(token);
-        UserDAO user = userDAL.selectUserByEmail(userName).orElse(null);
-        UserDetails userDetails = JWTUserFactory.createJWTUserFromDataAccessLayerUserDAO(user);
+        UserDto user = userDAL.selectUserByEmail(userName).orElse(null);
+        UserDetails userDetails = JwtUserFactory.createJWTUser(user);
         return new UsernamePasswordAuthenticationToken(userDetails, "",
                 userDetails.getAuthorities());
     }
@@ -96,7 +93,7 @@ public class JWTTokenProvider {
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             log.warn(e.getMessage());
-            throw new JWTAuthenticationException("JWT token is expired or invalid");
+            throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
     }
 

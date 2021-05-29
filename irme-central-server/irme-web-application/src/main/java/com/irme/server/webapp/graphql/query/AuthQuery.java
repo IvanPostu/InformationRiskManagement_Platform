@@ -2,9 +2,9 @@ package com.irme.server.webapp.graphql.query;
 
 import java.util.Optional;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.irme.server.dal.UserDAL;
+import com.irme.server.dal.UserDataAccessObject;
 import com.irme.server.webapp.graphql.model.SuccessAuthResult;
-import com.irme.server.webapp.jwt.JWTTokenProvider;
+import com.irme.server.webapp.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
@@ -14,10 +14,10 @@ public class AuthQuery implements GraphQLQueryResolver {
 
 
     @Autowired
-    private UserDAL userDAL;
+    private UserDataAccessObject userDAL;
 
     @Autowired
-    private JWTTokenProvider tokenProvider;
+    private JwtTokenProvider tokenProvider;
 
     @PreAuthorize("isAnonymous()")
     public Optional<SuccessAuthResult> authUser(final String email, final String password) {

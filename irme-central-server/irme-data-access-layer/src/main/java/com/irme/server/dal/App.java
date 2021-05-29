@@ -17,6 +17,7 @@ public class App {
         String dbURL =
                 "jdbc:sqlserver://0.0.0.0:1433;databaseName=InformationRiskManagementDatabase;user=sa;password=Testing1122990";
         Connection conn = DriverManager.getConnection(dbURL);
+
         if (conn != null) {
             System.out.println("Connected");
         }

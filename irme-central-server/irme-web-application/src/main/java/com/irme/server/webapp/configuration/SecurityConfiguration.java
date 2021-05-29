@@ -1,8 +1,8 @@
 package com.irme.server.webapp.configuration;
 
 
-import com.irme.server.webapp.jwt.JWTConfigurer;
-import com.irme.server.webapp.jwt.JWTTokenProvider;
+import com.irme.server.webapp.jwt.JwtConfigurer;
+import com.irme.server.webapp.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,14 +24,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private JWTTokenProvider jwtTokenProvider;
+    private JwtTokenProvider jwtTokenProvider;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable().csrf().disable().authorizeRequests().anyRequest().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().apply(new JWTConfigurer(jwtTokenProvider)).and();
+                .and().apply(new JwtConfigurer(jwtTokenProvider)).and();
     }
 
 }
