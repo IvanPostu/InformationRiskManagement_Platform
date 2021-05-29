@@ -1,9 +1,17 @@
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <includeAll path="classpath:db/changelog/ddl-functions" />
-    <includeAll path="classpath:db/changelog/ddl-procedures" />
-    <includeAll path="classpath:db/changelog/ddl-tables" />
-    <includeAll path="classpath:db/changelog/initial-data" />
+    <!-- order is important !!! -->
+    <includeAll context="default" path="classpath:db/changelog/default_profile/ddl-functions" />
+    <includeAll context="default" path="classpath:db/changelog/default_profile/ddl-procedures" />
+    <includeAll context="default" path="classpath:db/changelog/default_profile/ddl-tables" />
+    <includeAll context="default" path="classpath:db/changelog/default_profile/initial-data" />
+
+    <includeAll context="dev" path="classpath:db/changelog/dev_profile" />
+    
+    <includeAll context="test" path="classpath:db/changelog/test_profile" />
 
 </databaseChangeLog>
