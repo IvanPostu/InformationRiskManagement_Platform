@@ -1,4 +1,4 @@
-package com.irme.server.dal;
+package com.irme.server.dal.dao;
 
 import java.sql.Connection;
 

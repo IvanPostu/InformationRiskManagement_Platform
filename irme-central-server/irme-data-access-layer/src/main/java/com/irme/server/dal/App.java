@@ -1,7 +1,5 @@
 package com.irme.server.dal;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -16,10 +14,9 @@ public class App {
     public static void main(String[] args) throws SQLException {
         String dbURL =
                 "jdbc:sqlserver://0.0.0.0:1433;databaseName=InformationRiskManagementDatabase;user=sa;password=Testing1122990";
-        Connection conn = DriverManager.getConnection(dbURL);
+        DataAccessObjectFactory factory = new DataAccessObjectFactory(dbURL);
 
-        if (conn != null) {
-            System.out.println("Connected");
-        }
+
+
     }
 }

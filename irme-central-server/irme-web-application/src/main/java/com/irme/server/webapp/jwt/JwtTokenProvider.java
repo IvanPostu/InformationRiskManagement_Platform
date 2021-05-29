@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import com.irme.server.dal.UserDataAccessObject;
+import com.irme.server.dal.dao.UserDataAccessObject;
 import com.irme.server.dal.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +39,7 @@ public class JwtTokenProvider {
     @Autowired
     private UserDataAccessObject userDAL;
 
+    @SuppressWarnings({"deprecation"})
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();

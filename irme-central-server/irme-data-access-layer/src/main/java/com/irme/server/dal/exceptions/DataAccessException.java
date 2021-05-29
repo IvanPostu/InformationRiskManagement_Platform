@@ -1,4 +1,4 @@
-package com.irme.server.dal;
+package com.irme.server.dal.exceptions;
 
 import lombok.Getter;
 

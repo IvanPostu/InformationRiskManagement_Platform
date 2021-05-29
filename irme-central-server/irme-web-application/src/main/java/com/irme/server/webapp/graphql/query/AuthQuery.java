@@ -2,7 +2,7 @@ package com.irme.server.webapp.graphql.query;
 
 import java.util.Optional;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.irme.server.dal.UserDataAccessObject;
+import com.irme.server.dal.dao.UserDataAccessObject;
 import com.irme.server.webapp.graphql.model.SuccessAuthResult;
 import com.irme.server.webapp.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;

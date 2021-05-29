@@ -1,8 +1,9 @@
-package com.irme.server.dal;
+package com.irme.server.dal.dao;
 
 import java.util.List;
 import java.util.Optional;
 import com.irme.server.dal.dto.UserDto;
+import com.irme.server.dal.exceptions.DataAccessException;
 
 public interface UserDataAccessObject {
 

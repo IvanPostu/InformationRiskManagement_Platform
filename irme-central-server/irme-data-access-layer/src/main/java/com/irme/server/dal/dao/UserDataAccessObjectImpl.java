@@ -1,5 +1,6 @@
-package com.irme.server.dal;
+package com.irme.server.dal.dao;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,10 @@ import java.util.Optional;
 import com.irme.server.dal.dto.UserDto;
 
 public class UserDataAccessObjectImpl extends BaseDataAccessObject implements UserDataAccessObject {
+
+    public UserDataAccessObjectImpl(Connection connection) {
+        super(connection);
+    }
 
     private List<UserDto> internalList = Arrays.asList(
             new UserDto(1, "q@mail.ru", "q", "Jimmy", "Bob", LocalDate.now(), true,
