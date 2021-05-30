@@ -10,6 +10,7 @@ AS
 BEGIN TRY  
 
 	SELECT 
+    au.auth_user_id,
 		au.email_address, 
 		au.password_hash, 
 		au.status,

@@ -6,9 +6,6 @@ import java.util.Collection;
 import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import com.irme.server.dal.dao.UserDataAccessObject;
-import com.irme.server.dal.dto.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,9 +31,6 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private long validityInMilliseconds;
 
-
-    @Autowired
-    private UserDataAccessObject userDAL;
 
     @SuppressWarnings({"deprecation"})
     @Bean
@@ -64,10 +58,10 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
-    public Authentication getAuthentication(String token) {
+    public Authentication generateAuthentication(String token) {
         String userName = getUsername(token);
-        UserDto user = userDAL.selectUserByEmail(userName).orElse(null);
-        UserDetails userDetails = JwtUserFactory.createJWTUser(user);
+        // UserDto user = null;//userDAL.selectUserByEmail(userName).orElse(null);
+        UserDetails userDetails = null;//JwtUserFactory.createJWTUser(user);
         return new UsernamePasswordAuthenticationToken(userDetails, "",
                 userDetails.getAuthorities());
     }

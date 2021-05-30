@@ -25,11 +25,11 @@
   <dependencies>
 
     <!-- Internal libs -->
-    <dependency>
+    <!-- <dependency>
       <groupId>com.irme.server.dal</groupId>
       <artifactId>irme-data-access-layer</artifactId>
       <version>${project.version}</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>com.irme.server.bl</groupId>
       <artifactId>irme-business-layer</artifactId>

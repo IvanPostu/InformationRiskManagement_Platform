@@ -6,6 +6,7 @@ CREATE OR ALTER PROCEDURE [dbo].[auth_user_by_email]
 AS
 BEGIN TRY  
 	SELECT TOP 1
+    au.auth_user_id,
 		au.email_address, 
 		au.password_hash, 
 		au.status,

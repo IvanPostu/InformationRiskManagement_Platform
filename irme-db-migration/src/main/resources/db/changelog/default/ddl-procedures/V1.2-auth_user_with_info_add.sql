@@ -1,20 +1,21 @@
 --liquibase formatted sql
---changeset IvanPostu:ddl-procedures-V1.2 splitStatements:true endDelimiter:GO context:default
+--changeset IvanPostu:ddl-procedures-V1.2 splitStatements:true endDelimiter:GO
 
 CREATE OR ALTER PROCEDURE [dbo].[auth_user_with_info_add]
-    @email  				VARCHAR(128),
-    @password_hash  		VARCHAR(256),
-    @status  				VARCHAR(32) = 'ACTIVE',
-    @roles					VARCHAR(512) = 'ROLE_USER',
+    @email  				        VARCHAR(128),
+    @password_hash  		    VARCHAR(256),
+    @status  				        VARCHAR(32) = 'ACTIVE',
+    @roles					        VARCHAR(512) = 'ROLE_USER',
     @roles_split_separator	CHAR(1) = ';',
-    @first_name  			VARCHAR(64),
-    @last_name  			VARCHAR(64),
-    @phone  				VARCHAR(30),
-    @country_code  			VARCHAR(2)
+    @first_name  			      VARCHAR(64),
+    @last_name  			      VARCHAR(64),
+    @phone  				        VARCHAR(30),
+    @country_code  			    VARCHAR(2),
+    @inserted_auth_user_id  INTEGER OUTPUT
 AS
 BEGIN TRY  
-	DECLARE @transaction_name VARCHAR(12) = 'transq_001' 
-	DECLARE @inserted_auth_user_id INTEGER = -1
+	DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+  SET @inserted_auth_user_id = -1;
 	BEGIN TRANSACTION @transaction_name
 	
 		INSERT INTO dbo.auth_users (email_address, password_hash, status)

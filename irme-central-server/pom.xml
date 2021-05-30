@@ -26,6 +26,7 @@
     <module>irme-web-application</module>
     <module>irme-business-layer</module>
     <module>irme-common</module>
+    <module>irme-admin-mvc</module>
   </modules>
 
   <build>

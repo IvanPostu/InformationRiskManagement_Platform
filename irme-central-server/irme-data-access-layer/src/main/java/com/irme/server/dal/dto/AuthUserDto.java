@@ -1,45 +1,35 @@
 package com.irme.server.dal.dto;
 
-import java.time.LocalDate;
+
 import java.util.Collection;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class AuthUserDto {
 
-    @Getter
-    @Setter
     private Integer id;
 
-    @Getter
-    @Setter
     private String email;
 
-    @Getter
-    @Setter
     private String passwordHash;
 
-    @Getter
-    @Setter
+    private Boolean banned;
+
+    private String status;
+
     private String firstName;
 
-    @Getter
-    @Setter
     private String lastName;
 
-    @Getter
-    @Setter
-    private LocalDate dob;
+    private String created;
 
-    @Getter
-    @Setter
-    private Boolean active;
+    private String phone;
 
-    @Getter
-    @Setter
+    private String countryCode;
+
     private Collection<String> roles;
 }
