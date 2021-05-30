@@ -15,11 +15,11 @@
   ],
   "settings": {
     "breadcrumbs.enabled": true,
-    "terminal.integrated.fontFamily": "",
+    "terminal.integrated.fontFamily": "'Fira Code Medium'",
     "terminal.integrated.fontSize": 12,
     "debug.console.fontSize": 12,
     "debug.console.lineHeight": 13,
-    "debug.console.fontFamily": "",
+    "debug.console.fontFamily": "'Fira Code Medium'",
     "search.showLineNumbers": true,
     "workbench.colorCustomizations": {
       "editorWarning.foreground": "#ff9100",

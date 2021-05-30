@@ -4,10 +4,14 @@ import java.sql.Connection;
 
 public abstract class BaseDataAccessObject {
 
-    protected final Connection connection;
+    private final Connection connection;
 
     public BaseDataAccessObject(Connection connection) {
         this.connection = connection;
+    }
+
+    protected Connection getConnection(){
+        return this.connection;
     }
 
 }
