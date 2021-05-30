@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Liquibase tasks:
 # changelogSync, changelogSyncSQL, changelogSyncToTag, 
 # changelogSyncToTagSQL, clearCheckSums, dbDoc, deactivateChangeLog, 
 # diff, dropAll, futureRollbackSQL, generateChangeLog, help, 
@@ -11,16 +12,33 @@
 SCRIPT=`realpath -s $0`
 SCRIPTPATH=`dirname $SCRIPT`
 ROOT_PROJECT_DIR="$SCRIPTPATH/.."
-DEFAULT_CONTEXTS="default,dev"
+isError=0
 
-if [ "$1" = "" ]
+source $SCRIPTPATH/__common.sh
+
+processArgumentsSimpleImpl $@
+
+if [ "$g_contexts" = "" ]
 then 
-    echo 'Please specify liquibase task as first argument, for example: dropAll or update'
+    echo "${red}Please specify --contexts param, example --contexts \"dev,default,test\"${reset}"
+    isError=1
+fi
+
+if [ "$g_task" = "" ]
+then 
+    echo "${red}Please specify --task param, example --task \"status\"${reset}"
+    isError=1
+fi
+
+if [[ $isError -ne 0 ]]; then
     exit -1
 fi
 
-$ROOT_PROJECT_DIR//mvnw -f ./irme-db-migration/pom.xml \
+$ROOT_PROJECT_DIR/mvnw \
+    -f ./irme-db-migration/pom.xml \
     process-resources \
-    liquibase:$1 "-Dprofile=common" "-Dcontexts=${DEFAULT_CONTEXTS}" \
+    liquibase:$g_task "-Dprofile=common" \
+    "-Dcontexts=${g_contexts}" \
 
+exit $?
 
