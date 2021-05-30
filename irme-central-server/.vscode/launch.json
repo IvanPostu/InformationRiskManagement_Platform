@@ -6,27 +6,6 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch App",
-      "request": "launch",
-      "mainClass": "com.irme.server.webapp.App",
-      "projectName": "irme-web-application"
-    },
-    {
-      "type": "java",
-      "name": "Launch App",
-      "request": "launch",
-      "mainClass": "com.irme.common.App",
-      "projectName": "irme-common"
-    },
-    {
-      "type": "java",
-      "name": "Launch App",
-      "request": "launch",
-      "mainClass": "com.irme.server.dal.App",
-      "projectName": "irme-data-access-layer"
-    },
-    {
-      "type": "java",
       "name": "Debug (Attach)",
       "request": "attach",
       "hostName": "localhost",
