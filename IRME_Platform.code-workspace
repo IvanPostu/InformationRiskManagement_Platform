@@ -64,7 +64,8 @@
     },
     "java.dependency.syncWithFolderExplorer": false,
     "java.project.sourcePaths": [
-      "irme-common/src/test/java/com/irme/common"
+      "../target/generated-sources/annotations",
+      "src/main/resources/db/changelog/test/test-data"
     ]
   }
 }

@@ -4,8 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include context="default" file="classpath:db/changelog/default/default-changelog.xml" />
-    <include context="dev" file="classpath:db/changelog/dev/dev-changelog.xml" />
-    <include context="test" file="classpath:db/changelog/test/test-changelog.xml" />
+    <includeAll context="test" path="classpath:db/changelog/test/initial-data" />
 
 </databaseChangeLog>

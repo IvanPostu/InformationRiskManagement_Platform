@@ -38,7 +38,7 @@ $ROOT_PROJECT_DIR/mvnw \
     -f ./irme-db-migration/pom.xml \
     process-resources \
     liquibase:$g_task "-Dprofile=common" \
-    "-Dcontexts=${g_contexts}" \
+    "-Dliquibase.contexts=${g_contexts}" \
 
 exit $?
 
