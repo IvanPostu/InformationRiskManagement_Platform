@@ -2,9 +2,9 @@ package com.irme.server.dal;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import com.irme.common.dto.AuthUserDto;
 import com.irme.server.dal.dao.UserDataAccessObject;
 import com.irme.server.dal.dao.UserDataAccessObjectImpl;
-import com.irme.server.dal.dto.AuthUserDto;
 
 /**
  * Hello world!
@@ -22,10 +22,10 @@ public class App {
         UserDataAccessObject userDao = factory.createDataAccessObject(UserDataAccessObjectImpl.class);
 
         AuthUserDto user = new AuthUserDto();
+        user.setEmail("ww@mail.rumd");
         user.setBanned(false);
         user.setCountryCode("MD");
         user.setCreated("");
-        user.setEmail("ww@mail.rumd");
         user.setFirstName("J");
         user.setLastName("K");
         user.setPasswordHash("q");
@@ -33,7 +33,7 @@ public class App {
         user.setRoles(Arrays.asList("ROLE_USER"));
         user.setPhone("134");
 
-        userDao.insertUser(user);
+        // userDao.insertUser(user);
 
         char c = 'a';
     }

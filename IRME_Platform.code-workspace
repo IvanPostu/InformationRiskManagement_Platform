@@ -43,7 +43,12 @@
       "**/node_modules/*/**": true,
       "**/__pycache__": true,
       "**/.mypy_cache": true,
-      "**/.pytest_cache": true
+      "**/.pytest_cache": true,
+      "**/.settings": true,
+      "**/.project": true,
+      "**/.classpath": true,
+      "**/.factorypath": true,
+      "**/target": true
     },
     "files.watcherExclude": {
       "**/mysql_data/*/**": true,
@@ -107,6 +112,12 @@
       ]
     },
     "[java]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.tabSize": 2
+    },
+    "[xml]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.tabSize": 2
     },
     "java.home": "/usr/lib/jvm/java-11-openjdk",
     "java.format.settings.profile": "IvanJavaCodeStyle",

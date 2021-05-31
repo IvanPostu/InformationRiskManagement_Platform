@@ -1,4 +1,5 @@
-package com.irme.server.dal.dto;
+package com.irme.common.dto;
+
 
 
 import java.util.Collection;

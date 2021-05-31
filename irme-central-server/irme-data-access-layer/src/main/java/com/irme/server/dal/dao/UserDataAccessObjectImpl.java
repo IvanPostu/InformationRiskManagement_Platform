@@ -2,11 +2,17 @@ package com.irme.server.dal.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import com.irme.server.dal.dto.AuthUserDto;
+import com.irme.common.dto.AuthUserDto;
+import com.irme.server.dal.exceptions.DataAccessErrorCode;
+import com.irme.server.dal.exceptions.DataAccessException;
 
 public class UserDataAccessObjectImpl extends BaseDataAccessObject implements UserDataAccessObject {
 
@@ -15,20 +21,20 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
     }
 
 
-
+    @Override
     public void insertUser(AuthUserDto user) {
         String sql = "{ call dbo.auth_user_with_info_add(?,?,?,?,?,?,?,?,?,?) }";
         int insertedUserId = -1;
 
         char joinChar = ';';
         StringBuilder joinedRoles = new StringBuilder();
-        for(String role : user.getRoles()){
+        for (String role : user.getRoles()) {
             joinedRoles
-                .append(role)
-                .append(joinChar);
+                    .append(role)
+                    .append(joinChar);
         }
 
-        try(CallableStatement statement = super.getConnection().prepareCall(sql)){
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPasswordHash());
             statement.setString(3, user.getStatus());
@@ -43,34 +49,77 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
             statement.executeUpdate();
 
             insertedUserId = statement.getInt(10);
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
 
-        }finally{
+        } finally {
             user.setId(insertedUserId);
         }
 
 
     }
 
-    public List<AuthUserDto> selectUsers(int offset, int limit) {
-        return null;
+    @Override
+    public List<AuthUserDto> selectUsers(int offset, int limit, boolean sortAsc) throws DataAccessException {
+        String sql = "{ call dbo.auth_users_with_info(?,?,?,?) }";
+        char joinChar = ';';
+        StringBuilder joinedRoles = new StringBuilder();
+        List<AuthUserDto> result = new ArrayList<>(limit);
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, offset);
+            statement.setInt(2, limit);
+            statement.setString(3, Character.toString(joinChar));
+            statement.setString(4, joinedRoles.toString());
+
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Collection<String> roles = Arrays.asList(
+                    rs.getString("roles").split(Character.toString(joinChar))
+                );
+                AuthUserDto u = new AuthUserDto();
+                u.setId(rs.getInt("auth_user_id"));
+                u.setBanned(false);
+                u.setCountryCode(rs.getString("country_code"));
+                u.setCreated(rs.getString("created_date"));
+                u.setEmail(rs.getString("email_address"));
+                u.setFirstName(rs.getString("first_name"));
+                u.setLastName(rs.getString("last_name"));
+                u.setPasswordHash(rs.getString("password_hash"));
+                u.setPhone(rs.getString("phone"));
+                u.setStatus(rs.getString("status"));
+                u.setRoles(roles);
+
+                result.add(u);
+            }
+
+
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
     }
 
+    @Override
     public Optional<AuthUserDto> selectUserById(int id) {
         return Optional.ofNullable(null);
 
 
     }
 
+    @Override
     public Optional<AuthUserDto> selectUserByEmail(String email) {
         return Optional.ofNullable(null);
 
 
     }
 
+    @Override
     public Optional<AuthUserDto> deleteUserById(int id) {
 
         return Optional.ofNullable(null);
     }
+
+
 
 }
