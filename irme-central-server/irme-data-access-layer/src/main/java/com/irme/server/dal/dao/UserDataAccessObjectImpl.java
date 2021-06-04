@@ -1,7 +1,6 @@
 package com.irme.server.dal.dao;
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -10,14 +9,15 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import javax.sql.DataSource;
 import com.irme.common.dto.AuthUserDto;
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
 import com.irme.server.dal.exceptions.DataAccessException;
 
 public class UserDataAccessObjectImpl extends BaseDataAccessObject implements UserDataAccessObject {
 
-    public UserDataAccessObjectImpl(Connection connection) {
-        super(connection);
+    public UserDataAccessObjectImpl(DataSource dataSource) {
+        super(dataSource);
     }
 
 

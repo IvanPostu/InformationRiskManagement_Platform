@@ -1,17 +1,19 @@
 package com.irme.server.dal.dao;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import javax.sql.DataSource;
 
 public abstract class BaseDataAccessObject {
 
-    private final Connection connection;
+    private final DataSource dataSource;
 
-    public BaseDataAccessObject(Connection connection) {
-        this.connection = connection;
+    public BaseDataAccessObject(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    protected Connection getConnection(){
-        return this.connection;
+    protected Connection getConnection() throws SQLException{
+        return this.dataSource.getConnection();
     }
 
 }

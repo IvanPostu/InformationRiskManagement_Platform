@@ -113,7 +113,12 @@
     },
     "[java]": {
       "editor.suggest.insertMode": "replace",
-      "editor.tabSize": 2
+      "editor.tabSize": 4,
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+      }
+      
     },
     "[xml]": {
       "editor.suggest.insertMode": "replace",
@@ -124,9 +129,16 @@
     "java.format.settings.url": "../Ivan_JavaCodeStyle.xml",
     "java.configuration.updateBuildConfiguration": "disabled",
     "java.dependency.syncWithFolderExplorer": false,
+    "java.referencesCodeLens.enabled": true,
     "java.project.sourcePaths": [
       "../target/generated-sources/annotations",
       "src/main/resources/db/changelog/test/test-data"
+    ],
+    "java.completion.importOrder": [
+      "",
+      "javax",
+      "java",
+      "#"
     ]
   }
 }

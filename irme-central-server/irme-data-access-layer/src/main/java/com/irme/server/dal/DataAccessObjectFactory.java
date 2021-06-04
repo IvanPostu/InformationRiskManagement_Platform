@@ -2,39 +2,20 @@ package com.irme.server.dal;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.sql.DataSource;
 import com.irme.server.dal.dao.BaseDataAccessObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import lombok.Getter;
 
 public class DataAccessObjectFactory {
 
     private static final Logger logger = LoggerFactory.getLogger(DataAccessObjectFactory.class);
+    private final DataSource dataSource;
 
-    @Getter
-    private final String connectionString;
-
-    @Getter
-    private final Connection connection;
-
-    public DataAccessObjectFactory(final String connectionString) {
-        this.connectionString = connectionString;
-        this.connection = tryToConnect();
+    public DataAccessObjectFactory(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    private Connection tryToConnect() {
-        try {
-            Connection connection = DriverManager.getConnection(this.getConnectionString());
-            logger.info("DataAccessObjectFactory created with success");
-            return connection;
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-            throw new Error(e);
-        }
-    }
 
     /**
      * Create specific DataAccessObject
@@ -45,17 +26,19 @@ public class DataAccessObjectFactory {
             Class<? extends BaseDataAccessObject> targetClass) {
 
         T result = null;
-        Class<?>[] argsType = new Class<?>[] {Connection.class};
+        Class<?>[] argsType = new Class<?>[] {DataSource.class};
         try {
             Constructor<? extends BaseDataAccessObject> ctor = targetClass
                     .getConstructor(argsType);
 
-            result = (T) ctor.newInstance(this.getConnection());
+            result = (T) ctor.newInstance(dataSource);
+
         } catch (NoSuchMethodException
                 | SecurityException
                 | InstantiationException
-                | IllegalAccessException
-                | InvocationTargetException e) {
+                | IllegalArgumentException
+                | InvocationTargetException
+                | IllegalAccessException e) {
             logger.error(e.getMessage());
         }
 
