@@ -1,12 +1,9 @@
 # Information Risk Management Expert
 
+### [Server application](irme-central-server/README.MD)
 
-## Scripts
+### [Bash scripts](BashScripts/README.MD)
 
-Run central web application, mobile application, 
-admin web application,
-database migration or integration tests using bash scripts.
 
-[Bash scripts readme file](BashScripts/README.MD)
 
 

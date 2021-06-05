@@ -11,6 +11,9 @@
     },
     {
       "path": "docker-mssql-dev"
+    },
+    {
+      "path": "development-only"
     }
   ],
   "settings": {
@@ -118,11 +121,15 @@
       "editor.codeActionsOnSave": {
         "source.organizeImports": true
       }
-      
     },
     "[xml]": {
       "editor.suggest.insertMode": "replace",
       "editor.tabSize": 2
+    },
+    "[sh]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.tabSize": 4,
+      "editor.formatOnSave": true,
     },
     "java.home": "/usr/lib/jvm/java-11-openjdk",
     "java.format.settings.profile": "IvanJavaCodeStyle",

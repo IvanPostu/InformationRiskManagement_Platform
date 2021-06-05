@@ -8,6 +8,13 @@
       "type": "java",
       "name": "Launch App",
       "request": "launch",
+      "mainClass": "com.irme.server.bl.App",
+      "projectName": "irme-business-layer"
+    },
+    {
+      "type": "java",
+      "name": "Launch App",
+      "request": "launch",
       "mainClass": "com.irme.server.dal.App",
       "projectName": "irme-data-access-layer"
     },
