@@ -15,10 +15,14 @@ public final class ConnectionConfig {
 
     private ConnectionConfig() {}
 
-    private static Object syncObject = new Object();
+    private static Object syncObject;
     private static HikariDataSource cachedConfig = null;
 
-    public static HikariConfig getDataSourceConfig(String configFilename) {
+    static {
+        syncObject = new Object();
+    };
+
+    public static HikariConfig getDataSourceConfig(ConnectionConfigType configType) {
         synchronized (syncObject) {
 
             if (cachedConfig != null) {
@@ -30,10 +34,10 @@ public final class ConnectionConfig {
             HikariConfig jdbcConfig = new HikariConfig();
 
             try (InputStream in = ConnectionConfig.class
-                    .getResourceAsStream("/" + configFilename)) {
+                    .getResourceAsStream("/" + configType.configFilename())) {
                 prop.load(in);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
 
             jdbcConfig.setPoolName(prop.getProperty("dataSourcePool.name"));

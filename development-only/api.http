@@ -1,0 +1,53 @@
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_zxc1
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+  createVehicle(type: "car", modelCode: "XYZ0192", brandName: "XYZ", launchDate: "2016-08-16")
+  {
+    id
+  }
+}
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3QG1haWwucnUiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTYyMTc4NzA5MiwiZXhwIjoxNjIxNzkwNjkyfQ.eMy51fyZ8zhpmuAacYRAGiCYK84Co1kJyKzO06yUAu4
+X-REQUEST-TYPE: GraphQL
+
+query {
+    vehicle(id: 0)
+    {
+        id,
+        type,
+        modelCode
+    }
+}
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxQG1haWwucnUiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjIxNzc2NzEwLCJleHAiOjE2MjE3ODAzMTB9.125e6kawIT32F96wcE6ev8TURuBkkec9sYoo15jWx7xY
+X-REQUEST-TYPE: GraphQL
+
+query {
+    vehicles(count: 2, s: "q1")
+    {
+        id,
+        type,
+        modelCode
+    }
+}
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer xxx
+X-REQUEST-TYPE: GraphQL
+
+query {
+    authUser(email: "w@mail.ru", password: "wer")
+    {
+        email,
+        token
+    }
+}
+

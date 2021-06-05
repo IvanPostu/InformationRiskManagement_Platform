@@ -11,7 +11,8 @@
 
 SCRIPT=`realpath -s $0`
 SCRIPTPATH=`dirname $SCRIPT`
-ROOT_PROJECT_DIR="$SCRIPTPATH/.."
+ROOT_PROJECT_DIR=`dirname $SCRIPTPATH`
+# echo $ROOT_PROJECT_DIR 
 isError=0
 
 source $SCRIPTPATH/__common.sh
@@ -30,6 +31,12 @@ then
     isError=1
 fi
 
+if [ "$g_profile" = "" ]
+then 
+    echo "${red}Please specify --profile param, example --profile [test|dev|prod]${reset}"
+    isError=1
+fi
+
 if [[ $isError -ne 0 ]]; then
     exit -1
 fi
@@ -37,7 +44,8 @@ fi
 $ROOT_PROJECT_DIR/mvnw \
     -f ./irme-db-migration/pom.xml \
     process-resources \
-    liquibase:$g_task "-Dprofile=common" \
+    liquibase:$g_task \
+    "-Dprofile=${g_profile}" \
     "-Dliquibase.contexts=${g_contexts}" \
 
 exit $?
