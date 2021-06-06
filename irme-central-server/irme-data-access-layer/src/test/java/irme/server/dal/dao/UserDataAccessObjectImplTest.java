@@ -74,6 +74,7 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
 
         userDao.selectUserByEmail("testUser1@mail.ru")
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
     }
 
 }

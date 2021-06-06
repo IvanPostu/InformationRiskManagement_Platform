@@ -62,7 +62,7 @@ GRANT INSERT, UPDATE, DELETE, SELECT, EXECUTE
 ON DATABASE :: InformationRiskManagementDatabase TO [bob] 
 GO
 
-USE [InformationRiskManagementDatabase]
+USE [InformationRiskManagementDatabase_Test]
 CREATE USER bob FOR LOGIN ApplicationUserLogin WITH DEFAULT_SCHEMA=[dbo];
 GO
 GRANT INSERT, UPDATE, DELETE, SELECT, EXECUTE
