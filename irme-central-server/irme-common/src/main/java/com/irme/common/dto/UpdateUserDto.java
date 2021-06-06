@@ -1,36 +1,29 @@
 package com.irme.common.dto;
 
-
-
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import java.util.Collection;
 
-@Data
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class AuthUserDto {
-
-    private Integer id;
+public class UpdateUserDto {
+    private int userId;
 
     private String email;
 
-    private String passwordHash;
+    private String password;
 
     private boolean banned;
 
     private String status;
 
+    private Collection<String> roles;
+
     private String firstName;
 
     private String lastName;
 
-    private String created;
-
     private String phone;
 
     private String countryCode;
-
-    private Collection<String> roles;
 }

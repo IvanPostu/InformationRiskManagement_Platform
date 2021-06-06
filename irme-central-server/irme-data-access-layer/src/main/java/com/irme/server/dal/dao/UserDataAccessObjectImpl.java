@@ -1,6 +1,7 @@
 package com.irme.server.dal.dao;
 
 import com.irme.common.dto.AuthUserDto;
+import com.irme.common.dto.UpdateUserDto;
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
 import com.irme.server.dal.exceptions.DataAccessException;
 import javax.sql.DataSource;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 public class UserDataAccessObjectImpl extends BaseDataAccessObject implements UserDataAccessObject {
 
-    public UserDataAccessObjectImpl(DataSource dataSource) {
+    public UserDataAccessObjectImpl(DataSource dataSource) throws Exception {
         super(dataSource);
     }
 
@@ -96,18 +97,47 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
         } catch (SQLException ex) {
             throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
-        } finally {
-            // if(super.i)
         }
 
         return result;
     }
 
     @Override
-    public Optional<AuthUserDto> selectUserById(int id) {
-        return Optional.ofNullable(null);
+    public Optional<AuthUserDto> selectUserById(int id) throws DataAccessException {
+
+        String sql = "{ call dbo.auth_user_by_id(?) }";
+        char joinChar = ';';
+        AuthUserDto result = null;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Collection<String> roles = Arrays.asList(
+                        rs.getString("roles").split(Character.toString(joinChar)));
+                AuthUserDto u = new AuthUserDto();
+                u.setId(rs.getInt("auth_user_id"));
+                u.setBanned(false);
+                u.setCountryCode(rs.getString("country_code"));
+                u.setCreated(rs.getString("create_date"));
+                u.setEmail(rs.getString("email_address"));
+                u.setFirstName(rs.getString("first_name"));
+                u.setLastName(rs.getString("last_name"));
+                u.setPasswordHash(rs.getString("password_hash"));
+                u.setPhone(rs.getString("phone"));
+                u.setStatus(rs.getString("status"));
+                u.setRoles(roles);
+
+                result = u;
+            }
 
 
+        } catch (SQLException ex) {
+            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return Optional.ofNullable(result);
     }
 
     @Override
@@ -166,12 +196,12 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
 
     @Override
-    public void updateUser(AuthUserDto user) throws DataAccessException {
-        final String sql = "{ call dbo.auth_user_with_info_update(?,?,?,?,?,?,?,?,?,?) }";
+    public void updateUser(UpdateUserDto updateUserDto) throws DataAccessException {
+        final String sql = "{ call dbo.auth_user_with_info_update(?,?,?,?,?,?,?,?,?,?,?) }";
         final char joinChar = ';';
         final StringBuilder joinedRoles = new StringBuilder();
 
-        for (String role : user.getRoles()) {
+        for (String role : updateUserDto.getRoles()) {
             joinedRoles
                     .append(role)
                     .append(joinChar);
@@ -180,27 +210,23 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
 
-            statement.setInt(1, user.getId());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPasswordHash());
-            statement.setString(4, user.getStatus());
-            statement.setString(5, joinedRoles.toString());
-            statement.setString(6, String.valueOf(joinChar));
-            statement.setString(7, user.getFirstName());
-            statement.setString(8, user.getLastName());
-            statement.setString(9, user.getPhone());
-            statement.setString(10, user.getCountryCode());
+            statement.setInt(1, updateUserDto.getUserId());
+            statement.setString(2, updateUserDto.getEmail());
+            statement.setString(3, updateUserDto.getPassword());
+            statement.setInt(4, updateUserDto.isBanned() ? 1 : 0);
+            statement.setString(5, updateUserDto.getStatus());
+            statement.setString(6, joinedRoles.toString());
+            statement.setString(7, String.valueOf(joinChar));
+            statement.setString(8, updateUserDto.getFirstName());
+            statement.setString(9, updateUserDto.getLastName());
+            statement.setString(10, updateUserDto.getPhone());
+            statement.setString(11, updateUserDto.getCountryCode());
 
             statement.executeUpdate();
 
         } catch (SQLException ex) {
             throw new DataAccessException(ex.getMessage(),
                     DataAccessErrorCode.UPDATE_FAILED);
-        } finally {
-            // user.setId(insertedUserId);
         }
-
     }
-
-
 }

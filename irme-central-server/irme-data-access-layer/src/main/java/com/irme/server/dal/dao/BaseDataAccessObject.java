@@ -1,23 +1,30 @@
 package com.irme.server.dal.dao;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import javax.sql.DataSource;
-import java.io.Closeable;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class BaseDataAccessObject implements Closeable {
+@Slf4j
+public abstract class BaseDataAccessObject implements AutoCloseable {
 
     protected final DataSource dataSource;
     @Getter
     private boolean transactionRunning;
+
+    @Getter
+    private boolean open;
+
     private Connection connection;
 
-    protected BaseDataAccessObject(DataSource dataSource) {
+    protected BaseDataAccessObject(DataSource dataSource) throws Exception {
         this.dataSource = dataSource;
         this.transactionRunning = false;
+        this.open = false;
+
+        this.open();
     }
 
     protected Connection getConnection() throws SQLException {
@@ -34,15 +41,11 @@ public abstract class BaseDataAccessObject implements Closeable {
 
     public void beginTransaction() throws SQLException {
         if (transactionRunning) {
-            throw new RuntimeException("Transaction already running!");
+            log.warn("There are currently active transaction");
+            return;
         }
         transactionRunning = true;
 
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-        }
-
-        connection = dataSource.getConnection();
 
         try (Statement statement = connection.createStatement()) {
             statement.execute("BEGIN TRANSACTION t_00010");
@@ -52,39 +55,60 @@ public abstract class BaseDataAccessObject implements Closeable {
 
     public void commitTransaction() throws SQLException {
         if (!transactionRunning) {
+            log.warn("There are currently no active transaction");
             return;
         }
 
         try (Statement statement = connection.createStatement()) {
             statement.execute("COMMIT TRANSACTION t_00010");
         }
-
         transactionRunning = false;
 
     }
 
     public void rollbackTransactionIfExists() throws SQLException {
         if (!transactionRunning) {
+            log.warn("There are currently no active transactions");
             return;
         }
 
         try (Statement statement = connection.createStatement()) {
             statement.execute("ROLLBACK TRANSACTION t_00010");
         }
-
         transactionRunning = false;
+
+    }
+
+    public void open() throws Exception {
+        if (isOpen()) {
+            throw new RuntimeException("Data access object already is open");
+        }
+
+        try {
+            this.connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new Exception(e);
+        }
+        this.open = true;
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() throws Exception {
+        if (!isOpen()) {
+            throw new RuntimeException("Data access object already is closed");
+        }
+
         try {
             if (isTransactionRunning()) {
                 rollbackTransactionIfExists();
             }
+            this.open = false;
 
-            connection.close();
+            this.connection.close();
+            this.connection = null;
+
         } catch (SQLException e) {
-            throw new IOException(e);
+            throw new Exception(e);
         }
     }
 
