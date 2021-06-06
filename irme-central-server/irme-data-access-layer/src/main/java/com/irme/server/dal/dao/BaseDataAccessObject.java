@@ -1,31 +1,47 @@
 package com.irme.server.dal.dao;
 
+import lombok.Getter;
 import javax.sql.DataSource;
+import java.io.Closeable;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class BaseDataAccessObject {
+public abstract class BaseDataAccessObject implements Closeable {
 
     protected final DataSource dataSource;
-
-    private boolean transactionRunning = false;
+    @Getter
+    private boolean transactionRunning;
     private Connection connection;
 
-    public BaseDataAccessObject(DataSource dataSource) {
+    protected BaseDataAccessObject(DataSource dataSource) {
         this.dataSource = dataSource;
+        this.transactionRunning = false;
     }
 
     protected Connection getConnection() throws SQLException {
-        return connection != null ? connection : dataSource.getConnection();
+        if (connection != null) {
+            return connection;
+        }
+
+        if (!transactionRunning) {
+            return dataSource.getConnection();
+        }
+
+        throw new RuntimeException("Transaction running but connection is null!!!");
     }
 
     public void beginTransaction() throws SQLException {
         if (transactionRunning) {
             throw new RuntimeException("Transaction already running!");
         }
-
         transactionRunning = true;
+
+        if (connection != null && !connection.isClosed()) {
+            connection.close();
+        }
+
         connection = dataSource.getConnection();
 
         try (Statement statement = connection.createStatement()) {
@@ -35,9 +51,15 @@ public abstract class BaseDataAccessObject {
     }
 
     public void commitTransaction() throws SQLException {
+        if (!transactionRunning) {
+            return;
+        }
+
         try (Statement statement = connection.createStatement()) {
             statement.execute("COMMIT TRANSACTION t_00010");
         }
+
+        transactionRunning = false;
 
     }
 
@@ -50,7 +72,20 @@ public abstract class BaseDataAccessObject {
             statement.execute("ROLLBACK TRANSACTION t_00010");
         }
 
-        connection.close();
+        transactionRunning = false;
+    }
+
+    @Override
+    public void close() throws IOException {
+        try {
+            if (isTransactionRunning()) {
+                rollbackTransactionIfExists();
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
     }
 
 }

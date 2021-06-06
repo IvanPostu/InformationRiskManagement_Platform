@@ -1,9 +1,9 @@
 package com.irme.server.dal.dao;
 
-import java.util.List;
-import java.util.Optional;
 import com.irme.common.dto.AuthUserDto;
 import com.irme.server.dal.exceptions.DataAccessException;
+import java.util.List;
+import java.util.Optional;
 
 public interface UserDataAccessObject {
 
@@ -16,11 +16,14 @@ public interface UserDataAccessObject {
      */
     void insertUser(AuthUserDto user) throws DataAccessException;
 
-    List<AuthUserDto> selectUsers(int offset, int limit, boolean sortAsc) throws DataAccessException;
+    List<AuthUserDto> selectUsers(int offset, int limit, boolean sortAsc)
+            throws DataAccessException;
 
     Optional<AuthUserDto> selectUserById(int id) throws DataAccessException;
 
-    Optional<AuthUserDto> deleteUserById(int id) throws DataAccessException;
+    void deleteUserById(int id) throws DataAccessException;
+
+    void updateUser(AuthUserDto user) throws DataAccessException;
 
     Optional<AuthUserDto> selectUserByEmail(String email) throws DataAccessException;
 }

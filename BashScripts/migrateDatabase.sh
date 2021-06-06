@@ -8,7 +8,7 @@
   # Clean dev migrations
 ./BashScripts/runLiquibase.sh \
         --contexts "default,dev" \
-        --task dropAll --profile "test" &&
+        --task dropAll --profile "dev" &&
 
   # Run test migrations
 ./BashScripts/runLiquibase.sh \

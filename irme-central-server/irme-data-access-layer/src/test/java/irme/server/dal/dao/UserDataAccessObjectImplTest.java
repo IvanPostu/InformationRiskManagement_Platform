@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
 
@@ -74,6 +75,33 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
 
         userDao.selectUserByEmail("testUser1@mail.ru")
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+    }
+
+    @Tag("DAL")
+    @Test
+    public void deleteUserByIdSuccessCaseTest() throws Exception {
+        UserDataAccessObjectImpl userDao = daoFactory.createDataAccessObject(
+                UserDataAccessObjectImpl.class);
+
+        try {
+
+            userDao.beginTransaction();
+            AuthUserDto u1 = userDao.selectUserByEmail("testUser1@mail.ru")
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            userDao.deleteUserById(u1.getId());
+
+            Assertions.assertThrows(NoSuchElementException.class, () -> {
+                userDao.selectUserByEmail("testUser1@mail.ru").get();
+            });
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            userDao.rollbackTransactionIfExists();
+            userDao.close();
+        }
 
     }
 
