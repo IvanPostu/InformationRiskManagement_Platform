@@ -12,6 +12,7 @@ CREATE OR ALTER PROCEDURE [dbo].[auth_user_with_info_update]
     @first_name  			      	VARCHAR(64),
     @last_name  			      	VARCHAR(64),
     @phone  				          VARCHAR(30),
+    @base64_picture           VARCHAR(MAX),
     @country_code  			    	VARCHAR(2)
 AS
 BEGIN TRY  
@@ -32,7 +33,8 @@ BEGIN TRY
 			country_code = @country_code,
 			first_name = @first_name,
 			last_name = @last_name,
-			phone = @phone
+			phone = @phone,
+      base64_picture = @base64_picture
 		FROM dbo.auth_users_info AS ai
 		WHERE auth_user_id = @user_id;
            

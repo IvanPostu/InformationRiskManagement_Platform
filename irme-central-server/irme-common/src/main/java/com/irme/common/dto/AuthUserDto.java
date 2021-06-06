@@ -33,4 +33,6 @@ public class AuthUserDto {
     private String countryCode;
 
     private Collection<String> roles;
+
+    private String base64Picture;
 }

@@ -231,7 +231,7 @@ VALUES
 ('TZ', 	  	  	'Tanzania'),
 ('UA', 	  	  	'Ukraine'),
 ('UG', 	  	  	'Uganda'),
-('UM', 			'U.S. Minor Outlying Islands'),
+('UM', 			    'U.S. Minor Outlying Islands'),
 ('US', 	  	  	'United States'),
 ('UY', 	  	  	'Uruguay'),
 ('UZ', 	  	  	'Uzbekistan'),

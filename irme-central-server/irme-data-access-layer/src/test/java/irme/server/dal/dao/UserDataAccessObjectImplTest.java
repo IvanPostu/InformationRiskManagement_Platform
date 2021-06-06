@@ -34,6 +34,7 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
             user.setStatus("ACTIVE");
             user.setRoles(Arrays.asList("ROLE_USER"));
             user.setPhone("134");
+            user.setBase64Picture("picture64");
 
             userDao.beginTransaction();
             userDao.insertUser(user);
@@ -156,7 +157,8 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
                     "Bob",
                     "Fox",
                     "098767",
-                    "RU");
+                    "RU",
+                    "img1");
 
             userDao.updateUser(updateUserDto);
 
@@ -172,6 +174,7 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
             Assertions.assertEquals(u2.getLastName(), u2.getLastName());
             Assertions.assertEquals(u2.getPhone(), u2.getPhone());
             Assertions.assertEquals(u2.getCountryCode(), u2.getCountryCode());
+            Assertions.assertEquals(u2.getBase64Picture(), u2.getBase64Picture());
 
             userDao.rollbackTransactionIfExists();
         } catch (Exception e) {

@@ -15,6 +15,7 @@ BEGIN TRY
 		aui.create_date,
 		aui.phone,
 		aui.country_code,
+    aui.base64_picture,
 		(	
 			SELECT CAST(ar.role_name + ';' AS VARCHAR(MAX)) 
 			FROM dbo.auth_roles AS ar

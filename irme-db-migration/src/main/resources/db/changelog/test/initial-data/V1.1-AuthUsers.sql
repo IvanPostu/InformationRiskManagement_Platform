@@ -15,6 +15,7 @@ EXECUTE dbo.auth_user_with_info_add
 	'Rick', 
 	'068888888', 
 	'MD',
+  'imgtest01',
   @z OUTPUT;
 
 EXECUTE dbo.auth_user_with_info_add
@@ -27,6 +28,7 @@ EXECUTE dbo.auth_user_with_info_add
 	'Bomber', 
 	'068888888', 
 	'MD',
+  'imgtest02',
   @z OUTPUT;
 
 EXECUTE dbo.auth_user_with_info_add
@@ -39,6 +41,7 @@ EXECUTE dbo.auth_user_with_info_add
 	'Rocker', 
 	'068888888', 
 	'MD',
+  'imgtest03',
   @z OUTPUT;
 
 

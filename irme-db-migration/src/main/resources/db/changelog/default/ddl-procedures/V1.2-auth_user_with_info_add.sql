@@ -4,13 +4,14 @@
 CREATE OR ALTER PROCEDURE [dbo].[auth_user_with_info_add]
     @email  				        VARCHAR(128),
     @password_hash  		    VARCHAR(256),
-    @status  				        VARCHAR(32) = 'ACTIVE',
-    @roles					        VARCHAR(512) = 'ROLE_USER',
-    @roles_split_separator	CHAR(1) = ';',
+    @status  				        VARCHAR(32) ,
+    @roles					        VARCHAR(512),
+    @roles_split_separator	CHAR(1),
     @first_name  			      VARCHAR(64),
     @last_name  			      VARCHAR(64),
     @phone  				        VARCHAR(30),
     @country_code  			    VARCHAR(2),
+    @base64_picture  			  VARCHAR(MAX),
     @inserted_auth_user_id  INTEGER OUTPUT
 AS
 BEGIN TRY  
@@ -25,10 +26,10 @@ BEGIN TRY
 		SET @inserted_auth_user_id = @@IDENTITY;
 	
 		INSERT INTO dbo.auth_users_info 
-		(auth_user_id, country_code, create_date, first_name, last_name, phone)
+		(auth_user_id, country_code, create_date, first_name, last_name, phone, base64_picture)
 			VALUES
 		(@inserted_auth_user_id, @country_code, GETDATE(), 
-            @first_name, @last_name, @phone);
+            @first_name, @last_name, @phone, @base64_picture);
 		
 		INSERT INTO dbo.auth_user_roles (auth_user_id, role_id)
 		SELECT @inserted_auth_user_id AS us_id, r.role_id 

@@ -26,4 +26,6 @@ public class UpdateUserDto {
     private String phone;
 
     private String countryCode;
+
+    private String base64Picture;
 }

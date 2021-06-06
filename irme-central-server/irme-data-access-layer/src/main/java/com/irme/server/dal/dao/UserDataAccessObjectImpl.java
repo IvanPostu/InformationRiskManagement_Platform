@@ -24,7 +24,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
     @Override
     public void insertUser(AuthUserDto user) throws DataAccessException {
-        String sql = "{ call dbo.auth_user_with_info_add(?,?,?,?,?,?,?,?,?,?) }";
+        String sql = "{ call dbo.auth_user_with_info_add(?,?,?,?,?,?,?,?,?,?,?) }";
         int insertedUserId = -1;
 
         char joinChar = ';';
@@ -47,11 +47,12 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
             statement.setString(7, user.getLastName());
             statement.setString(8, user.getPhone());
             statement.setString(9, user.getCountryCode());
-            statement.registerOutParameter(10, Types.INTEGER);
+            statement.setString(10, user.getBase64Picture());
+            statement.registerOutParameter(11, Types.INTEGER);
 
             statement.executeUpdate();
 
-            insertedUserId = statement.getInt(10);
+            insertedUserId = statement.getInt(11);
 
         } catch (SQLException ex) {
             throw new DataAccessException(ex.getMessage(),
@@ -127,6 +128,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
                 u.setPasswordHash(rs.getString("password_hash"));
                 u.setPhone(rs.getString("phone"));
                 u.setStatus(rs.getString("status"));
+                u.setBase64Picture(rs.getString("base64_picture"));
                 u.setRoles(roles);
 
                 result = u;
@@ -166,6 +168,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
                 u.setPasswordHash(rs.getString("password_hash"));
                 u.setPhone(rs.getString("phone"));
                 u.setStatus(rs.getString("status"));
+                u.setBase64Picture(rs.getString("base64_picture"));
                 u.setRoles(roles);
 
                 result = u;
@@ -197,7 +200,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
     @Override
     public void updateUser(UpdateUserDto updateUserDto) throws DataAccessException {
-        final String sql = "{ call dbo.auth_user_with_info_update(?,?,?,?,?,?,?,?,?,?,?) }";
+        final String sql = "{ call dbo.auth_user_with_info_update(?,?,?,?,?,?,?,?,?,?,?,?) }";
         final char joinChar = ';';
         final StringBuilder joinedRoles = new StringBuilder();
 
@@ -220,7 +223,8 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
             statement.setString(8, updateUserDto.getFirstName());
             statement.setString(9, updateUserDto.getLastName());
             statement.setString(10, updateUserDto.getPhone());
-            statement.setString(11, updateUserDto.getCountryCode());
+            statement.setString(11, updateUserDto.getBase64Picture());
+            statement.setString(12, updateUserDto.getCountryCode());
 
             statement.executeUpdate();
 
