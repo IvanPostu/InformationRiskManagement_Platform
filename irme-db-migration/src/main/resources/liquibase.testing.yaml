@@ -1,0 +1,10 @@
+contexts: testing,common
+changeLogFile: db/changelog/changelog-master.xml
+url: jdbc:sqlserver://localhost:1433;databaseName=InformationRiskManagementDatabase_Test;
+username: MigrationUserLogin
+password: qwYertyZ_654321
+driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+verbose: true
+logging: debug
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+  <changeSet author="IvanPostu" id="auth_users">
+    <sqlFile path="auth_users.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_users_info">
+    <sqlFile path="auth_users_info.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_users_info_FK">
+    <sqlFile path="auth_users_info_FK.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="countries">
+    <sqlFile path="countries.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_users_info_country_FK">
+    <sqlFile path="auth_users_info_country_FK.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_roles">
+    <sqlFile path="auth_roles.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_roles">
+    <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_roles_FKs">
+    <sqlFile path="auth_user_roles_FKs.sql" relativeToChangelogFile="true" />
+  </changeSet>
+
+</databaseChangeLog>

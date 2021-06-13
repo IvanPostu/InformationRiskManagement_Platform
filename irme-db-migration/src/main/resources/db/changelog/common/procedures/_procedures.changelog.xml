@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+
+  <changeSet author="IvanPostu" id="report_error">
+    <sqlFile path="report_error.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO"  />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_with_info_add">
+    <sqlFile path="auth_user_with_info_add.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_users_with_info">
+    <sqlFile path="auth_users_with_info.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_by_email">
+    <sqlFile path="auth_user_by_email.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_by_id">
+    <sqlFile path="auth_user_by_id.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_with_info_update">
+    <sqlFile path="auth_user_with_info_update.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="auth_user_with_info_delete">
+    <sqlFile path="auth_user_with_info_delete.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  </changeSet>
+
+</databaseChangeLog>
