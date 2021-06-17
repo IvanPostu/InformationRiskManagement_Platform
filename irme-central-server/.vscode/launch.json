@@ -6,11 +6,19 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Debug (Attach)",
+      "name": "Debug (Attach) Webapp",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 5005
+      // 4000 - admin, 5005 - webapp
+    },
+    {
+      "type": "java",
+      "name": "Debug (Attach) Admin MVC",
       "request": "attach",
       "hostName": "localhost",
       "port": 4000
       // 4000 - admin, 5005 - webapp
-    }
+    },
   ]
 }
