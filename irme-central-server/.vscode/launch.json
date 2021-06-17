@@ -6,24 +6,11 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch App",
-      "request": "launch",
-      "mainClass": "com.irme.server.bl.App",
-      "projectName": "irme-business-layer"
-    },
-    {
-      "type": "java",
-      "name": "Launch App",
-      "request": "launch",
-      "mainClass": "com.irme.server.dal.App",
-      "projectName": "irme-data-access-layer"
-    },
-    {
-      "type": "java",
       "name": "Debug (Attach)",
       "request": "attach",
       "hostName": "localhost",
-      "port": 5005
+      "port": 4000
+      // 4000 - admin, 5005 - webapp
     }
   ]
 }
