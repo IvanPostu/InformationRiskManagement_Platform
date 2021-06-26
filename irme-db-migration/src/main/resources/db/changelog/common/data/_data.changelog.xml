@@ -4,10 +4,18 @@
 
   <changeSet author="IvanPostu" id="auth_user_roles">
     <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="report_error.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="countries_data">
     <sqlFile path="countries_data.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="countries_data.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
 </databaseChangeLog>

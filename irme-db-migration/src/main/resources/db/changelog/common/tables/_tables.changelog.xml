@@ -3,35 +3,154 @@
 
 
   <changeSet author="IvanPostu" id="auth_users">
-    <sqlFile path="auth_users.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_users.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_users.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+
+    <comment>A table that stores data for user authorization</comment>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_users_info">
-    <sqlFile path="auth_users_info.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_users_info.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_users_info.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+
+    <comment>A table that stores user info e.g. firstname, lastname etc.</comment>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_users_info_FK">
-    <sqlFile path="auth_users_info_FK.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_users_info_FK.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_users_info_FK.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="countries">
-    <sqlFile path="countries.sql" relativeToChangelogFile="true" />
+    <sqlFile path="countries.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="countries.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_users_info_country_FK">
-    <sqlFile path="auth_users_info_country_FK.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_users_info_country_FK.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_users_info_country_FK.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_roles">
-    <sqlFile path="auth_roles.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_roles.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_user_roles">
-    <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_user_roles.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
 
   <changeSet author="IvanPostu" id="auth_user_roles_FKs">
-    <sqlFile path="auth_user_roles_FKs.sql" relativeToChangelogFile="true" />
+    <sqlFile path="auth_user_roles_FKs.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="auth_user_roles_FKs.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
   </changeSet>
+
+  <changeSet author="IvanPostu" id="organisations">
+    <sqlFile path="organisations.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="organisations.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__categories">
+    <sqlFile path="sa__categories.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__categories.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__questions">
+    <sqlFile path="sa__questions.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__questions.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__answers">
+    <sqlFile path="sa__answers.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__answers.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__questions_answers">
+    <sqlFile path="sa__questions_answers.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__questions_answers.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__processes">
+    <sqlFile path="sa__processes.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__processes.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__results">
+    <sqlFile path="sa__results.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__results.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__question_answer_descriptions">
+    <sqlFile path="sa__question_answer_descriptions.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__question_answer_descriptions.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__profiles">
+    <sqlFile path="sa__profiles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__profiles.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="sa__foreign_keys">
+    <sqlFile path="sa__foreign_keys.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__foreign_keys.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+
+    <comment>Foreign keys for SecurityAssessment "sa" tables.</comment>
+  </changeSet>
+
 
 </databaseChangeLog>

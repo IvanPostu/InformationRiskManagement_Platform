@@ -1,0 +1,1 @@
+DROP PROCEDURE [dbo].[sa_category_add_or_update];

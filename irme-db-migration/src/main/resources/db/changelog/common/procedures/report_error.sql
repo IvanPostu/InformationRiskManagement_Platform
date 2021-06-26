@@ -9,5 +9,5 @@ BEGIN
         ERROR_STATE()       AS err_state,
         ERROR_LINE ()       AS err_line,
         ERROR_PROCEDURE()   AS err_procedure,
-        ERROR_MESSAGE()     AS err_message
+        ERROR_MESSAGE()     AS err_message;
 END;

@@ -1,0 +1,1 @@
+DROP TABLE [dbo].[sa__question_answer_descriptions];
