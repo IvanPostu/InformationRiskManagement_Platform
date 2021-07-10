@@ -153,5 +153,8 @@
       "java",
       "#"
     ],
+    "files.associations": {
+      "*.jsp": "html"
+    }
   }
 }

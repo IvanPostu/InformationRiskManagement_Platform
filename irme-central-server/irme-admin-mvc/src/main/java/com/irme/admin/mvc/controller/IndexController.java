@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Date;
 
 @Controller
-public class WelcomeController {
+public class IndexController {
 
-    private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
+    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @GetMapping("/")
     public String index(Model model) {
