@@ -5,7 +5,7 @@
     <withJansi>false</withJansi>
       <encoder>
         <pattern>
-          %date %highlight(%-5level) %cyan(%logger{5}@[%-4.30thread]) - %msg%n
+          %d{HH:mm:ss.SSS} %-5level [%t] %logger{36} - %msg%n
         </pattern>
       </encoder>
   </appender>

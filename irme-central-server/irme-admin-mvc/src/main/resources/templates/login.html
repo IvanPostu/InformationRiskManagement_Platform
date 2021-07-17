@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
+  ~{::section#pageID}, ~{::script} )}" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<title>IRME - Admin application</title>
+
+<body>
+
+  <section id="pageID">
+    
+  <div id="signInPageId" class="container my-3 ">
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+
+        <form style="background-color: #bdc3c7;" class="text-center border border-light p-5 grey lighten-5 rounded" th:action="@{/login}" method="POST">
+
+          <p class="h4 mb-4">Sign in</p>
+
+          <input name="username" id="usernameFormInput" class="form-control mb-4" placeholder="E-mail" autocomplete="off">
+
+          <input name="password" type="password" id="passwordFormInput" class="form-control mb-4"
+          placeholder="Password" autocomplete="off">
+
+          <div class="d-flex justify-content-around">
+            <div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                <label class="custom-control-label" for="defaultLoginFormRemember">
+                  Remember me
+                </label>
+              </div>
+            </div>
+            <div>
+              <a href="">Forgot password?</a>
+            </div>
+          </div>
+
+          <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+          <p>Not a member?
+            <a href="">Register</a>
+          </p>
+
+          <div style="color: red;" th:if="${param.error}">
+            Invalid username or password.
+          </div>
+          <div style="color: red;" th:if="${param.logout}">
+            You have been logged out.
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </section>
+
+  <script>
+  </script>
+
+</body>
+
+
+</html>

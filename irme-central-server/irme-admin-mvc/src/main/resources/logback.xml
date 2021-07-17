@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <withJansi>true</withJansi>
-      <encoder>
-        <pattern>
-          %date %highlight(%-5level) %cyan(%logger{5}@[%-4.30thread]) - %msg%n
-        </pattern>
-      </encoder>
-  </appender> -->
-
-  <include resource="./console-appender.xml"/>
+  <include resource="console-appender.xml"/>
 
   <logger name="com.irme.admin.mvc" level="DEBUG" additivity="false">
     <appender-ref ref="CONSOLE" />

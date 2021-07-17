@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
+  ~{::section#pageID}, ~{::script} )}">
+
+
+<title>IRME - Admin application</title>
+
+<body>
+
+  <section id="pageID">
+    <div class="container">
+      <div class="row">
+        <div class="col my-3">
+          <a id="createUserColapseId" class="btn btn-success"  role="button">Create user</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="collapse multi-collapse" id="createUserColapseBlockId">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
+              keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <table class="table table-sm bg-light mt-2">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    $(document).ready(function () {
+      $("#menu-toggle").css("display", "block")
+      $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#container-sidebar-wrapper").toggleClass("toggled");
+      });
+
+      $("#createUserColapseId").click(function(e){
+        $("#createUserColapseBlockId").collapse('toggle')
+      })
+    })
+
+
+  </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout (title, content, script)" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">Admin application</title>
+
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+  <link href="webjars/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="static/mainSidebar.css" rel="stylesheet" />
+  <link href="static/index.css" rel="stylesheet" />
+</head>
+
+<body>
+  <th:block th:with="isAuth=${#authorization.expression('isAuthenticated()')}">
+    <nav class="navbar navbar-expand navbar-dark bg-primary">
+      <a href="#" id="menu-toggle" class="navbar-brand active">
+        <span class="navbar-toggler-icon" style="border-color: white;"></span>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active"> <a class="nav-link" th:href="@{/}"><h5>Information Risk Management Expert</h5></a> </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li th:if="${!isAuth}" class="nav-item active">
+            <a class="nav-link" th:href="@{/login}">
+              <i class="fa fa-address-book" aria-hidden="true"></i> Sing in
+            </a>
+          </li>
+          <li th:if="${isAuth}" class="nav-item dropdown active">
+            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user" aria-hidden="true"></i> <span
+                th:text="${#authentication.getPrincipal().getUsername()}">Profile</span> </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+
+              <a href="#" class="dropdown-item">My account</a>
+
+              <form id="logoutSubmitId" class="d-none" th:action="@{/logout}" method="POST">
+              </form>
+
+              <a href="#" class="dropdown-item" onclick="document.getElementById('logoutSubmitId').submit()">
+                Sign out
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="container-sidebar-wrapper" class="toggled">
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="#">
+              General management:
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/users}">Organisations
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/users}">Users</a>
+          </li>
+          <li>
+            <a th:href="@{/users}">Security assessments</a>
+          </li>
+        </ul>
+      </div>
+
+      <div th:replace="${content}"></div>
+
+    </div>
+
+
+    <script src="webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="webjars/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script th:replace="${script}"></script>
+  </th:block>
+</body>
+
+</html>
