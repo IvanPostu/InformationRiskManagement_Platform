@@ -1,4 +1,4 @@
-package com.irme.server.bl;
+package com.irme.server.bll;
 
 public class UserBusinessLogic {
     String connectionStr =

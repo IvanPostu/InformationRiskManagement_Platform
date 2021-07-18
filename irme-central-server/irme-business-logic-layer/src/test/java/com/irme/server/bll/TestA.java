@@ -1,4 +1,4 @@
-package com.irme.server.bl;
+package com.irme.server.bll;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

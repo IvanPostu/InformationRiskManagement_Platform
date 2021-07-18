@@ -18,18 +18,19 @@
     <artifactId>irme-central-server</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <groupId>com.irme.server.bl</groupId>
-  <artifactId>irme-business-layer</artifactId>
+  
+  <groupId>com.irme.server.bll</groupId>
+  <artifactId>irme-business-logic-layer</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>irme-business-layer</name>
+  <name>irme-business-logic-layer</name>
 
   <dependencies>
     <!-- Internal libs -->
-    <!-- <dependency>
+    <dependency>
       <groupId>com.irme.server.dal</groupId>
       <artifactId>irme-data-access-layer</artifactId>
       <version>${project.version}</version>
-    </dependency> -->
+    </dependency>
     <dependency>
       <groupId>com.irme.common</groupId>
       <artifactId>irme-common</artifactId>

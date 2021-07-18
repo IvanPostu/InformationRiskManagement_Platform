@@ -1,4 +1,4 @@
-package com.irme.server.bl;
+package com.irme.server.bll;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

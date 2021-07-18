@@ -25,6 +25,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.irme.server.bll</groupId>
+      <artifactId>irme-business-logic-layer</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.irme.common</groupId>
       <artifactId>irme-common</artifactId>
       <version>${project.version}</version>

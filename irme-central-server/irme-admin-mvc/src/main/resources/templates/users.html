@@ -10,20 +10,37 @@
     <div class="container">
       <div class="row">
         <div class="col my-3">
-          <a id="createUserColapseId" class="btn btn-success"  role="button">Create user</a>
+          <a id="createUserColapseId" class="btn btn-success" role="button">Create user</a>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="collapse multi-collapse" id="createUserColapseBlockId">
             <div class="card card-body">
-              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-              keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+              <div class="form-group">
+                <label for="userEmail">User email:</label>
+                <input type="text" class="form-control" id="userEmail" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="userPassword">User password:</label>
+                <input type="text" class="form-control" id="userPassword" placeholder="">
+              </div>
+
+              <div class="form-group">
+                <label for="userPassword">User roles:</label>
+                <ul id="rolesInputId" class="list-group">
+
+                </ul>
+              </div>
+
+
+              <button id="createUserSubmitBtn" type="button" class="btn btn-primary">Create</button>
+
             </div>
           </div>
         </div>
         <div class="col">
-        
+
         </div>
       </div>
       <div class="row">
@@ -70,9 +87,44 @@
         $("#container-sidebar-wrapper").toggleClass("toggled");
       });
 
-      $("#createUserColapseId").click(function(e){
-        $("#createUserColapseBlockId").collapse('toggle')
+      $("#createUserColapseId").click(function (e) {
+        $("#createUserColapseBlockId").collapse("toggle")
       })
+
+      $("#createUserSubmitBtn").on("click", function (e) {
+        e.preventDefault()
+
+        var selectedRoles = []
+
+        $("#rolesInputId").children("li").each(function (index, elem) {
+          var checkbox = elem.getElementsByTagName("input")[0]
+          var checkboxText = elem.getElementsByTagName("span")[0]
+
+          console.log(index, checkbox.checked, checkboxText.textContent)
+        })
+
+
+      })
+
+      $.ajax({
+        url: "/api/users/allRoles",
+        type: "GET",
+        dataType: "json",
+        success: function (res) {
+          for (var i = 0; i < res.length; i++) {
+            var item = res[i]
+            var parent = $("#rolesInputId")
+
+            var htmlElement = "<li class=\"list-group-item\">" +
+              "<input class=\"form-check-input ms-2\" type=\"checkbox\" />" +
+              "<span>" + item + "</span>" +
+              "</li>"
+
+            parent.html(parent.html() + htmlElement)
+          }
+        }
+      });
+
     })
 
 
