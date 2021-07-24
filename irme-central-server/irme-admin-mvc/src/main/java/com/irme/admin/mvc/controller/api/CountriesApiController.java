@@ -17,7 +17,7 @@ public class CountriesApiController {
     @Autowired
     private CountryBusinessLogic countryBusinessLogic;
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/allRoles")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "")
     public ResponseEntity<?> getAll() {
         List<CountryDto> result = countryBusinessLogic.getCountries();
 

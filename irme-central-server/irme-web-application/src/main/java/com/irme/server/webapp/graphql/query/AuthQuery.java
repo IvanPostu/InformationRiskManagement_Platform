@@ -2,8 +2,6 @@ package com.irme.server.webapp.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.irme.server.webapp.graphql.model.SuccessAuthResult;
-import com.irme.server.webapp.jwt.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
@@ -11,8 +9,8 @@ import java.util.Optional;
 @Component
 public class AuthQuery implements GraphQLQueryResolver {
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    // @Autowired
+    // private JwtTokenProvider tokenProvider;
 
     // @Autowired
     // private UserBusinessLogic userBL;

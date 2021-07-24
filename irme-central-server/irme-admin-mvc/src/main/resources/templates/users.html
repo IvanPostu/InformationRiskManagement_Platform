@@ -48,6 +48,11 @@
               <label for="userLastName">Last name:</label>
               <input type="text" class="form-control" id="userLastName" placeholder="">
             </div>
+            <div class="form-group">
+              <label for="">Country:</label>
+              <select id="countriesSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -127,6 +132,23 @@
               "<input class=\"form-check-input ms-2\" type=\"checkbox\" />" +
               "<span>" + item + "</span>" +
               "</li>"
+
+            parent.html(parent.html() + htmlElement)
+          }
+        }
+      });
+
+      $.ajax({
+        url: "/api/countries",
+        type: "GET",
+        dataType: "json",
+        success: function (res) {
+          var parent = $("#countriesSelect")
+
+          for (var i = 0; i < res.length; i++) {
+            var item = res[i]
+
+            var htmlElement = "<option value=\"" + res[i].countryCode + "\">" + res[i].countryName + "</option>"
 
             parent.html(parent.html() + htmlElement)
           }

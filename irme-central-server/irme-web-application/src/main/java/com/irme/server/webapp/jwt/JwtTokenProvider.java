@@ -1,24 +1,22 @@
 package com.irme.server.webapp.jwt;
 
 
-import java.util.Base64;
-import java.util.Collection;
-import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
+import java.util.Collection;
+import java.util.Date;
 
 
 @Slf4j
@@ -59,11 +57,13 @@ public class JwtTokenProvider {
     }
 
     public Authentication generateAuthentication(String token) {
-        String userName = getUsername(token);
+        // String userName = getUsername(token);
         // UserDto user = null;//userDAL.selectUserByEmail(userName).orElse(null);
-        UserDetails userDetails = null;//JwtUserFactory.createJWTUser(user);
-        return new UsernamePasswordAuthenticationToken(userDetails, "",
-                userDetails.getAuthorities());
+        // UserDetails userDetails = null;//JwtUserFactory.createJWTUser(user);
+        // return new UsernamePasswordAuthenticationToken(userDetails, "",
+        //         userDetails.getAuthorities());
+
+        return null;
     }
 
     public String getUsername(String token) {
