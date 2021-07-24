@@ -1,6 +1,6 @@
 contexts: testing,common
 changeLogFile: db/changelog/changelog-master.xml
-url: jdbc:sqlserver://192.168.0.20:1433;databaseName=InformationRiskManagementDatabase_Test;
+url: jdbc:sqlserver://ivan-pc:1433;databaseName=InformationRiskManagementDatabase_Test;
 username: MigrationUserLogin
 password: qwYertyZ_654321
 driver: com.microsoft.sqlserver.jdbc.SQLServerDriver

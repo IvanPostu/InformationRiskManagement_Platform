@@ -41,6 +41,7 @@
         <version>${liquibase.version}</version>
         <configuration>
           <propertyFile>src/main/resources/liquibase.${env}.yaml</propertyFile>
+          <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
         </configuration>
       </plugin>
     </plugins>

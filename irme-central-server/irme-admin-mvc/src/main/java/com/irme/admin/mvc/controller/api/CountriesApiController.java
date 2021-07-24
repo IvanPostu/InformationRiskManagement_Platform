@@ -1,27 +1,26 @@
 package com.irme.admin.mvc.controller.api;
 
-import com.irme.server.bll.UserRolesBusinessLogic;
+import com.irme.common.dto.CountryDto;
+import com.irme.server.bll.CountryBusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/users")
-public class UsersApiController {
+@RequestMapping(value = "/api/countries")
+public class CountriesApiController {
 
     @Autowired
-    private UserRolesBusinessLogic userRolesBusinessLogicLayer;
+    private CountryBusinessLogic countryBusinessLogic;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/allRoles")
-    @ResponseStatus(HttpStatus.OK)
-    public List<String> getAll() {
-        List<String> result = userRolesBusinessLogicLayer.getAllRoles();
+    public ResponseEntity<?> getAll() {
+        List<CountryDto> result = countryBusinessLogic.getCountries();
 
-        return result;
+        return ResponseEntity.ok().body(result);
     }
 }

@@ -108,4 +108,12 @@
     </rollback>
   </changeSet>
 
+  <changeSet author="IvanPostu" id="get_countries">
+    <sqlFile path="get_countries.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="get_countries.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
 </databaseChangeLog>

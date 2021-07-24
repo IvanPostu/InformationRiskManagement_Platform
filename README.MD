@@ -5,11 +5,11 @@
 ### Build & Tests for backend project with modules:
 
 ```bash
-$ ./mvnw -f irme-central-server/pom.xml clean compile test
+$ ./mvnw -f irme-central-server/pom.xml clean compile test package install
 ```
 
 ### Run adnim project:
 
 ```bash
-$ ./mvnw -f irme-central-server/irme-admin-mvc/pom.xml jetty:run
+$ ./BashScripts/runAdmin.sh
 ```
