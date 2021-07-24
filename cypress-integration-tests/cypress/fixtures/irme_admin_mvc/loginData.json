@@ -1,0 +1,7 @@
+{
+  "validUsername": "admin@mail.ru",
+  "validPassword": "123456",
+
+  "invalidUsername": "adfadfadfadfadff@mail.ru",
+  "invalidPassword": "adfadfadfadfad"
+}
