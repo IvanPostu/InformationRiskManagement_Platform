@@ -6,4 +6,4 @@ SCRIPTPATH=`dirname $SCRIPT`
 ROOT_PROJECT_DIR="$SCRIPTPATH/.."
 
 
-npm --prefix $ROOT_PROJECT_DIR/cypress-integration-tests run cypress:open
+npm --prefix $ROOT_PROJECT_DIR/cypress-automation-tests run cypress:open
