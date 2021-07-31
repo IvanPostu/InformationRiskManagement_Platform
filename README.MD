@@ -8,8 +8,14 @@
 $ ./mvnw -f irme-central-server/pom.xml clean compile test package install
 ```
 
-### Run adnim project:
+### Run admin project:
 
 ```bash
 $ ./BashScripts/runAdmin.sh
+```
+
+### Run cypress project:
+
+```bash
+$ ./BashScripts/runCypress.sh
 ```
