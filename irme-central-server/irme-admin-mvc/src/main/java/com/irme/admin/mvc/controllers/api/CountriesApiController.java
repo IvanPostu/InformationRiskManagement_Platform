@@ -1,4 +1,4 @@
-package com.irme.admin.mvc.controller.api;
+package com.irme.admin.mvc.controllers.api;
 
 import com.irme.common.dto.CountryDto;
 import com.irme.server.bll.CountryBusinessLogic;

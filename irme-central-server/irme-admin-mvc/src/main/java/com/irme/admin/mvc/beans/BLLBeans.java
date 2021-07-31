@@ -1,6 +1,7 @@
 package com.irme.admin.mvc.beans;
 
 import com.irme.server.bll.CountryBusinessLogic;
+import com.irme.server.bll.UserBusinessLogic;
 import com.irme.server.bll.UserRolesBusinessLogic;
 import com.irme.server.dal.connection.ConnectionConfigType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class BLLBeans {
     @Bean
     public CountryBusinessLogic getCountryBusinessLogic() {
         return new CountryBusinessLogic(connectionConfigType);
+    }
+
+    @Bean
+    public UserBusinessLogic getUserBusinessLogic() {
+        return new UserBusinessLogic(connectionConfigType);
     }
 
 }

@@ -3,7 +3,7 @@ package com.irme.server.dal.dao;
 import com.irme.common.dto.AuthUserDto;
 import com.irme.common.dto.UpdateUserDto;
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
-import com.irme.server.dal.exceptions.DataAccessException;
+import com.irme.server.dal.exceptions.DataAccessLayerException;
 import javax.sql.DataSource;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -23,7 +23,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
 
     @Override
-    public void insertUser(AuthUserDto user) throws DataAccessException {
+    public void insertUser(AuthUserDto user) throws DataAccessLayerException {
         String sql = "{ call dbo.auth_user_with_info_add(?,?,?,?,?,?,?,?,?,?,?) }";
         int insertedUserId = -1;
 
@@ -54,8 +54,13 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
             insertedUserId = statement.getInt(11);
 
+            if (insertedUserId == -1) {
+                throw new DataAccessLayerException("INSERT_FAILED",
+                        DataAccessErrorCode.INSERT_FAILED);
+            }
+
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(),
+            throw new DataAccessLayerException(ex.getMessage(),
                     DataAccessErrorCode.INSERT_FAILED);
         } finally {
             user.setId(insertedUserId);
@@ -64,7 +69,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
     @Override
     public List<AuthUserDto> selectUsers(int offset, int limit, boolean sortAsc)
-            throws DataAccessException {
+            throws DataAccessLayerException {
         String sql = "{ call dbo.auth_users_with_info(?,?,?,?) }";
         char joinChar = ';';
         List<AuthUserDto> result = new ArrayList<>(limit);
@@ -97,14 +102,14 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
 
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
         return result;
     }
 
     @Override
-    public Optional<AuthUserDto> selectUserById(int id) throws DataAccessException {
+    public Optional<AuthUserDto> selectUserById(int id) throws DataAccessLayerException {
 
         String sql = "{ call dbo.auth_user_by_id(?) }";
         char joinChar = ';';
@@ -136,14 +141,14 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
 
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
         return Optional.ofNullable(result);
     }
 
     @Override
-    public Optional<AuthUserDto> selectUserByEmail(String email) throws DataAccessException {
+    public Optional<AuthUserDto> selectUserByEmail(String email) throws DataAccessLayerException {
 
         String sql = "{ call dbo.auth_user_by_email(?) }";
         char joinChar = ';';
@@ -176,14 +181,14 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
 
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
         return Optional.ofNullable(result);
     }
 
     @Override
-    public void deleteUserById(int id) throws DataAccessException {
+    public void deleteUserById(int id) throws DataAccessLayerException {
 
         final String sql = "{ call dbo.auth_user_with_info_delete(?) }";
 
@@ -192,14 +197,14 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
 
             statement.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
     }
 
 
     @Override
-    public void updateUser(UpdateUserDto updateUserDto) throws DataAccessException {
+    public void updateUser(UpdateUserDto updateUserDto) throws DataAccessLayerException {
         final String sql = "{ call dbo.auth_user_with_info_update(?,?,?,?,?,?,?,?,?,?,?,?) }";
         final char joinChar = ';';
         final StringBuilder joinedRoles = new StringBuilder();
@@ -229,7 +234,7 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
             statement.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(),
+            throw new DataAccessLayerException(ex.getMessage(),
                     DataAccessErrorCode.UPDATE_FAILED);
         }
     }

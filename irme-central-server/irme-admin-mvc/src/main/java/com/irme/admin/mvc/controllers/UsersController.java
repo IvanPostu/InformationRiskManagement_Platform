@@ -1,4 +1,4 @@
-package com.irme.admin.mvc.controller;
+package com.irme.admin.mvc.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

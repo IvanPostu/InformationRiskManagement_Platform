@@ -1,4 +1,4 @@
-package com.irme.admin.mvc.controller;
+package com.irme.admin.mvc.controllers;
 
 import com.irme.common.dto.AuthUserDto;
 import org.slf4j.Logger;

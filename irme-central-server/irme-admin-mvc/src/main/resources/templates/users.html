@@ -19,7 +19,7 @@
             <div class="">
               <div class="form-group">
                 <label for="userEmail">User email:</label>
-                <input type="text" class="form-control" id="userEmail" placeholder="">
+                <input type="email" class="form-control" id="userEmail" placeholder="">
               </div>
               <div class="form-group">
                 <label for="userFirstName">First name:</label>
@@ -54,45 +54,89 @@
               </select>
             </div>
           </div>
+
         </div>
+        <div id="sumbitResultMessage" class="row mt-2 alert" role="alert"></div>
       </div>
       <div class="row">
         <div class="col">
-          <table class="table table-sm bg-light mt-2">
+          <table class="table table-sm bg-light mt-2 mb-1">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">ID:</th>
+                <th scope="col">Email:</th>
+                <th scope="col">First name:</th>
+                <th scope="col">Last name:</th>
+                <th scope="col">Roles:</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
+            <tbody id="usersTBody">
             </tbody>
           </table>
+          <div>
+            <button id="fetchNextUsersBtn" type="button" class="btn btn-primary">Fetch next users</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <script>
+
+    function createUserSubmitDataIsValid(submitData) {
+      return submitData.selectedRoles.length > 0
+        && submitData.countryCode !== ""
+        && submitData.firstName !== ""
+        && submitData.lastName !== ""
+        && submitData.email !== ""
+        && submitData.password !== ""
+    }
+
+    function createUsersFetcher(){
+      var USERS_PER_PAGE = 5
+      var currentPageIndex = 0
+      var isRequest = false
+
+      return function (){
+        if (isRequest) return
+
+        isRequest = true
+        $.ajax({
+          url: "/api/users/getAll",
+          data: {
+            offset: currentPageIndex * USERS_PER_PAGE,
+            limit: USERS_PER_PAGE,
+            sortAsc: -1
+          },
+          type: "GET",
+          dataType: "json",
+          success: function (res) {
+            currentPageIndex++
+            var usersTBody = $("#usersTBody")
+            
+            for (var index = 0; index < res.length; index++) {
+              var element = res[index];
+              
+              var node = (
+                "<tr>" +
+                "<th scope=\"row\">"+element.id+"</th>"+
+                "<td>"+element.email+"</td>"+
+                "<td>"+element.firstName+"</td>"+
+                "<td>"+element.lastName+"</td>"+
+                "<td>"+element.roles.join('; ')+"</td>"+
+                "</tr>"
+              )
+
+              usersTBody.append(node)
+            }
+          },
+          complete: function(e){
+            isRequest = false
+          }
+        });
+      }
+    }
+
     $(document).ready(function () {
       $("#menu-toggle").css("display", "block")
       $("#menu-toggle").click(function (e) {
@@ -107,18 +151,80 @@
       $("#createUserSubmitBtn").on("click", function (e) {
         e.preventDefault()
 
-        var selectedRoles = []
+        var submitData = {
+          selectedRoles: [],
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          countryCode: ""
+        }
 
         $("#rolesInputId").children("li").each(function (index, elem) {
           var checkbox = elem.getElementsByTagName("input")[0]
           var checkboxText = elem.getElementsByTagName("span")[0]
 
-          console.log(index, checkbox.checked, checkboxText.textContent)
+          if (checkbox.checked) {
+            submitData.selectedRoles.push(checkboxText.textContent)
+          }
         })
 
+        submitData.countryCode = $("#countriesSelect").val()
+        submitData.firstName = $("#userFirstName").val()
+        submitData.lastName = $("#userLastName").val()
+        submitData.email = $("#userEmail").val()
+        submitData.password = $("#userPassword").val()
+
+        var resultMessageElement = $("#sumbitResultMessage")
+
+        if (createUserSubmitDataIsValid(submitData)) {
+          
+          var timer = null
+
+          $.ajax({
+            type: "POST",
+            url: "/api/users/create",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(submitData),
+            cache: false,
+            success: function (res) {
+              resultMessageElement.html(
+                "<div class=\"alert alert-success\" role=\"alert\">" +
+                  "User created with success" +
+                "</div>"
+              )
+            },
+            error: function (err){
+              resultMessageElement.html(
+                "<div class=\"alert alert-danger\" role=\"alert\">" +
+                  "Error: Something went wrong" +
+                "</div>"
+              )
+            },
+            beforeSend: function(xhr){
+              resultMessageElement.html("")
+              $("#createUserSubmitBtn").prop("disabled", true);
+            },
+            complete: function(){
+              $("#createUserSubmitBtn").prop("disabled", false);
+
+            }
+          });
+          
+        } else {
+          resultMessageElement.removeClass("d-none")
+          resultMessageElement.removeClass("alert-success")
+          resultMessageElement.addClass("alert-danger")
+        }
 
       })
 
+      $("#fetchNextUsersBtn").on("click", function (e) {
+        usersFetch()
+      })
+
+      // fetch roles
       $.ajax({
         url: "/api/users/allRoles",
         type: "GET",
@@ -138,6 +244,7 @@
         }
       });
 
+      //  fetch countris
       $.ajax({
         url: "/api/countries",
         type: "GET",
@@ -154,7 +261,11 @@
           }
         }
       });
-
+    
+      // fetch users
+      var usersFetch = createUsersFetcher()
+      usersFetch()
+      
     })
 
 

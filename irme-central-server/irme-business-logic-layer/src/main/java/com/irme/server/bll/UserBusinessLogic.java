@@ -1,39 +1,54 @@
 package com.irme.server.bll;
 
+import com.irme.common.dto.AuthUserDto;
+import com.irme.server.dal.DataAccessObjectFactory;
+import com.irme.server.dal.connection.ConnectionConfig;
+import com.irme.server.dal.connection.ConnectionConfigType;
+import com.irme.server.dal.dao.UserDataAccessObject;
+import com.irme.server.dal.dao.UserDataAccessObjectImpl;
+import com.irme.server.dal.exceptions.DataAccessLayerException;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 public class UserBusinessLogic {
-    String connectionStr =
-            "jdbc:sqlserver://0.0.0.0:1433;databaseName=InformationRiskManagementDatabase;user=sa;password=Testing1122990";
+    private UserDataAccessObject userDataAccessObject;
 
-    // private final UserDataAccessObject dao;
+    public UserBusinessLogic(ConnectionConfigType configType) {
+        HikariConfig hikariConfig = ConnectionConfig
+                .getDataSourceConfig(configType);
 
-    public UserBusinessLogic() {
-        // DataAccessObjectFactory daoFactory = new DataAccessObjectFactory(connectionStr);
-        // dao = daoFactory.createDataAccessObject(UserDataAccessObjectImpl.class);
+        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+        DataAccessObjectFactory daoFactory = new DataAccessObjectFactory(dataSource);
+
+        userDataAccessObject = daoFactory.createDataAccessObject(UserDataAccessObjectImpl.class);
     }
 
-    // private static final Logger logger = LoggerFactory.getLogger(UserBusinessLogic.class);
+    public List<AuthUserDto> selectUsers(int offset, int limit, boolean sortAsc) {
 
-    // boolean addUser(UserDto user) {
+        List<AuthUserDto> result;
+        try {
+            result = userDataAccessObject.selectUsers(offset, limit, sortAsc);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            result = new ArrayList<>();
+        }
 
-    // }
+        return result;
+    }
 
-    // List<UserDto> getUsers(int offset, int limit) {
+    public boolean addUser(AuthUserDto user) {
+        try {
+            userDataAccessObject.insertUser(user);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            return false;
+        }
 
-    // }
-
-    // Optional<UserDto> getUserById(int id) {
-
-    // }
-
-    // Optional<UserDto> removeUserById(int id) {
-
-    // }
-
-    // public UserDto getUserByEmail(String email) {
-
-    //     UserDto user = dao.selectUserByEmail(email).orElseThrow(() -> new RuntimeException());
-
-    //     return user;
-    // }
+        return true;
+    }
 
 }

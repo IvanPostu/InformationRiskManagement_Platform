@@ -5,7 +5,7 @@ import com.irme.server.dal.connection.ConnectionConfig;
 import com.irme.server.dal.connection.ConnectionConfigType;
 import com.irme.server.dal.dao.UserRolesAccessObject;
 import com.irme.server.dal.dao.UserRolesAccessObjectImpl;
-import com.irme.server.dal.exceptions.DataAccessException;
+import com.irme.server.dal.exceptions.DataAccessLayerException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class UserRolesBusinessLogic {
     public List<String> getAllRoles() {
         try {
             return userRolesAccessObject.selectAllRoles();
-        } catch (DataAccessException e) {
+        } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
             return new ArrayList<>();
         }

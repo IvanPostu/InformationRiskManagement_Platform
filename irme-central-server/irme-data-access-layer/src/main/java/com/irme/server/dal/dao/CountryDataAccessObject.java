@@ -1,7 +1,7 @@
 package com.irme.server.dal.dao;
 
 import com.irme.common.dto.CountryDto;
-import com.irme.server.dal.exceptions.DataAccessException;
+import com.irme.server.dal.exceptions.DataAccessLayerException;
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -11,6 +11,6 @@ public abstract class CountryDataAccessObject extends BaseDataAccessObject {
         super(dataSource);
     }
 
-    public abstract List<CountryDto> getCountries() throws DataAccessException;
+    public abstract List<CountryDto> getCountries() throws DataAccessLayerException;
 
 }

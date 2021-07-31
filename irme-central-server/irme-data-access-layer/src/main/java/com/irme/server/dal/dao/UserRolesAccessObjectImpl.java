@@ -1,7 +1,7 @@
 package com.irme.server.dal.dao;
 
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
-import com.irme.server.dal.exceptions.DataAccessException;
+import com.irme.server.dal.exceptions.DataAccessLayerException;
 import javax.sql.DataSource;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -17,7 +17,7 @@ public class UserRolesAccessObjectImpl extends BaseDataAccessObject
     }
 
     @Override
-    public List<String> selectAllRoles() throws DataAccessException {
+    public List<String> selectAllRoles() throws DataAccessLayerException {
         String sql = "{ call dbo.auth_user_roles_all() }";
         List<String> result = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class UserRolesAccessObjectImpl extends BaseDataAccessObject
 
 
         } catch (SQLException ex) {
-            throw new DataAccessException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
         return result;
