@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
+  ~{::section#pageID}, ~{::script} )}">
+
+
+<title>IRME - Admin application</title>
+
+<body>
+
+  <section id="pageID">
+    <div class="container">
+      <div class="row ">
+        <div class="col"></div>
+        <form class="col-6 border bg-light mt-4">
+          <h5 class="card-title my-4">User info</h5>
+          <div class="mb-3">
+            <label for="emailInput" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="emailInput" >
+          </div>
+          <div class="mb-3">
+            <label for="firstNameInput" class="form-label">First name</label>
+            <input type="text" class="form-control" id="firstNameInput" >
+          </div>
+          <div class="mb-3">
+            <label for="lastNameInput" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="lastNameInput" >
+          </div>
+
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="bannedCheckbox">
+            <label class="form-check-label" for="bannedCheckbox">Banned</label>
+          </div>
+          <button type="submit" class="btn btn-primary my-2">Save</button>
+        </form>
+        <div class="col"></div>
+      </div>
+    </div>
+    
+  </section>
+
+  <script>
+
+
+    $(document).ready(function () {
+      $("#menu-toggle").css("display", "block")
+      $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#container-sidebar-wrapper").toggleClass("toggled");
+      });
+      
+    })
+
+
+  </script>
+
+</body>
+
+
+</html>

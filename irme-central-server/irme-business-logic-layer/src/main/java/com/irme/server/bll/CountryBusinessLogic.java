@@ -2,14 +2,11 @@ package com.irme.server.bll;
 
 import com.irme.common.dto.CountryDto;
 import com.irme.server.dal.DataAccessObjectFactory;
-import com.irme.server.dal.connection.ConnectionConfig;
-import com.irme.server.dal.connection.ConnectionConfigType;
 import com.irme.server.dal.dao.CountryDataAccessObject;
 import com.irme.server.dal.dao.CountryDataAccessObjectImpl;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +14,7 @@ import java.util.List;
 public class CountryBusinessLogic {
     private CountryDataAccessObject countryDataAccessObject;
 
-    public CountryBusinessLogic(ConnectionConfigType configType) {
-        HikariConfig hikariConfig = ConnectionConfig
-                .getDataSourceConfig(configType);
-
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+    public CountryBusinessLogic(DataSource dataSource) {
         DataAccessObjectFactory daoFactory = new DataAccessObjectFactory(dataSource);
 
         countryDataAccessObject = daoFactory

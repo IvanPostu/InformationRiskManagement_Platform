@@ -42,7 +42,7 @@
           <div class="col">
             <div class="form-group">
               <label for="userPassword">User password:</label>
-              <input type="text" class="form-control" id="userPassword" placeholder="">
+              <input type="password" class="form-control" id="userPassword" placeholder="">
             </div>
             <div class="form-group">
               <label for="userLastName">Last name:</label>
@@ -68,6 +68,7 @@
                 <th scope="col">First name:</th>
                 <th scope="col">Last name:</th>
                 <th scope="col">Roles:</th>
+                
               </tr>
             </thead>
             <tbody id="usersTBody">
@@ -97,8 +98,14 @@
       var currentPageIndex = 0
       var isRequest = false
 
-      return function (){
+      return function (refresh){
+        var usersTBody = $("#usersTBody")
         if (isRequest) return
+
+        if(refresh){
+          usersTBody.html("")
+          currentPageIndex = 0;
+        }
 
         isRequest = true
         $.ajax({
@@ -112,14 +119,13 @@
           dataType: "json",
           success: function (res) {
             currentPageIndex++
-            var usersTBody = $("#usersTBody")
             
             for (var index = 0; index < res.length; index++) {
               var element = res[index];
               
               var node = (
                 "<tr>" +
-                "<th scope=\"row\">"+element.id+"</th>"+
+                "<th scope=\"row\">"+"<a href=\"/user?userId="+element.id+"\">"+element.id+"</a>"+"</th>"+
                 "<td>"+element.email+"</td>"+
                 "<td>"+element.firstName+"</td>"+
                 "<td>"+element.lastName+"</td>"+
@@ -138,6 +144,8 @@
     }
 
     $(document).ready(function () {
+      var usersFetch = createUsersFetcher()
+
       $("#menu-toggle").css("display", "block")
       $("#menu-toggle").click(function (e) {
         e.preventDefault();
@@ -194,6 +202,8 @@
                   "User created with success" +
                 "</div>"
               )
+
+              usersFetch(true)
             },
             error: function (err){
               resultMessageElement.html(
@@ -263,7 +273,6 @@
       });
     
       // fetch users
-      var usersFetch = createUsersFetcher()
       usersFetch()
       
     })

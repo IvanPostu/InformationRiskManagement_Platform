@@ -1,14 +1,11 @@
 package com.irme.server.bll;
 
 import com.irme.server.dal.DataAccessObjectFactory;
-import com.irme.server.dal.connection.ConnectionConfig;
-import com.irme.server.dal.connection.ConnectionConfigType;
 import com.irme.server.dal.dao.UserRolesAccessObject;
 import com.irme.server.dal.dao.UserRolesAccessObjectImpl;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +13,7 @@ import java.util.List;
 public class UserRolesBusinessLogic {
     private UserRolesAccessObject userRolesAccessObject;
 
-    public UserRolesBusinessLogic(ConnectionConfigType configType) {
-        HikariConfig hikariConfig = ConnectionConfig
-                .getDataSourceConfig(configType);
-
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+    public UserRolesBusinessLogic(DataSource dataSource) {
         DataAccessObjectFactory daoFactory = new DataAccessObjectFactory(dataSource);
 
         userRolesAccessObject = daoFactory.createDataAccessObject(UserRolesAccessObjectImpl.class);

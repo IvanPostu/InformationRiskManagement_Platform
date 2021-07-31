@@ -11,3 +11,7 @@ nav.navbar.navbar-expand.navbar-dark.bg-primary.fixed-top{
 main {
   margin-top: 40px;
 }
+
+#pageID {
+  background: #dfe6e9;
+}

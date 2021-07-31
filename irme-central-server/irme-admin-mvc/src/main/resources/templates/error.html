@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
+  ~{::section#pageID}, ~{::script} )}">
+
+
+<title>IRME - Admin application</title>
+
+<body>
+
+  <section id="pageID">
+    <div class="container">
+      
+
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-danger mt-3" role="alert">
+            Something went wrong!!!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+
+
+    $(document).ready(function () {
+      $("#menu-toggle").css("display", "block")
+      $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#container-sidebar-wrapper").toggleClass("toggled");
+      });
+      
+    })
+
+
+  </script>
+
+</body>
+
+
+</html>

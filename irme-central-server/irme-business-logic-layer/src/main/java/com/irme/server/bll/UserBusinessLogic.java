@@ -2,14 +2,11 @@ package com.irme.server.bll;
 
 import com.irme.common.dto.AuthUserDto;
 import com.irme.server.dal.DataAccessObjectFactory;
-import com.irme.server.dal.connection.ConnectionConfig;
-import com.irme.server.dal.connection.ConnectionConfigType;
 import com.irme.server.dal.dao.UserDataAccessObject;
 import com.irme.server.dal.dao.UserDataAccessObjectImpl;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +14,7 @@ import java.util.List;
 public class UserBusinessLogic {
     private UserDataAccessObject userDataAccessObject;
 
-    public UserBusinessLogic(ConnectionConfigType configType) {
-        HikariConfig hikariConfig = ConnectionConfig
-                .getDataSourceConfig(configType);
-
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+    public UserBusinessLogic(DataSource dataSource) {
         DataAccessObjectFactory daoFactory = new DataAccessObjectFactory(dataSource);
 
         userDataAccessObject = daoFactory.createDataAccessObject(UserDataAccessObjectImpl.class);
@@ -38,6 +31,15 @@ public class UserBusinessLogic {
         }
 
         return result;
+    }
+
+    public AuthUserDto getUserById(Integer userId) {
+        try {
+            return userDataAccessObject.selectUserById(userId).orElse(null);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public boolean addUser(AuthUserDto user) {
