@@ -132,4 +132,12 @@
     </rollback>
   </changeSet>
 
+  <changeSet author="IvanPostu" id="all_organisations_including_related_to_the_user">
+    <sqlFile path="all_organisations_including_related_to_the_user.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="all_organisations_including_related_to_the_user.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
 </databaseChangeLog>
