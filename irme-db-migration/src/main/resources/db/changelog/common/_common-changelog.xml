@@ -3,7 +3,11 @@
 
 
   <include file="tables/_tables.changelog.xml" relativeToChangelogFile="true" />
+
+  <include file="constraints/_constraints.changelog.xml" relativeToChangelogFile="true"  />
+  
   <include file="procedures/_procedures.changelog.xml" relativeToChangelogFile="true" />
+
   <include file="data/_data.changelog.xml" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

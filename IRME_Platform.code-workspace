@@ -70,10 +70,10 @@
       "**/build/*/**": true
     },
     "editor.rulers": [
-      100
+      80
     ],
     "explorer.decorations.colors": true, //displays no colors
-    "editor.wordWrapColumn": 100,
+    "editor.wordWrapColumn": 80,
     "editor.wordWrap": "wordWrapColumn",
     "editor.wrappingIndent": "same",
     "editor.minimap.scale": 2,

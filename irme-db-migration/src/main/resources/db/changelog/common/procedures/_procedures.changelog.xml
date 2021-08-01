@@ -116,4 +116,20 @@
     </rollback>
   </changeSet>
 
+  <changeSet author="IvanPostu" id="organisation_insert">
+    <sqlFile path="organisation_insert.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="organisation_insert.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="add_user_to_organisation">
+    <sqlFile path="add_user_to_organisation.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="add_user_to_organisation.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
 </databaseChangeLog>

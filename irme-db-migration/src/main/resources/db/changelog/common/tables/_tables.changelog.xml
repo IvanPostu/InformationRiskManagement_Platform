@@ -152,5 +152,24 @@
     <comment>Foreign keys for SecurityAssessment "sa" tables.</comment>
   </changeSet>
 
+  <changeSet author="IvanPostu" id="sa__question_answer_descriptions_FK">
+    <sqlFile path="sa__question_answer_descriptions_FK.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa__question_answer_descriptions_FK.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+
+    <comment>Foreign key for sa__question_answer_descriptions table.</comment>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="organisations_users">
+    <sqlFile path="organisations_users.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="organisations_users.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+
+    <comment>organisations_users table.</comment>
+  </changeSet>
 
 </databaseChangeLog>
