@@ -27,7 +27,7 @@ public class OrganisationsDataAcessObjectImplTest extends _BaseDataAccessObjectT
 
     @Tag(value = "DAL")
     @Test
-    public void insertUserTest() throws Exception {
+    public void insertOrganisationTest() throws Exception {
         OrganisationsDataAcessObject dao = daoFactory.createDataAccessObject(
                 OrganisationsDataAcessObjectImpl.class);
 

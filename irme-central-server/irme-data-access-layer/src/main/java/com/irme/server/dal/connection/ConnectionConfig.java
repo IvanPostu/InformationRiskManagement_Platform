@@ -1,7 +1,6 @@
 package com.irme.server.dal.connection;
 
 import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -15,54 +14,47 @@ public final class ConnectionConfig {
 
     private ConnectionConfig() {}
 
-    private static Object syncObject;
-    private static HikariDataSource cachedConfig = null;
+    private static HikariConfig CACHED_CONFIG;
 
-    static {
-        syncObject = new Object();
-    };
+    public static synchronized HikariConfig getDataSourceConfig(ConnectionConfigType configType) {
 
-    public static HikariConfig getDataSourceConfig(ConnectionConfigType configType) {
-        synchronized (syncObject) {
-
-            if (cachedConfig != null) {
-                logger.debug("Return datasource config value from cache");
-                return cachedConfig;
-            }
-
-            Properties prop = new Properties();
-            HikariConfig jdbcConfig = new HikariConfig();
-
-            try (InputStream in = ConnectionConfig.class
-                    .getResourceAsStream("/" + configType.configFilename())) {
-                prop.load(in);
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
-
-            jdbcConfig.setPoolName(prop.getProperty("dataSourcePool.name"));
-            jdbcConfig.setMaximumPoolSize(
-                    Integer.valueOf(prop.getProperty("dataSourcePool.maximumPoolSize")));
-            jdbcConfig.setMinimumIdle(
-                    Integer.valueOf(prop.getProperty("dataSourcePool.minimumIdle")));
-            jdbcConfig.setJdbcUrl(prop.getProperty("dataSourcePool.jdbcUrl"));
-            jdbcConfig.setUsername(prop.getProperty("dataSourcePool.username"));
-            jdbcConfig.setPassword(prop.getProperty("dataSourcePool.password"));
-
-            for (Entry<Object, Object> e : prop.entrySet()) {
-                String key = (String) e.getKey();
-                /**
-                 * Prepare generic addDataSourceProperty case
-                 */
-                if (key.startsWith("dataSourcePool.specific.")) {
-                    String baseKey = key.split("dataSourcePool.specific.")[1];
-                    jdbcConfig.addDataSourceProperty(baseKey, e.getValue());
-                }
-            }
-
+        if (CACHED_CONFIG != null) {
             logger.debug("Return datasource config value from cache");
-            return new HikariDataSource(jdbcConfig);
+            return CACHED_CONFIG;
         }
+
+        Properties prop = new Properties();
+        HikariConfig conenctionPoolConfig = new HikariConfig();
+
+        try (InputStream in = ConnectionConfig.class
+                .getResourceAsStream("/" + configType.configFilename())) {
+            prop.load(in);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+
+        conenctionPoolConfig.setPoolName(prop.getProperty("dataSourcePool.name"));
+        conenctionPoolConfig.setMaximumPoolSize(
+                Integer.valueOf(prop.getProperty("dataSourcePool.maximumPoolSize")));
+        conenctionPoolConfig.setMinimumIdle(
+                Integer.valueOf(prop.getProperty("dataSourcePool.minimumIdle")));
+        conenctionPoolConfig.setJdbcUrl(prop.getProperty("dataSourcePool.jdbcUrl"));
+        conenctionPoolConfig.setUsername(prop.getProperty("dataSourcePool.username"));
+        conenctionPoolConfig.setPassword(prop.getProperty("dataSourcePool.password"));
+
+        for (Entry<Object, Object> e : prop.entrySet()) {
+            String key = (String) e.getKey();
+            /**
+             * Prepare generic addDataSourceProperty case
+             */
+            if (key.startsWith("dataSourcePool.specific.")) {
+                String baseKey = key.split("dataSourcePool.specific.")[1];
+                conenctionPoolConfig.addDataSourceProperty(baseKey, e.getValue());
+            }
+        }
+
+        logger.debug("Return datasource config value from cache");
+        return conenctionPoolConfig;
 
     }
 }
