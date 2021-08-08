@@ -124,11 +124,11 @@
     </rollback>
   </changeSet>
 
-  <changeSet author="IvanPostu" id="add_user_to_organisation">
-    <sqlFile path="add_user_to_organisation.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="reassign_user_to_organisations">
+    <sqlFile path="reassign_user_to_organisations.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="add_user_to_organisation.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="reassign_user_to_organisations.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet>
 

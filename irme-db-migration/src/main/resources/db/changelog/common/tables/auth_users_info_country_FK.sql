@@ -7,4 +7,4 @@ ADD CONSTRAINT
 FOREIGN KEY ([country_code]) 
 REFERENCES [dbo].[countries]([country_code]) 
 ON UPDATE NO ACTION 
-ON DELETE SET NULL;
+ON DELETE NO ACTION ;

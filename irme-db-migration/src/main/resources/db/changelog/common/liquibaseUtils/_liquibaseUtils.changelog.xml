@@ -2,13 +2,16 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-
   <changeSet author="IvanPostu" id="trg_liquibase_changelog_tag_creator">
     <sqlFile path="trg_liquibase_changelog_tag_creator.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
       <sqlFile path="trg_liquibase_changelog_tag_creator.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="start">
+    <sql>DECLARE @dummy INTEGER = -1;</sql>
   </changeSet>
 
 </databaseChangeLog>

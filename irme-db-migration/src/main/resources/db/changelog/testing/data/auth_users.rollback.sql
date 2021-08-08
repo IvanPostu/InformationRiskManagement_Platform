@@ -1,26 +1,27 @@
 
  
 
-DECLARE @_offset INTEGER = 0;
-WHILE EXISTS(
-	SELECT 1 FROM dbo.auth_users AS au
-	WHERE email_address IN ('testUser3@mail.ru', 
-		'testUser2@mail.ru', 'testUser1@mail.ru')
-	ORDER BY auth_user_id 
-	OFFSET @_offset ROWS FETCH NEXT 1 ROWS ONLY
-) 
-BEGIN
+BEGIN TRANSACTION
+	DECLARE @users_ids NVARCHAR(MAX) = '';
+	SELECT @users_ids=@users_ids+CONCAT(au.auth_user_id, ',') 
+	FROM dbo.auth_users AS au
+	WHERE email_address IN (
+		'testUser3@mail.ru', 
+		'testUser2@mail.ru', 
+		'testUser1@mail.ru'
+	)
+	SET @users_ids = SUBSTRING(@users_ids, 0, LEN(@users_ids)) 
+	DECLARE @delete_query NVARCHAR(MAX) = CONCAT(
+		'DELETE FROM dbo.auth_user_roles WHERE auth_user_id IN (',
+			@users_ids,
+		');',
+		'DELETE FROM dbo.auth_users_info WHERE auth_user_id IN (',
+			@users_ids,
+		')',
+		'DELETE FROM dbo.auth_users WHERE auth_user_id IN (',
+			@users_ids,
+		')'
+	);
 	
-    DECLARE @_auth_user_id INTEGER = (
-			SELECT auth_user_id FROM dbo.auth_users AS au
-			WHERE email_address IN ('testUser3@mail.ru', 
-				'testUser2@mail.ru', 'testUser1@mail.ru')
-			ORDER BY auth_user_id 
-			OFFSET @_offset ROWS FETCH NEXT 1 ROWS ONLY
-    );
-	
-
-    EXEC [dbo].[auth_user_with_info_delete] @_auth_user_id;
-	SET @_offset = @_offset + 1;
-END;
-
+	EXECUTE (@delete_query);
+COMMIT TRANSACTION
