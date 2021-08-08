@@ -1,6 +1,6 @@
 
 
-CREATE OR ALTER PROCEDURE [dbo].[all_organisations_including_related_to_the_user]
+CREATE PROCEDURE [dbo].[all_organisations_including_related_to_the_user]
     @curent_user_id		INTEGER
 AS
 BEGIN TRY  

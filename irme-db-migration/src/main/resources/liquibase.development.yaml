@@ -6,5 +6,20 @@ password: qwYertyZ_654321
 driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
 verbose: true
 logging: debug
+databaseChangeLogTableName: liquibase_db_changelog
+databaseChangeLogLockTableName: liquibase_db_changelog_lock
 
-
+	     
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			
+			

@@ -6,7 +6,7 @@
     <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="report_error.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="auth_user_roles.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet>
 
