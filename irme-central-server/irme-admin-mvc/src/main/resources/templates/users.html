@@ -68,13 +68,18 @@
                 <th scope="col">First name:</th>
                 <th scope="col">Last name:</th>
                 <th scope="col">Roles:</th>
-                
+
               </tr>
             </thead>
             <tbody id="usersTBody">
+              <!-- <tr id="tableLoaderID">
+                <td>
+                  <img th:src="@{/static/spinner01.gif}" alt="">
+                </td>
+              </tr> -->
             </tbody>
           </table>
-          <div>
+          <div class="my-2">
             <button id="fetchNextUsersBtn" type="button" class="btn btn-primary">Fetch next users</button>
           </div>
         </div>
@@ -93,21 +98,20 @@
         && submitData.password !== ""
     }
 
-    function createUsersFetcher(){
+    function createUsersFetcher() {
       var USERS_PER_PAGE = 5
       var currentPageIndex = 0
       var isRequest = false
 
-      return function (refresh){
+      return function (refresh) {
         var usersTBody = $("#usersTBody")
         if (isRequest) return
 
-        if(refresh){
+        if (refresh) {
           usersTBody.html("")
           currentPageIndex = 0;
         }
 
-        isRequest = true
         $.ajax({
           url: "/api/users/getAll",
           data: {
@@ -119,24 +123,27 @@
           dataType: "json",
           success: function (res) {
             currentPageIndex++
-            
+
             for (var index = 0; index < res.length; index++) {
               var element = res[index];
-              
+
               var node = (
                 "<tr>" +
-                "<th scope=\"row\">"+"<a href=\"/user?userId="+element.id+"\">"+element.id+"</a>"+"</th>"+
-                "<td>"+element.email+"</td>"+
-                "<td>"+element.firstName+"</td>"+
-                "<td>"+element.lastName+"</td>"+
-                "<td>"+element.roles.join('; ')+"</td>"+
+                "<th scope=\"row\">" + "<a href=\"/user?userId=" + element.id + "\">" + element.id + "</a>" + "</th>" +
+                "<td>" + element.email + "</td>" +
+                "<td>" + element.firstName + "</td>" +
+                "<td>" + element.lastName + "</td>" +
+                "<td>" + element.roles.join('; ') + "</td>" +
                 "</tr>"
               )
 
-              usersTBody.append(node)
+              usersTBody.html(  usersTBody.html() + node)
             }
           },
-          complete: function(e){
+          beforeSend: function (e) {
+            isRequest = true
+          },
+          complete: function (e) {
             isRequest = false
           }
         });
@@ -186,7 +193,7 @@
         var resultMessageElement = $("#sumbitResultMessage")
 
         if (createUserSubmitDataIsValid(submitData)) {
-          
+
           var timer = null
 
           $.ajax({
@@ -199,29 +206,29 @@
             success: function (res) {
               resultMessageElement.html(
                 "<div class=\"alert alert-success\" role=\"alert\">" +
-                  "User created with success" +
+                "User created with success" +
                 "</div>"
               )
 
               usersFetch(true)
             },
-            error: function (err){
+            error: function (err) {
               resultMessageElement.html(
                 "<div class=\"alert alert-danger\" role=\"alert\">" +
-                  "Error: Something went wrong" +
+                "Error: Something went wrong" +
                 "</div>"
               )
             },
-            beforeSend: function(xhr){
+            beforeSend: function (xhr) {
               resultMessageElement.html("")
               $("#createUserSubmitBtn").prop("disabled", true);
             },
-            complete: function(){
+            complete: function () {
               $("#createUserSubmitBtn").prop("disabled", false);
 
             }
           });
-          
+
         } else {
           resultMessageElement.removeClass("d-none")
           resultMessageElement.removeClass("alert-success")
@@ -271,10 +278,10 @@
           }
         }
       });
-    
+
       // fetch users
       usersFetch()
-      
+
     })
 
 

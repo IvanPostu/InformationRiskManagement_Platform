@@ -1,9 +1,9 @@
 package irme.server.dal.dao;
 
 import com.irme.common.dto.OrganisationDto;
-import com.irme.common.dto.OrganisationIncludingRelatedToTheUserDto;
 import com.irme.server.dal.dao.OrganisationsDataAcessObject;
 import com.irme.server.dal.dao.OrganisationsDataAcessObjectImpl;
+import org.javatuples.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,8 +18,8 @@ public class OrganisationsDataAcessObjectImplTest extends _BaseDataAccessObjectT
         OrganisationsDataAcessObject dao = daoFactory.createDataAccessObject(
                 OrganisationsDataAcessObjectImpl.class);
 
-        List<OrganisationIncludingRelatedToTheUserDto> organisations = dao
-                .selectAllOrganisationsIncludingRelatedToTheUser(-1);
+        List<Pair<OrganisationDto, Boolean>> organisations = dao
+                .selectAllOrganisationsWithRelatedToTheUser(-1);
 
         Assertions.assertNotNull(organisations);
         Assertions.assertTrue(organisations.size() >= 5);

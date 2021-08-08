@@ -1,9 +1,9 @@
 package com.irme.server.dal.dao;
 
 import com.irme.common.dto.OrganisationDto;
-import com.irme.common.dto.OrganisationIncludingRelatedToTheUserDto;
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
+import org.javatuples.Pair;
 import javax.sql.DataSource;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
@@ -19,27 +19,28 @@ public class OrganisationsDataAcessObjectImpl extends OrganisationsDataAcessObje
     }
 
     @Override
-    public List<OrganisationIncludingRelatedToTheUserDto> selectAllOrganisationsIncludingRelatedToTheUser(
+    public List<Pair<OrganisationDto, Boolean>> selectAllOrganisationsWithRelatedToTheUser(
             int userId) throws DataAccessLayerException {
         String sql = "{ CALL dbo.all_organisations_including_related_to_the_user(?) }";
-        List<OrganisationIncludingRelatedToTheUserDto> result = new ArrayList<>(100);
+        List<Pair<OrganisationDto, Boolean>> result = new ArrayList<>(100);
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setInt(1, userId);
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                OrganisationIncludingRelatedToTheUserDto dto =
-                        new OrganisationIncludingRelatedToTheUserDto();
 
+                OrganisationDto dto = new OrganisationDto();
                 dto.setBase64ImageLogo(rs.getString("base64_logo"));
                 dto.setCreated(rs.getDate("created"));
                 dto.setDescription(rs.getString("description"));
                 dto.setName(rs.getString("name"));
                 dto.setId(rs.getInt("organisation_id"));
-                dto.setRelatedToTheUserDto(rs.getBoolean("refers_to_organisation"));
 
-                result.add(dto);
+                Boolean organisationIsRelatedToTheUser = rs.getBoolean("refers_to_organisation");
+
+                result.add(new Pair<OrganisationDto, Boolean>(dto,
+                        organisationIsRelatedToTheUser));
             }
 
 

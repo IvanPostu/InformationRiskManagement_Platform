@@ -7,34 +7,132 @@
 <body>
 
   <section id="pageID">
-    
+
     <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
-  <!-- Modal -->
-  <div id="myModal" class="modal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add user to organization</h5>
-        </div>
-        <div class="modal-body">
-          
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-            <label class="form-check-label" for="flexCheckChecked">
-              Checked checkbox
-            </label>
+
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-8 my-3">
+          <div class="card" style="width: 100%;">
+            <h3 class="card-title text-center my-2">
+              <i class="fa fa-user " aria-hidden="true"></i>
+              User info
+            </h3>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Email: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.email}"></p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Country code: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.countryCode}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>First Name: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.firstName}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Last Name: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.lastName}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Phone: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.phone}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Status: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.status}"></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <p>
+                    <b>Roles: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${user.roles}"></p>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Assigned
+                organisations</button>
+            </div>
           </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
-  </div>
-    
+
+    <!-- Modal -->
+    <div id="myModal" class="modal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add user to organization</h5>
+          </div>
+          <form th:action="@{/assignOrganisations}" method="POST">
+            <div class="modal-body">
+
+              <input type="hidden" name="userId" th:value="${userId}">
+
+              <th:block th:each="organisation: ${organisations}">
+                <div class="row mx-2 form-check">
+                  <input class="form-check-input" type="checkbox" name="assignedOrganisations"
+                    th:value="${organisation.value0.id}" id="flexCheckChecked"
+                    th:checked="${organisation.value1}">
+                  <label th:text="${organisation.value0.name}" class="form-check-label" for="flexCheckChecked">
+                    Checked checkbox
+                  </label>
+                </div>
+              </th:block>
+
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <script>
@@ -46,7 +144,7 @@
         e.preventDefault();
         $("#container-sidebar-wrapper").toggleClass("toggled");
       });
-      
+
     })
 
 

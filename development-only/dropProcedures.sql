@@ -12,4 +12,4 @@ BEGIN TRAN
 	
 	EXECUTE sp_executesql @dropProceduresQuery;
 COMMIT TRAN
-   
+

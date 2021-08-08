@@ -1,6 +1,7 @@
 package com.irme.admin.mvc.beans;
 
 import com.irme.server.bll.CountryBusinessLogic;
+import com.irme.server.bll.OrganisationBusinessLogic;
 import com.irme.server.bll.UserBusinessLogic;
 import com.irme.server.bll.UserRolesBusinessLogic;
 import com.irme.server.dal.connection.ConnectionConfig;
@@ -39,6 +40,11 @@ public class BLLBeans {
                 .getDataSourceConfig(connectionConfigType);
 
         return new HikariDataSource(hikariConfig);
+    }
+
+    @Bean
+    public OrganisationBusinessLogic getOrganisationBusinessLogic() {
+        return new OrganisationBusinessLogic(getDataSource());
     }
 
 }
