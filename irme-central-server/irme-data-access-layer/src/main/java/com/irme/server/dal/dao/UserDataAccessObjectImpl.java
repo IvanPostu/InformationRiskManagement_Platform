@@ -238,4 +238,46 @@ public class UserDataAccessObjectImpl extends BaseDataAccessObject implements Us
                     DataAccessErrorCode.UPDATE_FAILED);
         }
     }
+
+
+    @Override
+    public List<AuthUserDto> searchUsersByEmail(String emailKeyword, int limit)
+            throws DataAccessLayerException {
+
+        final String sql = "{ call dbo.auth_users_by_email_keyword(?,?) }";
+        final char rolesJoinChar = ';';
+        final List<AuthUserDto> result = new ArrayList<>();
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setString(1, emailKeyword);
+            statement.setInt(2, limit);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Collection<String> roles = Arrays.asList(
+                        rs.getString("roles").split(Character.toString(rolesJoinChar)));
+                AuthUserDto u = new AuthUserDto();
+                u.setId(rs.getInt("auth_user_id"));
+                u.setBanned(false);
+                u.setCountryCode(rs.getString("country_code"));
+                u.setCreated(rs.getString("create_date"));
+                u.setEmail(rs.getString("email_address"));
+                u.setFirstName(rs.getString("first_name"));
+                u.setLastName(rs.getString("last_name"));
+                u.setPasswordHash(rs.getString("password_hash"));
+                u.setPhone(rs.getString("phone"));
+                u.setStatus(rs.getString("status"));
+                u.setBase64Picture(rs.getString("base64_picture"));
+                u.setRoles(roles);
+
+                result.add(u);
+            }
+
+
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
+    }
 }

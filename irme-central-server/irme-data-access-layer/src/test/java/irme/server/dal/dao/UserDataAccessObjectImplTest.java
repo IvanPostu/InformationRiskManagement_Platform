@@ -182,4 +182,25 @@ public class UserDataAccessObjectImplTest extends _BaseDataAccessObjectTest {
         }
     }
 
+
+    @Tag("DAL")
+    @Test
+    public void searchUsersByEmailTest() throws Exception {
+
+        try (UserDataAccessObjectImpl userDao = daoFactory.createDataAccessObject(
+                UserDataAccessObjectImpl.class)) {
+
+
+            List<AuthUserDto> users1 = userDao.searchUsersByEmail("testUser", 10);
+            List<AuthUserDto> users2 = userDao.searchUsersByEmail("testUser", 2);
+
+
+            Assertions.assertTrue(users2.size() == 2);
+            Assertions.assertTrue(users1.size() >= 3);
+
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

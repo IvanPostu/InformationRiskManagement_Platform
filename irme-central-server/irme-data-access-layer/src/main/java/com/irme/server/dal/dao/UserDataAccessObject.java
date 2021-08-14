@@ -27,4 +27,7 @@ public interface UserDataAccessObject {
     void updateUser(UpdateUserDto updateUserDto) throws DataAccessLayerException;
 
     Optional<AuthUserDto> selectUserByEmail(String email) throws DataAccessLayerException;
+
+    List<AuthUserDto> searchUsersByEmail(String emailKeyword, int limit)
+            throws DataAccessLayerException;
 }
