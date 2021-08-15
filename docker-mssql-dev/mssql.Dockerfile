@@ -5,9 +5,12 @@ USER root
 RUN mkhomedir_helper mssql
 WORKDIR /home/mssql
 
-RUN mkdir /home/mssql/database
+RUN mkdir /home/mssql/data
+RUN mkdir /home/mssql/log
 RUN mkdir /home/mssql/backup
-RUN chown -R mssql /home/mssql
+
+
+RUN chown -R mssql /home/mssql/*
 
 COPY "_init/" "_init"
  

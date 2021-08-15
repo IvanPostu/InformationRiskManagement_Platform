@@ -1,17 +1,20 @@
 USE [master]
 
+
 --------------------------------------------------------------------------------
 -- Create Database - InformationRiskManagementDatabase  ------------------------
 --------------------------------------------------------------------------------
 CREATE DATABASE [InformationRiskManagementDatabase] ON  PRIMARY 
-(	NAME = N'InformationRiskManagementDatabase', 
-	FILENAME = N'/home/mssql/database/InformationRiskManagementDatabase_Data.mdf' , 
-	SIZE = 167872KB , MAXSIZE = UNLIMITED, FILEGROWTH = 16384KB 
+(	
+  NAME = N'InformationRiskManagementDatabase', 
+	FILENAME = N'/home/mssql/data/InformationRiskManagementDatabase_Data.mdf' , 
+	SIZE = 167872KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10240KB 
 )
 LOG ON 
-( 	NAME = N'InformationRiskManagementDatabase_Log', 
-	FILENAME = N'/home/mssql/database/InformationRiskManagementDatabase_Log.ldf' , 
-	SIZE = 2048KB , MAXSIZE = 4GB , FILEGROWTH = 16384KB 
+( 	
+  NAME = N'InformationRiskManagementDatabase_Log', 
+	FILENAME = N'/home/mssql/data/InformationRiskManagementDatabase_Log.ldf' , 
+	SIZE = 2048KB , MAXSIZE = 4GB , FILEGROWTH = 10240KB 
 )
 GO
 
@@ -19,14 +22,16 @@ GO
 -- Create Database - InformationRiskManagementDatabase for integration tests ---
 --------------------------------------------------------------------------------
 CREATE DATABASE [InformationRiskManagementDatabase_Test] ON  PRIMARY 
-(	NAME = N'InformationRiskManagementDatabase_Test', 
-	FILENAME = N'/home/mssql/database/InformationRiskManagementDatabase_Test_Data.mdf' , 
-	SIZE = 167872KB , MAXSIZE = UNLIMITED, FILEGROWTH = 16384KB 
+(	
+  NAME = N'InformationRiskManagementDatabase_Test', 
+	FILENAME = N'/home/mssql/data/InformationRiskManagementDatabase_Test_Data.mdf' , 
+	SIZE = 167872KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10240KB 
 )
 LOG ON 
-( 	NAME = N'InformationRiskManagementDatabase_Test_Log', 
-	FILENAME = N'/home/mssql/database/InformationRiskManagementDatabase_Test_Log.ldf' , 
-	SIZE = 2048KB , MAXSIZE = 4GB , FILEGROWTH = 16384KB 
+( 	
+  NAME = N'InformationRiskManagementDatabase_Test_Log', 
+	FILENAME = N'/home/mssql/data/InformationRiskManagementDatabase_Test_Log.ldf' , 
+	SIZE = 2048KB , MAXSIZE = 4GB , FILEGROWTH = 10240KB 
 )
 GO
 

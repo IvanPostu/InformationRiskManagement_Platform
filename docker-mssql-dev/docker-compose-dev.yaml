@@ -11,9 +11,11 @@ services:
       - "1433:1433"
     env_file:
       - sqlserver.env
-    # volumes: 
-    #   - "./_mssql/mssql:/home/mssql"
     restart: always
+    volumes: 
+      - "./_mssql/sqldata:/home/mssql/data"
+      - "./_mssql/sqllog:/home/mssql/log"
+      - "./_mssql/sqlbackup:/home/mssql/backup"
 networks:
     mssql_db-network:
         driver: bridge
