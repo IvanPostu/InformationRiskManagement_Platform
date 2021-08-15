@@ -16,6 +16,9 @@
       "path": "docker-mssql-dev"
     },
     {
+      "path": "docker-jenkins"
+    },
+    {
       "path": "development-only"
     },
   ],
@@ -153,16 +156,19 @@
       "java",
       "#"
     ],
-    "java.home": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot",
+    "java.home": "/usr/lib/jvm/java-11-openjdk",
+    // "java.home": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot",
     "java.configuration.runtimes": [
       {
         "default": true,
         "name": "JavaSE-1.8",
-        "path": "C:/Program Files/AdoptOpenJDK/jdk-8.0.292.10-hotspot"
+        // "path": "C:/Program Files/AdoptOpenJDK/jdk-8.0.292.10-hotspot",
+        "path": "/usr/lib/jvm/java-8-openjdk"
       },
       {
         "name": "JavaSE-11",
-        "path": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot"
+        // "path": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot",
+        "path": "/usr/lib/jvm/java-11-openjdk"
       }
     ],
     "files.associations": {

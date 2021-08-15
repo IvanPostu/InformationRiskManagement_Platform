@@ -1,20 +1,29 @@
 # Information Risk Management Expert
 
-### Database migration scripts: [ Link ](irme-db-migration/README.MD)
+### Database migration scripts: [ Here ](irme-db-migration/README.MD)
 
-### Build & Tests for backend project with modules:
+
+### Up jenkins and sql-server docker containers:
 
 ```bash
-$ ./mvnw -f irme-central-server/pom.xml clean compile test package install
+$ docker-compose -f ./docker-jenkins/jenkins-docker-compose.yaml up --build -d
+
+$ docker-compose -f ./docker-mssql-dev/docker-compose-dev.yaml up --build -d
 ```
 
-### Run admin project:
+### Build backend project with modules:
+
+```bash
+$ ./mvnw -f irme-central-server/pom.xml install
+```
+
+### Run admin project (dev mode):
 
 ```bash
 $ ./BashScripts/runAdmin.sh
 ```
 
-### Run cypress project:
+### Run cypress tests:
 
 ```bash
 $ ./BashScripts/runCypress.sh
