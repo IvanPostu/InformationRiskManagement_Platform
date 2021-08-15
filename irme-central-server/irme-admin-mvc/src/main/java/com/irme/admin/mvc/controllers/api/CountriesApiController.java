@@ -1,7 +1,7 @@
 package com.irme.admin.mvc.controllers.api;
 
 import com.irme.common.dto.CountryDto;
-import com.irme.server.bll.CountryBusinessLogic;
+import com.irme.server.business_entities.CountryBusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

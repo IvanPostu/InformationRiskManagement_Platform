@@ -2,8 +2,9 @@ package com.irme.admin.mvc.controllers.api;
 
 import com.irme.admin.mvc.models.CreateUserModel;
 import com.irme.common.dto.AuthUserDto;
-import com.irme.server.bll.UserBusinessLogic;
-import com.irme.server.bll.UserRolesBusinessLogic;
+import com.irme.server.business_entities.UserBusinessLogic;
+import com.irme.server.business_entities.UserRolesBusinessLogic;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/users")
@@ -73,5 +75,19 @@ public class UsersApiController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
 
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/searchByEmail")
+    public ResponseEntity<List<Pair<Integer, String>>> searchByEmail(
+            @RequestParam(name = "emailKeyword") String emailKeyword) {
+        List<AuthUserDto> users = userBusinessLogic
+                .searchUsersByEmail(emailKeyword);
+
+        List<Pair<Integer, String>> resultList = users
+                .stream()
+                .map(user -> new Pair<Integer, String>(user.getId(), user.getEmail()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(resultList);
     }
 }

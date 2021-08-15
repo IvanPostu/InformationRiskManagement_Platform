@@ -1,4 +1,4 @@
-package com.irme.server.bll;
+package com.irme.server.business_entities;
 
 import com.irme.server.dal.DataAccessObjectFactory;
 import com.irme.server.dal.dao.UserRolesAccessObject;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class UserRolesBusinessLogic {
+public class UserRolesBusinessLogic implements BusinessLogicEntity {
     private UserRolesAccessObject userRolesAccessObject;
 
     public UserRolesBusinessLogic(DataSource dataSource) {

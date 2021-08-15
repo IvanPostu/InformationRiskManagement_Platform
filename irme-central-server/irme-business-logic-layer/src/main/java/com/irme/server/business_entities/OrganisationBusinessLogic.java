@@ -1,4 +1,4 @@
-package com.irme.server.bll;
+package com.irme.server.business_entities;
 
 import com.irme.common.dto.OrganisationDto;
 import com.irme.server.dal.DataAccessObjectFactory;
@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Slf4j
-public class OrganisationBusinessLogic {
+public class OrganisationBusinessLogic implements BusinessLogicEntity {
 
     private OrganisationsDataAcessObject organisationsDataAcessObject;
 

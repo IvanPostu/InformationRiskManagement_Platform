@@ -1,9 +1,9 @@
 package com.irme.admin.mvc.beans;
 
-import com.irme.server.bll.CountryBusinessLogic;
-import com.irme.server.bll.OrganisationBusinessLogic;
-import com.irme.server.bll.UserBusinessLogic;
-import com.irme.server.bll.UserRolesBusinessLogic;
+import com.irme.server.business_entities.CountryBusinessLogic;
+import com.irme.server.business_entities.OrganisationBusinessLogic;
+import com.irme.server.business_entities.UserBusinessLogic;
+import com.irme.server.business_entities.UserRolesBusinessLogic;
 import com.irme.server.dal.connection.ConnectionConfig;
 import com.irme.server.dal.connection.ConnectionConfigType;
 import com.zaxxer.hikari.HikariConfig;

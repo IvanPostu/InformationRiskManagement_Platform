@@ -21,32 +21,18 @@
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
             <input type="text" name="" id="searchUserByEmailInputID" />
-            <div id="usersDropdownMenuID" style="max-height: 200px; overflow-y: auto;" class="dropdown-menu"
+            <div id="usersDropdownMenuID" style="max-height: 200px; width: 220px; overflow-y: auto; overflow-x: hidden;" class="dropdown-menu"
               aria-labelledby="dropdownMenu2">
 
-              <div class="text-center">
+              <div id="searchUserByEmailInputLoaderID" class="text-center d-none">
                 <img th:src="@{/static/spinner01.gif}" alt="">
               </div>
 
-              <a href="#" class="btn btn-secondary dropdown-item" role="button" >Link</a>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else here</button>
+              <div id="usersDropdownMenuItemsID">
+                
+              </div>
+              <!-- <a href="#" class="btn btn-secondary dropdown-item" role="button" >Link Link Link Link Link Link Link Link Link Link Link Link </a> -->
+              
             </div>
           </div>
         </div>

@@ -2,8 +2,8 @@ package com.irme.admin.mvc.controllers;
 
 import com.irme.common.dto.AuthUserDto;
 import com.irme.common.dto.OrganisationDto;
-import com.irme.server.bll.OrganisationBusinessLogic;
-import com.irme.server.bll.UserBusinessLogic;
+import com.irme.server.business_entities.OrganisationBusinessLogic;
+import com.irme.server.business_entities.UserBusinessLogic;
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

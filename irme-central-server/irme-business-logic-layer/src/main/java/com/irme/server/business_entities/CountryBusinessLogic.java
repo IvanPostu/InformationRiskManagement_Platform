@@ -1,4 +1,4 @@
-package com.irme.server.bll;
+package com.irme.server.business_entities;
 
 import com.irme.common.dto.CountryDto;
 import com.irme.server.dal.DataAccessObjectFactory;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class CountryBusinessLogic {
+public class CountryBusinessLogic implements BusinessLogicEntity {
     private CountryDataAccessObject countryDataAccessObject;
 
     public CountryBusinessLogic(DataSource dataSource) {

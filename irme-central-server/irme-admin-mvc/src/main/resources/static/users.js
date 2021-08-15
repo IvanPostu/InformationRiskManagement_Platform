@@ -66,9 +66,54 @@ function searchUserByEmailOnTextInput() {
   var timeout;
   var xhr = null;
 
+
   var func = function () {
     var text = this.value
     console.log(text)
+
+    if(xhr !== null){
+      xhr.abort()
+      xhr = null
+    }
+
+    xhr = jQuery.ajax({
+      type: "GET",
+      url: "/api/users/searchByEmail?emailKeyword=" + text,
+      contentType: "application/json",
+      dataType: "json",
+      data: null,
+      cache: false,
+      success: function (res) {
+        console.log(res)
+
+        $("#usersDropdownMenuItemsID").html("")
+
+
+        for (var index = 0; index < res.length; index++) {
+          const element = res[index];
+          var htmlStrItem = "<a href=\"/user?userId="+element.value0+"\" "
+          + "class=\"btn btn-secondary dropdown-item\" "
+          + "role=\"button\" > "+element.value1+" </a>"
+
+          $("#usersDropdownMenuItemsID").append(htmlStrItem)
+        }
+
+        
+
+      },
+      error: function (err) {
+        console.log(err)
+      },
+      beforeSend: function(){
+        $("#searchUserByEmailInputLoaderID").removeClass("d-none")
+        if ($('#usersDropdownMenuID').is(":hidden")) {
+          $('#usersDropdownMenuBtnID').trigger("click")
+        }
+      },
+      complete: function(){
+        $("#searchUserByEmailInputLoaderID").addClass("d-none")
+      }
+    })
   }
 
   return function () {
@@ -84,13 +129,6 @@ function searchUserByEmailOnTextInput() {
 
 jQuery(function () {
   var usersFetch = createUsersFetcher();
-
-  // setTimeout(function () {
-
-  //   if ($('#usersDropdownMenuID').is(":hidden")) {
-  //     $('#usersDropdownMenuBtnID').click()
-  //   }
-  // }, 1000)
 
   $("#searchUserByEmailInputID").on("input",searchUserByEmailOnTextInput())
 

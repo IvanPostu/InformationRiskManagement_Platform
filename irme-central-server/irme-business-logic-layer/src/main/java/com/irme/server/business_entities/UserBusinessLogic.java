@@ -1,4 +1,4 @@
-package com.irme.server.bll;
+package com.irme.server.business_entities;
 
 import com.irme.common.dto.AuthUserDto;
 import com.irme.server.dal.DataAccessObjectFactory;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class UserBusinessLogic {
+public class UserBusinessLogic implements BusinessLogicEntity {
     private UserDataAccessObject userDataAccessObject;
 
     public UserBusinessLogic(DataSource dataSource) {
@@ -51,6 +51,20 @@ public class UserBusinessLogic {
         }
 
         return true;
+    }
+
+    public List<AuthUserDto> searchUsersByEmail(String emailKeyword) {
+        final int USERS_COUNT_LIMIT = 20;
+        List<AuthUserDto> result;
+
+        try {
+            result = userDataAccessObject.searchUsersByEmail(emailKeyword, USERS_COUNT_LIMIT);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            result = new ArrayList<>();
+        }
+
+        return result;
     }
 
 }
