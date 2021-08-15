@@ -1,4 +1,5 @@
-FROM jenkins:2.60.1-alpine
+FROM jenkins/jenkins:2.289.3-alpine
 
+USER jenkins
 
 
