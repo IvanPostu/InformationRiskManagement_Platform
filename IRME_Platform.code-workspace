@@ -21,6 +21,9 @@
     {
       "path": "development-only"
     },
+    {
+      "path": "docker-environments"
+    },
   ],
   "settings": {
     "terminal.integrated.defaultProfile.windows": "Git Bash",
