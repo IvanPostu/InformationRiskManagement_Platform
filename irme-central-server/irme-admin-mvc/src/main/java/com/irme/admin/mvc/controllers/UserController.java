@@ -44,14 +44,23 @@ public class UserController {
     }
 
     @PostMapping({"/assignOrganisations"})
-    public String saveUser(
+    public String assignUserTo(
             @RequestParam(required = true) int[] assignedOrganisations,
             @RequestParam(required = true) int userId,
             Map<String, Object> model) {
 
 
+        boolean assignedWithSuccess = organisationBusinessLogic
+                .assignUserToOrganisations(userId, assignedOrganisations);
 
-        return String.format("redirect:/user?userId=%d", userId);
+        if (assignedWithSuccess) {
+            return String
+                    .format("redirect:/user?userId=%d&assignedToOrganisationsSuccessfully=1",
+                            userId);
+        }
+
+        return String
+                .format("redirect:/user?userId=%d&assignedToOrganisationsSuccessfully=0", userId);
     }
 
 }

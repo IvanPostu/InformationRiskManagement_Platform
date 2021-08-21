@@ -39,9 +39,16 @@ public class OrganisationBusinessLogic implements BusinessLogicEntity {
 
     public boolean assignUserToOrganisations(int userId, int[] organisationsIds) {
 
+        boolean assignedWithSuccess = false;
 
+        try {
+            assignedWithSuccess = organisationsDataAcessObject
+                    .reassignUserToOrganisations(userId, organisationsIds);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+        }
 
-        return true;
+        return assignedWithSuccess;
     }
 
 }

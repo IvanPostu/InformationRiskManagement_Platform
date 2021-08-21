@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
-  ~{::section#pageID}, ~{::script} )}">
+  ~{::section#pageID}, ~{::#script} )}">
 
 
 <title>IRME - Admin application</title>
@@ -7,11 +7,13 @@
 <body>
 
   <section id="pageID">
-
+    
     <!-- Trigger the modal with a button -->
-
-
+    
     <div class="container">
+      <div id="alertPlaceID"></div>
+      
+
       <div class="row d-flex justify-content-center">
         <div class="col-8 my-3">
           <div class="card" style="width: 100%;">
@@ -106,7 +108,7 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add user to organization</h5>
+            <h5 class="modal-title">Assign user to organization</h5>
           </div>
           <form th:action="@{/assignOrganisations}" method="POST">
             <div class="modal-body">
@@ -116,8 +118,7 @@
               <th:block th:each="organisation: ${organisations}">
                 <div class="row mx-2 form-check">
                   <input class="form-check-input" type="checkbox" name="assignedOrganisations"
-                    th:value="${organisation.value0.id}" id="flexCheckChecked"
-                    th:checked="${organisation.value1}">
+                    th:value="${organisation.value0.id}" id="flexCheckChecked" th:checked="${organisation.value1}">
                   <label th:text="${organisation.value0.name}" class="form-check-label" for="flexCheckChecked">
                     Checked checkbox
                   </label>
@@ -135,20 +136,10 @@
 
   </section>
 
-  <script>
 
-
-    $(document).ready(function () {
-      $("#menu-toggle").css("display", "block")
-      $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#container-sidebar-wrapper").toggleClass("toggled");
-      });
-
-    })
-
-
-  </script>
+  <th:block id="script">
+    <script th:src="@{/static/templates/user.js}"></script>
+  </th:block>
 
 </body>
 

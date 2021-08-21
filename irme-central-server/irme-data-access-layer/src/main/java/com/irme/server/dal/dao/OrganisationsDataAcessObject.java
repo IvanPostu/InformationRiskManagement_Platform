@@ -21,12 +21,13 @@ public abstract class OrganisationsDataAcessObject extends BaseDataAccessObject 
     public abstract List<Pair<OrganisationDto, Boolean>> selectAllOrganisationsWithRelatedToTheUser(
             int userId) throws DataAccessLayerException;
 
+    public abstract List<OrganisationDto> selectAllOrganisations() throws DataAccessLayerException;
+
     public abstract boolean insertOrganisation(OrganisationDto organisation)
             throws DataAccessLayerException;
 
 
-    public boolean reassignUserToOrganisations(int userId, int[] organisationsIds) {
+    public abstract boolean reassignUserToOrganisations(int userId, int[] organisationsIds)
+            throws DataAccessLayerException;
 
-        return true;
-    }
 }

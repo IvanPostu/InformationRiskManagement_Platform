@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDataAccessObjectImpl extends BaseDataAccessObject implements UserDataAccessObject {
+public class UserDataAccessObjectImpl extends UserDataAccessObject {
 
     public UserDataAccessObjectImpl(DataSource dataSource) throws Exception {
         super(dataSource);
