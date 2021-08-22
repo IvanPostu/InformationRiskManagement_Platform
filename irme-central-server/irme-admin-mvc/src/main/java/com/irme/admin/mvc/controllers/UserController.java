@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping({"/assignOrganisations"})
-    public String assignUserTo(
+    public String assignUserToOrganisations(
             @RequestParam(required = true) int[] assignedOrganisations,
             @RequestParam(required = true) int userId,
             Map<String, Object> model) {

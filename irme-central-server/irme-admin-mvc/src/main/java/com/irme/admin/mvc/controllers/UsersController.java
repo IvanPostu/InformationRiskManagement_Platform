@@ -7,10 +7,10 @@ import java.util.Map;
 
 @Controller
 public class UsersController {
+
     @GetMapping({"/users"})
     public ModelAndView usersPage(Map<String, Object> model) {
         return new ModelAndView("users", model);
     }
-
 
 }
