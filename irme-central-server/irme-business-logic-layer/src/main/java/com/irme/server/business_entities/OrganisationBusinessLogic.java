@@ -51,4 +51,16 @@ public class OrganisationBusinessLogic implements BusinessLogicEntity {
         return assignedWithSuccess;
     }
 
+    public boolean saveOrganisation(OrganisationDto organisation) {
+        boolean result = false;
+
+        try {
+            result = organisationsDataAcessObject.insertOrganisation(organisation);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+        }
+
+        return result;
+    }
+
 }
