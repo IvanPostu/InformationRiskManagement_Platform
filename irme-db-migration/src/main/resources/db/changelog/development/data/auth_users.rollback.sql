@@ -12,6 +12,7 @@ BEGIN TRANSACTION
 		'w1@mail.ru', 
 		'e1@mail.ru', 
 		'r1@mail.ru'
+    -- 'admin@mail.ru'
 	)
 	SET @users_ids = SUBSTRING(@users_ids, 0, LEN(@users_ids)) 
 	DECLARE @delete_query NVARCHAR(MAX) = CONCAT(

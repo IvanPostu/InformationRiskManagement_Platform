@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class UserBusinessLogic implements BusinessLogicEntity {
@@ -53,7 +54,7 @@ public class UserBusinessLogic implements BusinessLogicEntity {
         return true;
     }
 
-    public List<AuthUserDto> searchUsersByEmail(String emailKeyword) {
+    public List<AuthUserDto> getUsersByEmail(String emailKeyword) {
         final int USERS_COUNT_LIMIT = 20;
         List<AuthUserDto> result;
 
@@ -65,6 +66,19 @@ public class UserBusinessLogic implements BusinessLogicEntity {
         }
 
         return result;
+    }
+
+    public AuthUserDto getUserByEmail(String email) {
+        Optional<AuthUserDto> result;
+
+        try {
+            result = userDataAccessObject.selectUserByEmail(email);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            result = null;
+        }
+
+        return result.get();
     }
 
 }

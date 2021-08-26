@@ -40,7 +40,7 @@
                 th:text="${#authentication.getPrincipal().getUsername()}">Profile</span> </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
 
-              <a href="#" class="dropdown-item">My account</a>
+              <a th:href="@{/user?userEmail=} + ${#authentication.getPrincipal().getUsername()}" class="dropdown-item">My account</a>
 
               <form id="logoutSubmitId" class="d-none" th:action="@{/logout}" method="POST">
               </form>
@@ -62,14 +62,14 @@
             </a>
           </li>
           <li>
-            <a th:href="@{/users}">Organisations
+            <a th:href="@{/organisations}">Organisations
             </a>
           </li>
           <li>
             <a th:href="@{/users}">Users</a>
           </li>
           <li>
-            <a th:href="@{/users}">Security assessments</a>
+            <a th:href="@{/securityAssessments}">Security assessments</a>
           </li>
         </ul>
       </div>

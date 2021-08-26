@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -25,22 +26,39 @@ public class UserController {
 
     @GetMapping({"/user"})
     public ModelAndView userPage(
-            @RequestParam("userId") Integer userId,
+            @RequestParam(value = "userId", required = false) Optional<Integer> userId,
+            @RequestParam(value = "userEmail", required = false) Optional<String> userEmail,
             Map<String, Object> model) {
 
-        AuthUserDto user = userBusinessLogic.getUserById(userId);
-        List<Pair<OrganisationDto, Boolean>> organisations = organisationBusinessLogic
-                .selectAllOrganisationsIncludingRelatedToTheUser(userId);
+        Optional<AuthUserDto> user = Optional.ofNullable(null);
 
-        if (user == null || organisations == null) {
+        if (userId.isPresent()) {
+            user = Optional.ofNullable(userBusinessLogic.getUserById(userId.get()));
+        } else {
+            if (userEmail.isPresent()) {
+                user = Optional.ofNullable(userBusinessLogic.getUserByEmail(userEmail.get()));
+            }
+        }
+
+        try {
+            int extractedUserId = user.orElseThrow(() -> new RuntimeException()).getId();
+
+            List<Pair<OrganisationDto, Boolean>> organisations = organisationBusinessLogic
+                    .selectAllOrganisationsIncludingRelatedToTheUser(extractedUserId);
+
+            if (organisations == null) {
+                return new ModelAndView("error");
+            }
+
+            model.put("organisations", organisations);
+            model.put("user", user.get());
+            model.put("userId", extractedUserId);
+
+            return new ModelAndView("user", model);
+        } catch (Exception e) {
             return new ModelAndView("error");
         }
 
-        model.put("organisations", organisations);
-        model.put("user", user);
-        model.put("userId", userId);
-
-        return new ModelAndView("user", model);
     }
 
     @PostMapping({"/assignOrganisations"})

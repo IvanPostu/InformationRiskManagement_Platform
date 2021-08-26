@@ -19,7 +19,7 @@ GO;
     'QWE Integrator',
     'IT Solutions',
     'QWE Enterprise',
-    'B2B Solutions',
+    'B2B Solutions'
   );
 
 GO;

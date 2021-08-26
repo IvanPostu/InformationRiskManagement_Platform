@@ -81,7 +81,7 @@ public class UsersApiController {
     public ResponseEntity<List<Pair<Integer, String>>> searchByEmail(
             @RequestParam(name = "emailKeyword") String emailKeyword) {
         List<AuthUserDto> users = userBusinessLogic
-                .searchUsersByEmail(emailKeyword);
+                .getUsersByEmail(emailKeyword);
 
         List<Pair<Integer, String>> resultList = users
                 .stream()
