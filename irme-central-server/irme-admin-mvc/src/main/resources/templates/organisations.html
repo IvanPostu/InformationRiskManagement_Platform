@@ -22,7 +22,6 @@
         class="my-3 collapse multi-collapse card card-body" id="createOrganisationCollapseID">
         <input name="base64logo" type="hidden" class="form-control" id="base64logoHiddenId" />
 
-
         <div class="row">
 
           <div class="col">
@@ -43,7 +42,7 @@
             <div class="form-group">
               <label for="userEmail">Logo:</label>
               <div class="custom-file">
-                <input id="logoFileInputId"type="file" class="custom-file-input">
+                <input id="logoFileInputId" type="file" class="custom-file-input">
                 <label class="custom-file-label">Choose file</label>
               </div>
             </div>
@@ -58,57 +57,19 @@
 
 
 
+      <div th:each="orgsArr : ${partitionedOrganisationsList}" class="card-deck row mt-3">
 
-      <div class="card-deck row ">
-        <div class="card">
-          <img class="card-img-top" th:src="@{/static/noOrganisationLogo.jpg}" alt="Card image cap">
+        <div th:each="organisation : ${orgsArr}" class="card">
+          <img th:if="${organisation.base64ImageLogo == null} or ${organisation.base64ImageLogo == ''}" class="card-img-top" th:src="@{/static/noOrganisationLogo.jpg}" alt="Card image cap">
+          <img th:unless="${organisation.base64ImageLogo == null} or ${organisation.base64ImageLogo == ''}" class="card-img-top" th:src="${organisation.base64ImageLogo}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-
+            <h5 th:text="${organisation.name}" class="card-title"></h5>
+            <p th:text="${organisation.description}" class="card-text"></p>
+            <p class="card-text"><small th:text="${#dates.format(organisation.created, 'dd-MMM-yyyy')}" class="text-muted"></small></p>
             <a href="#" class="btn btn-primary">Info</a>
           </div>
         </div>
-        <div class="card">
-          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
 
-      </div>
-
-
-      <div class="card-deck row mt-3">
-        <div class="card">
-          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
       </div>
 
     </div>

@@ -22,6 +22,19 @@ public class OrganisationBusinessLogic implements BusinessLogicEntity {
                 .createDataAccessObject(OrganisationsDataAcessObjectImpl.class);
     }
 
+    public List<OrganisationDto> selectAllOrganisations() throws BusinessLogicException {
+        try {
+            List<OrganisationDto> result = organisationsDataAcessObject
+                    .selectAllOrganisations();
+
+            return result;
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            throw new BusinessLogicException("selectAllOrganisations BLL method caused an error",
+                    e);
+        }
+    }
+
     public List<Pair<OrganisationDto, Boolean>> selectAllOrganisationsIncludingRelatedToTheUser(
             int userId) {
 
