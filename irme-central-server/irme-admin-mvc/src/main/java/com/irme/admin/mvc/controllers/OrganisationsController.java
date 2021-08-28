@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class OrganisationsController {
@@ -23,9 +25,27 @@ public class OrganisationsController {
     @Autowired
     private OrganisationBusinessLogic organisationBusinessLogic;
 
+    @GetMapping({"/organisation/{organisationId}"})
+    public ModelAndView organisationInfo(@PathVariable(required = true) Integer organisationId,
+            Map<String, Object> model) {
+
+
+        try {
+            Optional<OrganisationDto> organisationDto = organisationBusinessLogic
+                    .getOrganisationById(organisationId);
+
+            model.put("organisation", organisationDto.orElseThrow(() -> new Exception()));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return new ModelAndView("error");
+        }
+
+        return new ModelAndView("organisation", model);
+    }
 
     @GetMapping({"/organisations"})
     public ModelAndView organisations(Map<String, Object> model) {
+
         List<OrganisationDto> organisations;
 
         try {
@@ -80,13 +100,17 @@ public class OrganisationsController {
     }
 
     @PostMapping({"/organisations/addOrganisation"})
-    public String addOrganisation(
+    public String saveOrganisation(
+            @RequestParam(required = false) Integer organisationId,
             @RequestParam String name,
             @RequestParam String description,
             @RequestParam(value = "base64logo") String logo,
             Map<String, Object> model) {
 
+
+
         OrganisationDto organisation = new OrganisationDto();
+        organisation.setId(organisationId);
         organisation.setBase64ImageLogo(logo);
         organisation.setName(name);
         organisation.setDescription(description);
@@ -97,6 +121,7 @@ public class OrganisationsController {
         return isSuccess
                 ? String.valueOf("redirect:/organisations?createdSuccessfully=1")
                 : String.valueOf("redirect:/organisations?createdSuccessfully=0");
+
     }
 
 }

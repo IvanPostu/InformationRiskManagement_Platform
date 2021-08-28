@@ -17,6 +17,22 @@ public class OrganisationsDataAcessObjectImplTest extends _BaseDataAccessObjectT
 
     @Tag(value = "DAL")
     @Test
+    public void selectOrganisationByIdTest() throws Exception {
+        OrganisationsDataAcessObject dao = daoFactory.createDataAccessObject(
+                OrganisationsDataAcessObjectImpl.class);
+
+        List<OrganisationDto> organisations = dao
+                .selectAllOrganisations();
+
+        OrganisationDto selectedOrganisationById = dao
+                .selectOrganisationById(organisations.get(0).getId());
+
+        Assertions.assertNotNull(selectedOrganisationById);
+        Assertions.assertEquals(selectedOrganisationById.getId(), organisations.get(0).getId());
+    }
+
+    @Tag(value = "DAL")
+    @Test
     public void selectAllOrganisationsIncludingRelatedToTheUserTest() throws Exception {
         OrganisationsDataAcessObject dao = daoFactory.createDataAccessObject(
                 OrganisationsDataAcessObjectImpl.class);
@@ -43,15 +59,13 @@ public class OrganisationsDataAcessObjectImplTest extends _BaseDataAccessObjectT
 
     @Tag(value = "DAL")
     @Test
-    public void insertOrganisationTest() throws Exception {
+    public void saveOrganisationTest() throws Exception {
         OrganisationsDataAcessObject dao = daoFactory.createDataAccessObject(
                 OrganisationsDataAcessObjectImpl.class);
 
-
-        int insertedUserId = -1;
-
         try {
 
+            //Insert test
             OrganisationDto organisationDto = new OrganisationDto();
             organisationDto.setName("helloworld11");
             organisationDto.setBase64ImageLogo("qwe");
@@ -60,16 +74,21 @@ public class OrganisationsDataAcessObjectImplTest extends _BaseDataAccessObjectT
 
             dao.beginTransaction();
 
-            dao.insertOrganisation(organisationDto);
-            insertedUserId = organisationDto.getId();
-            Assertions.assertNotEquals(-1, insertedUserId);
+            dao.saveOrganisation(organisationDto);
+            Assertions.assertNotEquals(-1, organisationDto.getId());
 
-            dao.rollbackTransactionIfExists();
+            //Update test
+            organisationDto.setId(null);
+            organisationDto.setName("helloworld22");
+            organisationDto.setDescription("zzzz");
+            dao.saveOrganisation(organisationDto);
 
+            Assertions.assertNotEquals(1, organisationDto.getId());
 
         } catch (Exception e) {
             throw e;
         } finally {
+            dao.rollbackTransactionIfExists();
             dao.close();
         }
 

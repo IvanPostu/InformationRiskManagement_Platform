@@ -116,11 +116,11 @@
     </rollback>
   </changeSet>
 
-  <changeSet author="IvanPostu" id="organisation_insert">
-    <sqlFile path="organisation_insert.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="organisation_save">
+    <sqlFile path="organisation_save.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="organisation_insert.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="organisation_save.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet>
 
@@ -145,6 +145,14 @@
 
     <rollback>
       <sqlFile path="auth_users_by_email_keyword.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet>
+
+  <changeSet author="IvanPostu" id="organisation_get_by_id">
+    <sqlFile path="organisation_get_by_id.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="organisation_get_by_id.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet>
 

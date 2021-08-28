@@ -1,0 +1,152 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layouts/_mainLayout :: layout(~{::title}, 
+  ~{::section#pageID}, ~{::script} )}">
+
+
+<title>IRME - Admin application</title>
+
+<body>
+
+  <section id="pageID">
+    <div class="container">
+      <div class="w-100" style="height: 10px;"></div>
+      <div id="alertPlaceID"></div>
+
+      <div class="row d-flex justify-content-center">
+        <div class="col-8 my-3">
+          <div class="card" style="width: 100%;">
+            <h3 class="card-title text-center my-2">
+              <i class="fa fa-id-badge" aria-hidden="true"></i>
+              <span>Organisation info </span>
+              <span th:text="'#' + ${organisation.id}"></span>
+            </h3>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-3">
+                  <p>
+                    <b>Name: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${organisation.name}"></p>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">
+                  <p>
+                    <b>Description: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${organisation.description}"></p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">
+                  <p>
+                    <b>Logo: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <img th:if="${organisation.base64ImageLogo == null} or ${organisation.base64ImageLogo == ''}"
+                    class="w-50 card-img-top" th:src="@{/static/noOrganisationLogo.jpg}" alt="Card image cap">
+                  <img th:unless="${organisation.base64ImageLogo == null} or ${organisation.base64ImageLogo == ''}"
+                    class="w-50 card-img-top" th:src="${organisation.base64ImageLogo}" alt="Card image cap">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3">
+                  <p>
+                    <b>Created: </b>
+                  </p>
+                </div>
+                <div class="col">
+                  <p th:text="${#dates.format(organisation.created, 'dd-MMM-yyyy')}"></p>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <button data-toggle="modal" data-target="#myModal" type="button"
+                  class="btn btn-warning mx-3">Update</button>
+                <button type="button" class="btn btn-danger ">Delete</button>
+              </div>
+
+            </div>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Update organisation</h5>
+                  </div>
+                  <form th:action="@{/organisations/addOrganisation}" method="POST">
+                    <div class="modal-body">
+
+                      <input type="hidden" name="organisationId" th:value="${organisation.id}">
+
+                      <input th:value="${organisation.base64ImageLogo}" name="base64logo" type="hidden" class="form-control" id="base64logoHiddenId" />
+
+                      <div class="row">
+
+                        <div class="col">
+                          <div class="">
+                            <div class="form-group">
+                              <label for="userEmail">Name:</label>
+                              <input th:value="${organisation.name}" name="name" type="text" class="form-control" id="userEmail" placeholder="">
+                            </div>
+                            <div class="form-group">
+                              <label for="userFirstName">Description:</label>
+                              <input th:value="${organisation.description}" name="description" type="text" class="form-control" id="userFirstName"
+                                placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="userEmail">Logo:</label>
+                            <div class="custom-file">
+                              <input id="logoFileInputId" type="file" class="custom-file-input">
+                              <label class="custom-file-label">Choose file</label>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="userEmail">Logo preview:</label>
+                            <img id="logoPreviewId" th:src="${organisation.base64ImageLogo}" style="width: 150px; height: 150px;">
+                          </div>
+                        </div>
+                      </div>
+                      <div id="sumbitResultMessage" class="row mt-2 alert" role="alert"></div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+
+  <th:block id="script">
+    <script th:src="@{/static/templates/organisation.js}"></script>
+  </th:block>
+
+
+</body>
+
+
+</html>

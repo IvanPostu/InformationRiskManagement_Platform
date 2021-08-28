@@ -54,23 +54,27 @@ public class OrganisationsDataAcessObjectImpl extends OrganisationsDataAcessObje
     }
 
     @Override
-    public boolean insertOrganisation(OrganisationDto organisation)
+    public boolean saveOrganisation(OrganisationDto organisation)
             throws DataAccessLayerException {
 
-        String sql = "{ CALL dbo.organisation_insert(?, ?, ?, ?) }";
+        String sql = "{ CALL dbo.organisation_save(?, ?, ?, ?, ?) }";
         int insertedOrganisationId = -1;
+        boolean isInsert = organisation.getId() == null;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
 
-            statement.setString(1, organisation.getName());
-            statement.setString(2, organisation.getDescription());
-            statement.setString(3, organisation.getBase64ImageLogo());
-            statement.setInt(4, insertedOrganisationId);
-            statement.registerOutParameter(4, Types.INTEGER);
+            int id = isInsert ? -1 : organisation.getId();
+
+            statement.setInt(1, id);
+            statement.setString(2, organisation.getName());
+            statement.setString(3, organisation.getDescription());
+            statement.setString(4, organisation.getBase64ImageLogo());
+            statement.setInt(5, insertedOrganisationId);
+            statement.registerOutParameter(5, Types.INTEGER);
 
             statement.executeUpdate();
 
-            insertedOrganisationId = statement.getInt(4);
+            insertedOrganisationId = statement.getInt(5);
 
         } catch (SQLException ex) {
             throw new DataAccessLayerException(ex.getMessage(),
@@ -79,7 +83,9 @@ public class OrganisationsDataAcessObjectImpl extends OrganisationsDataAcessObje
         if (insertedOrganisationId == -1) {
             return Boolean.FALSE;
         } else {
-            organisation.setId(insertedOrganisationId);
+            if (isInsert) {
+                organisation.setId(insertedOrganisationId);
+            }
             return Boolean.TRUE;
         }
     }
@@ -123,6 +129,35 @@ public class OrganisationsDataAcessObjectImpl extends OrganisationsDataAcessObje
 
 
         return dbResult.stream().map(p -> p.getValue0()).collect(Collectors.toList());
+    }
+
+    @Override
+    public OrganisationDto selectOrganisationById(int id) throws DataAccessLayerException {
+        String sql = "{ CALL dbo.organisation_get_by_id(?) }";
+        OrganisationDto result = null;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, id);
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+
+                OrganisationDto dto = new OrganisationDto();
+                dto.setBase64ImageLogo(rs.getString("base64_logo"));
+                dto.setCreated(rs.getDate("created"));
+                dto.setDescription(rs.getString("description"));
+                dto.setName(rs.getString("name"));
+                dto.setId(rs.getInt("organisation_id"));
+
+                result = dto;
+            }
+
+
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
     }
 
 }

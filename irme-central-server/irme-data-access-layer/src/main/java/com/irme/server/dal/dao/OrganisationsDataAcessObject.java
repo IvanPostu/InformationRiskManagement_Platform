@@ -23,11 +23,12 @@ public abstract class OrganisationsDataAcessObject extends BaseDataAccessObject 
 
     public abstract List<OrganisationDto> selectAllOrganisations() throws DataAccessLayerException;
 
-    public abstract boolean insertOrganisation(OrganisationDto organisation)
+    public abstract boolean saveOrganisation(OrganisationDto organisation)
             throws DataAccessLayerException;
 
 
     public abstract boolean reassignUserToOrganisations(int userId, int[] organisationsIds)
             throws DataAccessLayerException;
 
+    public abstract OrganisationDto selectOrganisationById(int id) throws DataAccessLayerException;
 }

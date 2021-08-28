@@ -26,7 +26,6 @@ jQuery(function () {
       $("#logoPreviewId").attr('src', b64)
       $("#base64logoHiddenId").val(b64)
 
-      console.log($("#base64logoHiddenId").val())
     })
   });
 

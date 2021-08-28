@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.javatuples.Pair;
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class OrganisationBusinessLogic implements BusinessLogicEntity {
@@ -20,6 +21,21 @@ public class OrganisationBusinessLogic implements BusinessLogicEntity {
 
         organisationsDataAcessObject = daoFactory
                 .createDataAccessObject(OrganisationsDataAcessObjectImpl.class);
+    }
+
+    public Optional<OrganisationDto> getOrganisationById(int organisationId)
+            throws BusinessLogicException {
+        OrganisationDto result;
+
+        try {
+            result = organisationsDataAcessObject
+                    .selectOrganisationById(organisationId);
+            return Optional.ofNullable(result);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            throw new BusinessLogicException("getOrganisationById BLL method caused an error",
+                    e);
+        }
     }
 
     public List<OrganisationDto> selectAllOrganisations() throws BusinessLogicException {
@@ -68,7 +84,7 @@ public class OrganisationBusinessLogic implements BusinessLogicEntity {
         boolean result = false;
 
         try {
-            result = organisationsDataAcessObject.insertOrganisation(organisation);
+            result = organisationsDataAcessObject.saveOrganisation(organisation);
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
         }

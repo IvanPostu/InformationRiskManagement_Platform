@@ -66,7 +66,7 @@
             <h5 th:text="${organisation.name}" class="card-title"></h5>
             <p th:text="${organisation.description}" class="card-text"></p>
             <p class="card-text"><small th:text="${#dates.format(organisation.created, 'dd-MMM-yyyy')}" class="text-muted"></small></p>
-            <a href="#" class="btn btn-primary">Info</a>
+            <a th:href="@{/organisation/} + ${organisation.id}" class="btn btn-primary">Info</a>
           </div>
         </div>
 

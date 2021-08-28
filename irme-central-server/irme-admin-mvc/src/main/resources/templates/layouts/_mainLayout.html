@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:replace="${title}">Admin application</title>
 
-  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+  <link th:href="@{/images/favicon.ico}" rel="icon" type="image/ico" />
 
-  <link href="webjars/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="webjars/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="static/mainSidebar.css" rel="stylesheet" />
-  <link href="static/index.css" rel="stylesheet" />
+  <link th:href="@{/webjars/fontawesome/4.7.0/css/font-awesome.min.css}" rel="stylesheet" />
+  <link th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/static/mainSidebar.css}" rel="stylesheet" />
+  <link th:href="@{/static/index.css}" rel="stylesheet" />
 </head>
 
 <body>
