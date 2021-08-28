@@ -11,10 +11,11 @@ BEGIN TRANSACTION
 		'q1@mail.ru', 
 		'w1@mail.ru', 
 		'e1@mail.ru', 
-		'r1@mail.ru'
-    -- 'admin@mail.ru'
+		'r1@mail.ru',
+    'admin@mail.ru'
 	)
 	SET @users_ids = SUBSTRING(@users_ids, 0, LEN(@users_ids)) 
+	
 	DECLARE @delete_query NVARCHAR(MAX) = CONCAT(
 		'DELETE FROM dbo.auth_user_roles WHERE auth_user_id IN (',
 			@users_ids,
@@ -27,6 +28,11 @@ BEGIN TRANSACTION
 		')'
 	);
 	
-	EXECUTE (@delete_query);
+	IF LEN(@users_ids) > 0
+	BEGIN
+		EXECUTE sp_executesql @delete_query;
+	END
+		
 COMMIT TRANSACTION
+
 

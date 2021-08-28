@@ -1,4 +1,7 @@
 
+
+UPDATE auth_users_info SET country_code = NULL;
+
 DELETE FROM [dbo].[countries] WHERE country_code IN
 (
   'AD',
