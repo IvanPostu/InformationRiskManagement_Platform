@@ -103,3 +103,15 @@ EXECUTE dbo.auth_user_with_info_add
   'IMG04',
   @z OUTPUT;
 
+EXECUTE dbo.auth_user_with_info_add
+	'admin@mail.ru', 
+	'123456', 
+	'ACTIVE', 
+	'ROLE_ADMIN;ROLE_USER;ROLE_DEV;', 
+	';', 
+	'Misha', 
+	'Apple', 
+	'068888888', 
+	'MD',
+  'IMG04',
+  @z OUTPUT;
