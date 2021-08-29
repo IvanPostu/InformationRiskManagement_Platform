@@ -1,0 +1,10 @@
+{
+    "compilerOptions":
+    {
+        "rootDirs": [
+            "./irme-client-desktop"
+        ]
+    },
+    "include": ["irme-client-desktop/**/*.ts"],
+    "exclude": ["node_modules"],
+}

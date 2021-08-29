@@ -1,0 +1,56 @@
+{
+  "name": "information-risk-management-expert-client-desktop",
+  "private": true,
+  "version": "0.1.1",
+  "description": "",
+  "main": "build/electron/main.js",
+  "build": {
+    "applicationName": "Information Risk Management Expert",
+    "applicationShortName": "IRME",
+    "appId": "university.project"
+  },
+  "scripts": {
+    "electron-build": "webpack --config webpack-configurations/webpack.electron.js",
+    "app-build": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e production webpack --config webpack-configurations/webpack.app.js",
+    "start": "./node_modules/.bin/electron ./build/electron/main.js --enable-loging --remote-debugging-port=9222 --development-mode",
+    "dev": "./node_modules/.bin/env-cmd -f ./.env-cmdrc.json -e development webpack serve --config webpack-configurations/webpack.app.js",
+    "package:linux": "electron-packager . --overwrite --platform=linux --arch=x64 --out=out"
+  },
+  "author": "IvanPostu",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.19",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/react-select": "^4.0.17",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^6.2.0",
+    "electron": "^13.2.3",
+    "electron-packager": "^15.3.0",
+    "env-cmd": "^10.1.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.2.0",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.2",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  },
+  "dependencies": {
+    "@fontsource/open-sans": "^4.5.0",
+    "mobx": "^6.3.2",
+    "mobx-react": "^7.2.0",
+    "nanoid": "^3.1.25",
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
+    "react-icons": "^4.2.0",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.2.1",
+    "react-select": "^4.3.1"
+  }
+}

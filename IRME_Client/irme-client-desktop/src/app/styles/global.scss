@@ -1,0 +1,57 @@
+@import '/node_modules/@fontsource/open-sans/index.css';
+
+body {
+    font-family: 'Open Sans';
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Open Sans';
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+a {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    text-decoration: none;
+}
+
+a:hover {
+    opacity: 0.82;
+}
+
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+select {
+    outline: none;
+}
+
+#root {
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+
+    background-image:
+        linear-gradient(0deg, rgb(143, 229, 222), #7f8fa6);
+    background-size: cover;
+}
+
+ul {
+    list-style: none;
+}
