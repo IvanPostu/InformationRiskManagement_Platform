@@ -13,11 +13,11 @@ BEGIN TRY
     DECLARE @questions_answers_id INTEGER = NULL;
 	DECLARE @answer_id INTEGER = (
 		SELECT TOP 1
-			id
+			answer_id
 		FROM
-			security_assessment_answers
+			sa__answers
 		WHERE
-			answer = answer_text_param
+			answer = @answer_text_param
 	);
 
     BEGIN TRANSACTION @transaction_name;

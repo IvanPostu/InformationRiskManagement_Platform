@@ -1,31 +1,8 @@
 {
   "folders": [
     {
-      "path": "BashScripts"
-    },
-    {
-      "path": "cypress-automation-tests"
-    },
-    {
-      "path": "irme-central-server"
-    },
-    {
-      "path": "irme-db-migration"
-    },
-    {
-      "path": "docker-mssql-dev"
-    },
-    {
-      "path": "docker-jenkins"
-    },
-    {
-      "path": "development-only"
-    },
-    {
-      "path": "docker-environments"
-    },
-    {
-      "path": "irme-client-desktop"
+      "path": "./",
+      "name": ".root"
     }
   ],
   "settings": {
@@ -78,9 +55,7 @@
       "**/node_modules/*/**": true,
       "**/build/*/**": true
     },
-    "editor.rulers": [
-      120
-    ],
+    "editor.rulers": [120],
     "editor.wordWrapColumn": 120,
     "explorer.decorations.colors": true, //displays no colors
     "editor.wordWrap": "wordWrapColumn",
@@ -139,7 +114,7 @@
         "source.organizeImports": true
       }
     },
-   
+
     // "[js,ts]": {
     //   "editor.suggest.insertMode": "replace",
     //   "editor.tabSize": 4,
@@ -157,22 +132,15 @@
     "[sh]": {
       "editor.suggest.insertMode": "replace",
       "editor.tabSize": 4,
-      "editor.formatOnSave": true,
+      "editor.formatOnSave": true
     },
     "java.format.settings.profile": "IvanJavaCodeStyle",
     "java.format.settings.url": "../Ivan_JavaCodeStyle.xml",
     "java.configuration.updateBuildConfiguration": "disabled",
     "java.dependency.syncWithFolderExplorer": false,
     "java.referencesCodeLens.enabled": true,
-    "java.project.sourcePaths": [
-     
-    ],
-    "java.completion.importOrder": [
-      "",
-      "javax",
-      "java",
-      "#"
-    ],
+    "java.project.sourcePaths": [],
+    "java.completion.importOrder": ["", "javax", "java", "#"],
     // "java.home": "/usr/lib/jvm/java-11-openjdk",
     // Shift + P -> Configure Java runtime
     "java.home": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot",
@@ -180,12 +148,12 @@
       {
         "default": true,
         "name": "JavaSE-1.8",
-        "path": "C:/Program Files/AdoptOpenJDK/jdk-8.0.292.10-hotspot",
+        "path": "C:/Program Files/AdoptOpenJDK/jdk-8.0.292.10-hotspot"
         // "path": "/usr/lib/jvm/java-8-openjdk"
       },
       {
         "name": "JavaSE-11",
-        "path": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot",
+        "path": "C:/Program Files/AdoptOpenJDK/jdk-11.0.11.9-hotspot"
         // "path": "/usr/lib/jvm/java-11-openjdk"
       }
     ],
@@ -201,6 +169,29 @@
       "vscjava.vscode-java-pack",
       "redhat.java",
       "gabrielbb.vscode-lombok"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "projectName": "irme-web-application",
+        "type": "java",
+        "name": "Debug (Attach) Webapp",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 5005
+        // 4000 - admin, 5005 - webapp
+      },
+    //   {
+    //     "projectName": "irme-admin-mvc",
+    //     "type": "java",
+    //     "name": "Debug (Attach) Admin MVC",
+    //     "request": "attach",
+    //     "hostName": "localhost",
+    //     "port": 4000
+    //     // 4000 - admin, 5005 - webapp
+    //   }
     ]
   }
 }

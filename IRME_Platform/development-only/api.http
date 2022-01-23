@@ -1,6 +1,6 @@
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_zxc1
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0MjcwNSwiZXhwIjoxNjQyOTQ2MzA1fQ.X8uPyA46HKTmKkgWr2WXMMLOnpFcOl-r_fLEDrmZ92s
 X-REQUEST-TYPE: GraphQL
 
 mutation {
@@ -12,7 +12,7 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3QG1haWwucnUiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTYyMTc4NzA5MiwiZXhwIjoxNjIxNzkwNjkyfQ.eMy51fyZ8zhpmuAacYRAGiCYK84Co1kJyKzO06yUAu4
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0MjcwNSwiZXhwIjoxNjQyOTQ2MzA1fQ.X8uPyA46HKTmKkgWr2WXMMLOnpFcOl-r_fLEDrmZ92s
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -26,7 +26,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJxQG1haWwucnUiLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNjIxNzc2NzEwLCJleHAiOjE2MjE3ODAzMTB9.125e6kawIT32F96wcE6ev8TURuBkkec9sYoo15jWx7xY
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0MjcwNSwiZXhwIjoxNjQyOTQ2MzA1fQ.X8uPyA46HKTmKkgWr2WXMMLOnpFcOl-r_fLEDrmZ92s
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -38,13 +38,16 @@ query {
     }
 }
 
+
+
+
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer xxx
+Authorization: null
 X-REQUEST-TYPE: GraphQL
 
 query {
-    authUser(email: "w@mail.ru", password: "wer")
+    authUser(email: "admin@mail.ru", password: "12345")
     {
         email,
         token
@@ -65,4 +68,21 @@ content-type: application/json
     "time": "Wed, 21 Oct 2015 18:27:50 GMT"
 }
 
+
+
+
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0NjQyMiwiZXhwIjoxNjQyOTUwMDIyfQ.ByFY35GgGwYmGZGxkScG64Zh6hKT-wO_ypeBrlfKxNk
+X-REQUEST-TYPE: GraphQL
+
+query {
+    userInfo(userId: 2)
+    {
+        email,
+        roles
+    }
+}
 

@@ -1,15 +1,20 @@
 package com.irme.server.webapp.jwt;
 
 
+import com.irme.common.dto.AuthUserDto;
+import com.irme.server.business_entities.UserBusinessLogic;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
@@ -29,6 +34,8 @@ public class JwtTokenProvider {
     @Value("${jwt.token.expired}")
     private long validityInMilliseconds;
 
+    @Autowired
+    private UserBusinessLogic userBusinessLogic;
 
     @SuppressWarnings({"deprecation"})
     @Bean
@@ -52,18 +59,26 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(validity)
-                .signWith(SignatureAlgorithm.HS256, secret).compact();
+        String token = Jwts
+                .builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+
+        return token;
     }
 
     public Authentication generateAuthentication(String token) {
-        // String userName = getUsername(token);
-        // UserDto user = null;//userDAL.selectUserByEmail(userName).orElse(null);
-        // UserDetails userDetails = null;//JwtUserFactory.createJWTUser(user);
-        // return new UsernamePasswordAuthenticationToken(userDetails, "",
-        //         userDetails.getAuthorities());
 
-        return null;
+        String userName = getUsername(token);
+        AuthUserDto user = userBusinessLogic.getUserByEmail(userName);
+        UserDetails userDetails = JwtUserFactory.createJWTUser(user);
+        Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, "",
+                userDetails.getAuthorities());
+
+        return auth;
     }
 
     public String getUsername(String token) {

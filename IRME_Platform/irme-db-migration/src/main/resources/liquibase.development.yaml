@@ -1,8 +1,11 @@
 contexts: development,common
 changeLogFile: db/changelog/changelog-master.xml
-url: jdbc:sqlserver://ivan-pc:1433;databaseName=InformationRiskManagementDatabase;
-username: MigrationUserLogin
-password: qwYertyZ_654321
+# url: jdbc:sqlserver://ivan-pc:1433;databaseName=InformationRiskManagementDatabase;
+# username: MigrationUserLogin
+# password: qwYertyZ_654321
+url: jdbc:sqlserver://localhost:1433;databaseName=InformationRiskManagementDatabase;
+username: sa
+password: 123456
 driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
 verbose: true
 logging: debug

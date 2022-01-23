@@ -12,7 +12,7 @@ public class VehicleMutation implements GraphQLMutationResolver {
     @Autowired
     private VehicleService vehicleService;
 
-    @PreAuthorize("isAnonymous()")
+    @PreAuthorize("!isAnonymous()")
     public VehicleResultDAO createVehicle(final String type, final String modelCode,
             final String brandName, final String launchDate) {
         return this.vehicleService.createVehicle(type, modelCode, brandName, launchDate);

@@ -8,6 +8,22 @@ type VehicleResult {
 	launchDate: String
 }
 
+type UserDataResult {
+
+    id: Int,
+    email: String,
+    banned: Boolean,
+    status: String,
+    firstName: String,
+    lastName: String,
+    created: String,
+    phone: String,
+    countryCode: String,
+    roles: [String],
+    base64Picture: String
+
+}
+
 type AuthResult {
 	email: String,
 	token: String

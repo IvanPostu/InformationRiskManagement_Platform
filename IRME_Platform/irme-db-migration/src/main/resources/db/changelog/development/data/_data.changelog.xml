@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
 
-  <changeSet author="IvanPostu" id="auth_user_roles">
+  <!-- <changeSet author="IvanPostu" id="auth_user_roles">
     <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     <rollback>
       <sqlFile path="auth_user_roles.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
@@ -23,6 +23,6 @@
     <rollback>
       <sqlFile path="organisations.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
-  </changeSet>
+  </changeSet> -->
 
 </databaseChangeLog>
