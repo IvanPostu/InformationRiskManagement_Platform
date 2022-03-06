@@ -12,7 +12,7 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0MjcwNSwiZXhwIjoxNjQyOTQ2MzA1fQ.X8uPyA46HKTmKkgWr2WXMMLOnpFcOl-r_fLEDrmZ92s
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU2MzI2MCwiZXhwIjoxNjQ2NTY2ODYwfQ.MgQEUagZZIUc_T1udNtSeJ28YOsZY5ZOA9HJW5bmlFk
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -75,7 +75,7 @@ content-type: application/json
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0Mjk0NjQyMiwiZXhwIjoxNjQyOTUwMDIyfQ.ByFY35GgGwYmGZGxkScG64Zh6hKT-wO_ypeBrlfKxNk
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU2ODM2OCwiZXhwIjoxNjQ2NTcxOTY4fQ.hcO37yH8c8sUHs2KuWptrlW6BXIltNr3t1rWuXRneR0
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -83,6 +83,24 @@ query {
     {
         email,
         roles
+    }
+}
+
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU2OTIwMCwiZXhwIjoxNjQ2NTcyODAwfQ.FnfHm_Q10dQBFTRLWvUITOlNgHJ956qs6MV5-Ca4YaE
+X-REQUEST-TYPE: GraphQL
+
+query {
+    userOrganisations
+    {
+        id,
+        name,
+        description,
+        created,
+        base64ImageLogo,
     }
 }
 

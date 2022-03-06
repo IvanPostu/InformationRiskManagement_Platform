@@ -1,6 +1,5 @@
 extend type Query {
 	vehicles(count: Int, s: String):[VehicleResult]
-	userInfo(userId: Int):UserDataResult
 
 }
 

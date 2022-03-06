@@ -29,10 +29,19 @@ type AuthResult {
 	token: String
 }
 
+type Organisation {
+    id: Int,
+    name: String,
+    description: String,
+    created: String,
+    base64ImageLogo: String 
+}
+
 
 type Query {
-	vehicle(id: ID):VehicleResult
+	vehicle(id: ID): VehicleResult
     authUser(email: String, password: String):AuthResult
+    userOrganisations: [Organisation]
 }
 
 type Mutation {
