@@ -24,7 +24,7 @@ context('Login account', () => {
     cy.fixture('irme_admin_mvc/loginData.json').then(data => {
       cy.irme_admin_mvc__login(data.validUsername, data.validPassword)
       
-      cy.url().should('eq', location.origin + '/home')
+      cy.url().should('eq', location.origin + '/organisations')
       
       cy.getCookies().should((cookies) => {
         expect(cookies[0].name).equal('JSESSIONID')
