@@ -1,14 +1,14 @@
 
 
 CREATE OR ALTER PROCEDURE [dbo].[sa_insert_question] 
-    @category_name                          VARCHAR(256),
-  	@question                               VARCHAR(1024),
+    @category_name                          NVARCHAR(256),
+  	@question                               NVARCHAR(1024),
   	@question_has_multiple_answers          BIT,
     @depends_on_inserted_question_answer_id INTEGER, -- CAN BE NULL
     @last_inserted_question_id              INTEGER OUTPUT
 AS
 BEGIN TRY
-    DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+    DECLARE @transaction_name NVARCHAR(12) = 'transq_001';
     DECLARE @category_id INTEGER = (
 	    SELECT TOP 1
 	        category_id

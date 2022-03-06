@@ -1,13 +1,13 @@
 
 CREATE PROCEDURE [dbo].[organisation_save]
   @organisationId             INTEGER,
-	@name  				              VARCHAR(256),
-  @description  		    	    VARCHAR(512),
-  @base64_picture  			      VARCHAR(MAX),
+	@name  				              NVARCHAR(256),
+  @description  		    	    NVARCHAR(512),
+  @base64_picture  			      NVARCHAR(MAX),
   @inserted_organisation_id  	INTEGER OUTPUT
 AS
 BEGIN TRY
-	DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+	DECLARE @transaction_name NVARCHAR(12) = 'transq_001';
 	SET @inserted_organisation_id = -1;
 
 	BEGIN TRANSACTION @transaction_name;

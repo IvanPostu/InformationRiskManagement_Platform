@@ -1,12 +1,12 @@
 
 CREATE OR ALTER PROCEDURE [dbo].[sa_insert_profile] 
-    @profile_name			  VARCHAR (128),
-    @profile_description      VARCHAR (1024),
-    @base64_logo              VARCHAR (MAX),
+    @profile_name			  NVARCHAR (128),
+    @profile_description      NVARCHAR (1024),
+    @base64_logo              NVARCHAR (MAX),
     @inserted_id              INTEGER OUTPUT
 AS
 BEGIN TRY
-    DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+    DECLARE @transaction_name NVARCHAR(12) = 'transq_001';
     BEGIN TRANSACTION @transaction_name;
         INSERT INTO [dbo].[sa__profiles] (
             [name],

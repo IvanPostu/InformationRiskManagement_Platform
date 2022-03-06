@@ -90,7 +90,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU2OTIwMCwiZXhwIjoxNjQ2NTcyODAwfQ.FnfHm_Q10dQBFTRLWvUITOlNgHJ956qs6MV5-Ca4YaE
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU3NDg2NCwiZXhwIjoxNjQ2NTc4NDY0fQ.xImSe1X6VF0BjsCELs7V5i6qXMnPXFt6bkCvmU69mdI
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -101,6 +101,20 @@ query {
         description,
         created,
         base64ImageLogo,
+    }
+}
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0NjU5NTIzOCwiZXhwIjoxNjQ2NTk4ODM4fQ.Av1iV_yK4e7BUWAJxNS0NZZWSiz-iBI0FtxuXxKVfOs
+X-REQUEST-TYPE: GraphQL
+
+query {
+    getSecurityAssessmentCategories
+    {
+        categroyId,
+        name,
+        description
     }
 }
 

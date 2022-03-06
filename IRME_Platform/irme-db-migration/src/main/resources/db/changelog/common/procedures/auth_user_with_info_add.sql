@@ -1,15 +1,15 @@
 
 CREATE OR ALTER PROCEDURE [dbo].[auth_user_with_info_add]
-    @email  				        VARCHAR(128),
-    @password_hash  		    VARCHAR(256),
-    @status  				        VARCHAR(32) ,
-    @roles					        VARCHAR(512),
+    @email  				        NVARCHAR(128),
+    @password_hash  		    NVARCHAR(256),
+    @status  				        NVARCHAR(32) ,
+    @roles					        NVARCHAR(512),
     @roles_split_separator	CHAR(1),
-    @first_name  			      VARCHAR(64),
-    @last_name  			      VARCHAR(64),
-    @phone  				        VARCHAR(30),
-    @country_code  			    VARCHAR(2),
-    @base64_picture  			  VARCHAR(MAX),
+    @first_name  			      NVARCHAR(64),
+    @last_name  			      NVARCHAR(64),
+    @phone  				        NVARCHAR(30),
+    @country_code  			    NVARCHAR(2),
+    @base64_picture  			  NVARCHAR(MAX),
     @inserted_auth_user_id  INTEGER OUTPUT
 AS
 BEGIN TRY  

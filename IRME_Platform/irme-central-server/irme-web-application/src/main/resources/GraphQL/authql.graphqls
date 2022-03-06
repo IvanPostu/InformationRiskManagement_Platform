@@ -37,6 +37,11 @@ type Organisation {
     base64ImageLogo: String 
 }
 
+type SACategory {
+    categroyId: Int,
+    name: String,
+    description: String
+}
 
 type Query {
 	vehicle(id: ID): VehicleResult

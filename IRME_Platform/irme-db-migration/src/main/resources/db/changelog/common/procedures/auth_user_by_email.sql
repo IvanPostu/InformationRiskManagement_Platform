@@ -1,10 +1,10 @@
 
 CREATE OR ALTER PROCEDURE [dbo].[auth_user_by_email]
-    @email VARCHAR(256)
+    @email nVARCHAR(256)
 AS
 BEGIN TRY  
 	SELECT TOP 1
-    au.auth_user_id,
+        au.auth_user_id,
 		au.email_address, 
 		au.password_hash, 
 		au.status,
@@ -13,7 +13,7 @@ BEGIN TRY
 		aui.create_date,
 		aui.phone,
 		aui.country_code,
-    aui.base64_picture,
+        aui.base64_picture,
 		(	
 			SELECT CAST(ar.role_name + ';' AS VARCHAR(MAX)) 
 			FROM dbo.auth_roles AS ar

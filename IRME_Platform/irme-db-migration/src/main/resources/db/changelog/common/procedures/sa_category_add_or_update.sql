@@ -1,14 +1,14 @@
 
 CREATE OR ALTER PROCEDURE [dbo].[sa_category_add_or_update]
     @category_id            INTEGER, -- IF IS NULL INSERT or else UPDATE 
-    @name  				    VARCHAR (256),
-    @description            VARCHAR (512),
-    @base64_logo            VARCHAR (MAX),
-    @status                 VARCHAR (32) = 'ACTIVE',
+    @name  				    NVARCHAR (256),
+    @description            NVARCHAR (512),
+    @base64_logo            NVARCHAR (MAX),
+    @status                 NVARCHAR (32) = 'ACTIVE',
     @inserted_category_id   INTEGER OUTPUT -- greater than 0 in success case
 AS
 BEGIN TRY  
-	DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+	DECLARE @transaction_name NVARCHAR(12) = 'transq_001';
     SET @inserted_category_id = -1;
 
 	BEGIN TRANSACTION @transaction_name

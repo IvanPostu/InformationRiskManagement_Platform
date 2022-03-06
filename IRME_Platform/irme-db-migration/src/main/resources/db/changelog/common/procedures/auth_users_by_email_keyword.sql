@@ -1,7 +1,7 @@
 
 
 CREATE PROCEDURE [dbo].[auth_users_by_email_keyword]
-    @email_keyword VARCHAR(256),
+    @email_keyword NVARCHAR(256),
     @rows_max_count INTEGER
 AS
 BEGIN TRY  

@@ -3,13 +3,13 @@
 CREATE OR ALTER PROCEDURE [dbo].[sa_insert_answer_and_description]
     @question_id INTEGER,
     @profile_id INTEGER,
-    @answer_text_param VARCHAR(1024),
-    @description_if_is_present_answer VARCHAR(4096),
-    @description_if_is_not_present_answer VARCHAR(4096),
+    @answer_text_param NVARCHAR(1024),
+    @description_if_is_present_answer NVARCHAR(4000),
+    @description_if_is_not_present_answer NVARCHAR(4000),
     @inserted_question_answer_id INTEGER OUTPUT
 AS
 BEGIN TRY
-    DECLARE @transaction_name VARCHAR(12) = 'transq_001';
+    DECLARE @transaction_name NVARCHAR(12) = 'transq_001';
     DECLARE @questions_answers_id INTEGER = NULL;
 	DECLARE @answer_id INTEGER = (
 		SELECT TOP 1
