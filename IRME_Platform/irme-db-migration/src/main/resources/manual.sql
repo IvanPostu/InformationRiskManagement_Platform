@@ -1,4 +1,17 @@
 
+
+
+-- CREATE DATABASE InformationRiskManagementDatabase;
+-- CREATE DATABASE InformationRiskManagementDatabase_Test;
+
+BEGIN
+    INSERT INTO sa__categories ([name], [description])
+    VALUES 
+    (N'Protecție perimetrală', ''),
+    (N'Verificarea autenticității', '');
+END
+BEGIN
+
 DECLARE @current_category NVARCHAR(MAX) = N'Protecție perimetrală';
 DECLARE @last_inserted_question_id INTEGER;
 
@@ -9,6 +22,8 @@ EXECUTE [dbo].[sa_insert_question]
     0,
     NULL,
     @last_inserted_question_id OUTPUT;
+
+END
 
 
 

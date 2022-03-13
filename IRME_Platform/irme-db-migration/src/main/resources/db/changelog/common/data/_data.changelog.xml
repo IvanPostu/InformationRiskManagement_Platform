@@ -3,23 +3,15 @@
 
 
   <changeSet author="IvanPostu" id="auth_user_roles">
-    <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    <sqlFile path="auth_user_roles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" encoding="utf8" />
   </changeSet>
 
   <changeSet author="IvanPostu" id="countries_data">
-    <sqlFile path="countries_data.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
-  </changeSet>
-
-  <changeSet author="IvanPostu" id="sa_categories">
-    <sqlFile path="sa_categories.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    <sqlFile path="countries_data.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" encoding="utf8" />
   </changeSet>
 
   <changeSet author="IvanPostu" id="sa_profiles">
-    <sqlFile path="sa_profiles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
-  </changeSet>
-
-  <changeSet author="IvanPostu" id="questions_answers_descriptions">
-    <sqlFile path="questions_answers_descriptions.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    <sqlFile path="sa_profiles.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" encoding="utf8" />
   </changeSet>
 
 </databaseChangeLog>
