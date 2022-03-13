@@ -6,6 +6,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sa_insert_answer_and_description]
     @answer_text_param NVARCHAR(1024),
     @description_if_is_present_answer NVARCHAR(4000),
     @description_if_is_not_present_answer NVARCHAR(4000),
+    @answer_weight INTEGER,
     @inserted_question_answer_id INTEGER OUTPUT
 AS
 BEGIN TRY
@@ -23,9 +24,9 @@ BEGIN TRY
     BEGIN TRANSACTION @transaction_name;
         IF (@answer_id IS NULL)
         BEGIN
-            INSERT INTO sa__answers (answer)
+            INSERT INTO sa__answers (answer, answer_weight)
                 VALUES
-            (@answer_text_param);
+            (@answer_text_param, @answer_weight);
 
             SET @answer_id=@@IDENTITY;
         END;
