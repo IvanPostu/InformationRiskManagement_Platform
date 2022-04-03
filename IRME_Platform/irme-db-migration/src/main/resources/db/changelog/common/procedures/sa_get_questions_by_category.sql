@@ -1,5 +1,4 @@
 
-
 CREATE OR ALTER PROCEDURE [dbo].[sa_get_questions_by_category] 
     @category_id    INTEGER
 AS
@@ -13,18 +12,34 @@ BEGIN TRY
 		question_weight INTEGER
 	);
 
-	INSERT INTO @targetQuestions (question_id, depends_on_question_answer_id, question, has_multiple_answers, question_weight)
+	INSERT INTO @targetQuestions 
+		(question_id, 
+		depends_on_question_answer_id, 
+		question, 
+		has_multiple_answers, 
+		question_weight)
     SELECT 
         sq.question_id, 
         sq.depends_on_question_answer_id, 
         sq.question, 
         sq.has_multiple_answers, 
-        sq.question_weight
+        question_max_weight=(
+        	SELECT MAX(qa.answer_weight) 
+        	FROM sa__questions_answers AS qa 
+        	WHERE qa.question_id=sq.question_id 
+        	GROUP BY qa.question_id
+        )
     FROM
         dbo.sa__questions AS sq
     WHERE sq.category_id=@category_id;
    
-	--SELECT * FROM @targetQuestions;
+	SELECT 
+		question_id, 
+		depends_on_question_answer_id, 
+		question, 
+		has_multiple_answers, 
+		question_weight 
+	FROM @targetQuestions;
 
 	SELECT 
 		sa.answer_id,
