@@ -24,17 +24,17 @@ BEGIN TRY
     BEGIN TRANSACTION @transaction_name;
         IF (@answer_id IS NULL)
         BEGIN
-            INSERT INTO sa__answers (answer, answer_weight)
+            INSERT INTO sa__answers (answer)
                 VALUES
-            (@answer_text_param, @answer_weight);
+            (@answer_text_param);
 
             SET @answer_id=@@IDENTITY;
         END;
 
         INSERT INTO [dbo].[sa__questions_answers]
-        (question_id, answer_id, profile_id)
+        (question_id, answer_id, profile_id, answer_weight)
             VALUES
-        (@question_id, @answer_id, @profile_id);
+        (@question_id, @answer_id, @profile_id, @answer_weight);
         SET @questions_answers_id=@@IDENTITY;
 
         INSERT INTO [dbo].[sa__question_answer_descriptions]

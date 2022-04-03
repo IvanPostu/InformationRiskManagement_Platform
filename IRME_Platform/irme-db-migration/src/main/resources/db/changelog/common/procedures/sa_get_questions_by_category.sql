@@ -28,8 +28,7 @@ BEGIN TRY
 
 	SELECT 
 		sa.answer_id,
-		sa.answer,
-		sa.answer_weight 
+		sa.answer
 	FROM sa__answers AS sa 
 	WHERE sa.answer_id IN (
 		SELECT answer_id FROM sa__questions_answers sqa 
