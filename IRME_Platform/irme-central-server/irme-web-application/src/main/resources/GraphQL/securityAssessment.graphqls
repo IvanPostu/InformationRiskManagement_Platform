@@ -1,3 +1,19 @@
+
+type SAAnswerData {
+    answerId: Int,
+    answer: String,
+}
+
+type SAQuestionData {
+    questionId: Int,
+    parentQuestionId: Int,
+    question: String,
+    hasMultipleAnswers: Boolean,
+    questionWeight: Int,
+    answers: [SAAnswerData]
+}
+
 extend type Query {
 	getSecurityAssessmentCategories: [SACategory]
+    getSecurityAssessmentQuestionsDataByCategory(categoryId: Int): [SAQuestionData]
 }

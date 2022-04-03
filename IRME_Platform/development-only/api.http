@@ -106,7 +106,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0ODMwNTM3MCwiZXhwIjoxNjQ4MzA4OTcwfQ.U39oKWFejCjWDQMjTEMQEPdHFg5PfHBGO61Oqi_Cun0
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0ODk5OTA2MiwiZXhwIjoxNjQ5MDAyNjYyfQ.UWbuiocnTiDoUqpbZfK0kJFzYfHAY44dT1I-31fwH54
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -115,6 +115,28 @@ query {
         categroyId,
         name,
         description
+    }
+}
+
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTAxNTY0NCwiZXhwIjoxNjQ5MDE5MjQ0fQ.5buMjpbd5eo5F9QhbooToK7qIqsw0aqd4XP7zrZ5Wdw
+X-REQUEST-TYPE: GraphQL
+
+query {
+    getSecurityAssessmentQuestionsDataByCategory(categoryId: 1)
+    {
+        questionId,
+        parentQuestionId,
+        hasMultipleAnswers,
+        questionWeight,
+        answers{
+            answerId,
+            answer,
+        },
+        question,
     }
 }
 

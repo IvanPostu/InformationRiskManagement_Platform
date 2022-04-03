@@ -1,6 +1,7 @@
 package com.irme.server.business_entities;
 
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.DataAccessObjectFactory;
 import com.irme.server.dal.dao.SADataAccessObject;
 import com.irme.server.dal.dao.SADataAccessObjectImpl;
@@ -34,4 +35,12 @@ public class SABusinessLogic implements BusinessLogicEntity {
         return result;
     }
 
+    public List<SAQuestionWithAnswers> getQuestionsDataByCategory(int categoryId) {
+        try {
+            return sADataAccessObject.getQuestionsDataByCategory(categoryId);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 }

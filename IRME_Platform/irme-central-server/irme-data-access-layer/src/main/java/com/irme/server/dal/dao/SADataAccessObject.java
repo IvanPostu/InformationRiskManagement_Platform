@@ -1,6 +1,7 @@
 package com.irme.server.dal.dao;
 
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
 
 import javax.sql.DataSource;
@@ -14,5 +15,8 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     }
 
     public abstract List<SACategoryDto> getCategories() throws DataAccessLayerException;
+
+    public abstract List<SAQuestionWithAnswers> getQuestionsDataByCategory(int categoryId)
+            throws DataAccessLayerException;
 
 }
