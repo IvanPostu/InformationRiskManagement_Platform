@@ -8,11 +8,11 @@ function App() {
   return (
     <HashRouter>
      <Switch>
-     <Route
-     exact
-      path='/'
-      component={MainPage}
-    />
+                <Route
+                exact
+                path='/'
+                component={MainPage}
+                />
     <Route
     exact
       path='/categories'
