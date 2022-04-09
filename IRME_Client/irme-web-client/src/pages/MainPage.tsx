@@ -1,11 +1,8 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react'
+import { MainLayout } from '../layouts/MainLayout'
 
-export function MainPage() {
-  return (
-      <Fragment>
-          <Link to={'/categories'}>categoruies</Link>
-      <div>MainPage </div>
-      </Fragment>
-  )
+export class MainPage extends Component {
+    render() {
+        return <MainLayout>hellowowrolf</MainLayout>
+    }
 }
