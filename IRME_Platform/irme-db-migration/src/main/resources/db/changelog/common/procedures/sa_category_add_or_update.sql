@@ -2,8 +2,8 @@
 CREATE OR ALTER PROCEDURE [dbo].[sa_category_add_or_update]
     @category_id            INTEGER, -- IF IS NULL INSERT or else UPDATE 
     @name  				    NVARCHAR (256),
-    @description            NVARCHAR (512),
-    @base64_logo            NVARCHAR (MAX),
+    @description            NVARCHAR (MAX),
+    @image_url              NVARCHAR (MAX),
     @status                 NVARCHAR (32) = 'ACTIVE',
     @inserted_category_id   INTEGER OUTPUT -- greater than 0 in success case
 AS
@@ -18,9 +18,9 @@ BEGIN TRY
             INSERT INTO [dbo].[sa__categories] (
                 [name],
                 [description],
-                [base64_logo],
+                [image_url],
                 [status]
-            ) VALUES (@name, @description, @base64_logo, @status);
+            ) VALUES (@name, @description, @image_url, @status);
 
             SET @inserted_category_id = @@IDENTITY;
         END
@@ -30,7 +30,7 @@ BEGIN TRY
             SET 
                 [name] = @name,
                 [description] = @description,
-                [base64_logo] = @base64_logo,
+                [image_url] = @image_url,
                 [status] = @status
             WHERE [category_id] = @category_id;
 

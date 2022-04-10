@@ -5,7 +5,7 @@ BEGIN
     SELECT [category_id],
         [name],
         [description],
-        [base64_logo],
+        [image_url],
         [status]
     FROM 
         [dbo].[sa__categories]
