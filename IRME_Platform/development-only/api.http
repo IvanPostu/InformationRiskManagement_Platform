@@ -126,7 +126,7 @@ Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZ
 X-REQUEST-TYPE: GraphQL
 
 query {
-    getSecurityAssessmentQuestionsDataByCategory(categoryId: 1)
+    getSecurityAssessmentQuestionsDataByCategory(categoryId: 2)
     {
         questionId,
         parentQuestionId,

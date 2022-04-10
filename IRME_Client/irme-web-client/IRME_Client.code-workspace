@@ -74,7 +74,7 @@
     "editor.formatOnType": false,
     "editor.letterSpacing": 0.1,
     "editor.lineHeight": 16,
-    // "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
     "editor.selectionClipboard": false,
@@ -126,6 +126,14 @@
     //   }
     // },
     "[xml]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.tabSize": 2
+    },
+    "[html]": {
+      "editor.suggest.insertMode": "replace",
+      "editor.tabSize": 2
+    },
+    "[ts]": {
       "editor.suggest.insertMode": "replace",
       "editor.tabSize": 2
     },
@@ -182,16 +190,16 @@
         "hostName": "localhost",
         "port": 5005
         // 4000 - admin, 5005 - webapp
-      },
-    //   {
-    //     "projectName": "irme-admin-mvc",
-    //     "type": "java",
-    //     "name": "Debug (Attach) Admin MVC",
-    //     "request": "attach",
-    //     "hostName": "localhost",
-    //     "port": 4000
-    //     // 4000 - admin, 5005 - webapp
-    //   }
+      }
+      //   {
+      //     "projectName": "irme-admin-mvc",
+      //     "type": "java",
+      //     "name": "Debug (Attach) Admin MVC",
+      //     "request": "attach",
+      //     "hostName": "localhost",
+      //     "port": 4000
+      //     // 4000 - admin, 5005 - webapp
+      //   }
     ]
   }
 }
