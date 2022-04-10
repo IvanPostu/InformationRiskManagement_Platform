@@ -1,25 +1,29 @@
-import { BaseApiProvider, IGraphQLQuery } from './BaseApiProvider'
+import { BaseApiProvider } from './BaseApiProvider'
+import { request } from 'graphql-request'
+
+interface IAuthUserResponse {
+  authUser: {
+    token: string
+    email: string
+  }
+}
 
 export class AuthUserProvider extends BaseApiProvider {
-  public async authUser(email: string, password: string): Promise<string | null> {
-    try {
-      const schemaObject: any = {
-        query: `
-          query {
-            authUser(email: q, password: w)
-            {
-              email,
-              token
-            }            
-          }
-        `,
+  private _authQueryBuilder(email: string, password: string): string {
+    return `
+      {
+        authUser(email: "${email}", password: "${password}") {
+          email
+          token
+        }
       }
+    `
+  }
 
-      const data = this._performCall(schemaObject)
-
-      // console.log(data)
-
-      return ''
+  public async authUser(email: string, password: string): Promise<IAuthUserResponse | null> {
+    try {
+      const data: IAuthUserResponse = await request('/graphql', this._authQueryBuilder(email, password))
+      return data
     } catch (e) {
       return null
     }

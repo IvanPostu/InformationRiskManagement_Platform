@@ -17,7 +17,7 @@ export class BaseApiProvider {
         Authorization: 'null',
         'X-REQUEST-TYPE': 'GraphQL',
       },
-      body: JSON.stringify(graphQLSchema),
+      body: JSON.stringify({ query: graphQLSchema.query }),
     })
 
     // console.log(fetchResult)

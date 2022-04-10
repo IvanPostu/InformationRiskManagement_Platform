@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
+import { useQuery } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { AuthUserProvider } from '../api/AuthUserProvider'
 import { MainLayout } from '../layouts/MainLayout'
@@ -23,26 +24,12 @@ export function MainPage(): ReactElement {
   })
   const dispatch = useDispatch<AppDispatch>()
 
-  // const { data, isLoading, error } = useQuery('launches', () => {
-  //   return fetch(endpoint, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ query: AUTH_USER }),
-  //   })
-  //     .then((response) => {
-  //       if (response.status >= 400) {
-  //         throw new Error('Error fetching data')
-  //       } else {
-  //         return response.json()
-  //       }
-  //     })
-  //     .then((data) => data.data)
-  // })
-
-  // if (isLoading) return <div>{'Loading...'}</div>
-  // if (error) return <pre>{'error'}</pre>
-
-  // console.log(data)
+  useEffect(() => {
+    const authProvider = new AuthUserProvider()
+    authProvider.authUser('admin@mail.ru', '12345').then((d) => {
+      alert(d?.authUser.email)
+    })
+  }, [])
 
   return (
     <MainLayout>
