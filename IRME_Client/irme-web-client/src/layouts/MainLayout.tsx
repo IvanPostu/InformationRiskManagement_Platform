@@ -5,7 +5,7 @@ import { SideNav } from '../components/SideNav'
 type MainLayoutPropsType = PropsWithChildren<unknown>
 
 export class MainLayout extends Component<MainLayoutPropsType> {
-  render(): ReactElement {
+  render() {
     return (
       <Fragment>
         <SideNav />

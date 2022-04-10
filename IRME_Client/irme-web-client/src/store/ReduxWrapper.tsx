@@ -2,7 +2,8 @@ import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
 
-type ReduxWrapperPropsType = PropsWithChildren<unknown>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ReduxWrapperPropsType = PropsWithChildren<any>
 
 export default function ReduxWrapper(props: ReduxWrapperPropsType): ReactElement {
   return (
