@@ -8,7 +8,7 @@ export class BaseApiProvider {
     this._endpointUrl = endpointUrl
   }
 
-  protected async _performCall<_RType>(graphQLSchema: string, variables?: any): Promise<_RType> {
+  protected async _performCall<_RType>(graphQLSchema: string /*, variables?: any*/): Promise<_RType> {
     const fetchResult = await fetch(this._endpointUrl, {
       method: 'POST',
       headers: {

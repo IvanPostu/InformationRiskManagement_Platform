@@ -5,14 +5,14 @@ import { SideNav } from '../components/SideNav'
 type MainLayoutPropsType = PropsWithChildren<unknown>
 
 export class MainLayout extends Component<MainLayoutPropsType> {
-    render(): ReactElement {
-        return (
-            <Fragment>
-                <SideNav />
-                <main style={{ minHeight: '100vh' }}>{this.props.children}</main>
+  render(): ReactElement {
+    return (
+      <Fragment>
+        <SideNav />
+        <main style={{ minHeight: '100vh' }}>{this.props.children}</main>
 
-                <Footer />
-            </Fragment>
-        )
-    }
+        <Footer />
+      </Fragment>
+    )
+  }
 }
