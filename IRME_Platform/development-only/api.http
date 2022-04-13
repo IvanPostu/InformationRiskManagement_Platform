@@ -47,7 +47,7 @@ Authorization: null
 X-REQUEST-TYPE: GraphQL
 
 query {
-    authUser(email: "admin@mail.ru", password: "12345")
+    authUser(email: "admi1n@mail.ru", password: "12345")
     {
         email,
         token
