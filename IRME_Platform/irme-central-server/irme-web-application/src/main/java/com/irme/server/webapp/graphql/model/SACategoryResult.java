@@ -14,5 +14,6 @@ public class SACategoryResult implements Serializable {
     private int categroyId;
     private String name;
     private String description;
+    private String imageUrl;
 
 }

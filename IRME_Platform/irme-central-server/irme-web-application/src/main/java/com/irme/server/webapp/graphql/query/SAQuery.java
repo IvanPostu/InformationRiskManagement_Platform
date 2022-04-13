@@ -33,6 +33,7 @@ public class SAQuery implements GraphQLQueryResolver {
                 item.setCategroyId(c.getCategroyId());
                 item.setDescription(c.getDescription());
                 item.setName(c.getName());
+                item.setImageUrl(c.getImageUrl());
                 categories.add(item);
             });
         }

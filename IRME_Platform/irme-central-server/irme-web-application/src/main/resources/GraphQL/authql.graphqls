@@ -42,7 +42,8 @@ type Organisation {
 type SACategory {
     categroyId: Int,
     name: String,
-    description: String
+    description: String,
+    imageUrl: String,
 }
 
 type Query {

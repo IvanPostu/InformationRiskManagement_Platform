@@ -37,6 +37,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
                 category.setCategroyId(rs.getInt("category_id"));
                 category.setName(rs.getString("name"));
                 category.setDescription(rs.getString("description"));
+                category.setImageUrl(rs.getString("image_url"));
                 result.add(category);
             }
 
