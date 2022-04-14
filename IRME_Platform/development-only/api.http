@@ -47,10 +47,12 @@ Authorization: null
 X-REQUEST-TYPE: GraphQL
 
 query {
-    authUser(email: "admi1n@mail.ru", password: "12345")
+    authUser(email: "admin@mail.ru", password: "123456")
     {
         email,
-        token
+        firstName,
+        lastName,
+        token,
     }
 }
 
@@ -106,7 +108,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0ODk5OTA2MiwiZXhwIjoxNjQ5MDAyNjYyfQ.UWbuiocnTiDoUqpbZfK0kJFzYfHAY44dT1I-31fwH54
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTg4MzIxNywiZXhwIjoxNjQ5ODg2ODE3fQ.w_wnTQWpOLxwGu1X5AHA8y9dAiEZPHRTBcJ1NdFb32E
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -114,7 +116,8 @@ query {
     {
         categroyId,
         name,
-        description
+        description,
+        imageUrl
     }
 }
 

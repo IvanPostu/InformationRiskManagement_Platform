@@ -104,6 +104,16 @@ class SideNavComponent extends Component<SideNavPropsType> {
             <a href="#email">
               <span className="grey-text text-darken-1 email">{email}</span>
             </a>
+            <a
+              onClick={() => {
+                this.hideSideMenu()
+                this.props.logout()
+              }}
+              className="red-text"
+              href="#"
+            >
+              Deautentificare
+            </a>
           </div>
         </li>
         <li>

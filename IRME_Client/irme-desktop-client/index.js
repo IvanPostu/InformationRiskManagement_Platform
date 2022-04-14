@@ -10,8 +10,8 @@ const createWindow = () => {
     console.log(`Application is running in ${runningMode} mode.`);
 
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 800,
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
@@ -21,7 +21,7 @@ const createWindow = () => {
         },
     });
 
-    mainWindow.loadURL('https://github.com');
+    mainWindow.loadURL('http://127.0.0.1:3000');
     // if (isDev) {
     //     mainWindow.loadURL('http://127.0.0.1:8000');
     // } else {

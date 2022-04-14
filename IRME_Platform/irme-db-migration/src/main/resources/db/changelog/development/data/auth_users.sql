@@ -109,9 +109,9 @@ EXECUTE dbo.auth_user_with_info_add
 	'ACTIVE', 
 	'ROLE_ADMIN;ROLE_USER;ROLE_DEV;', 
 	';', 
-	'Misha', 
-	'Apple', 
+	'Ivan', 
+	'Postu', 
 	'068888888', 
 	'MD',
-  'IMG04',
+    'IMG04',
   @z OUTPUT;
