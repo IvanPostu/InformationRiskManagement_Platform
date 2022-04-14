@@ -1,7 +1,7 @@
 body {
   background: #dfe6e9;
   overflow-x: hidden;
-  min-width: 400px;
+  min-width: 800px;
 }
 
 nav.navbar.navbar-expand.navbar-dark.bg-primary.fixed-top{
