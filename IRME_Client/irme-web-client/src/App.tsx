@@ -11,7 +11,7 @@ import './App.css'
 BaseApiProvider.config = {
   errorCodeHandler: {
     2: () => {
-      console.log('auth error')
+      console.log('Auth error')
     },
   },
 }

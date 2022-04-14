@@ -1,26 +1,44 @@
-import React, { ReactElement } from 'react'
-import { Loader } from '../components/Loader'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
+import { FixedMultilineSpan } from '../components/FixedMultilineSpan'
 import { MainLayout } from '../layouts/MainLayout'
-
-const items = [1, 2, 3, 4, 5, 6, 7]
+import { GlobalStateType } from '../store/store'
 
 export function CategoriesPage(): ReactElement {
-  const elements = items.map((el) => {
+  const [previewCategories, setPreviewCategories] = useState<Array<ISACategory>>([])
+  const { isAuthenticated, token } = useSelector((state: GlobalStateType) => {
+    const { isAuthenticated, token } = state.auth
+    return { isAuthenticated, token }
+  })
+
+  useEffect(() => {
+    const provider = new SACategoryProvider()
+
+    if (isAuthenticated && token !== null) {
+      provider.getSecurityAssessmentCategories(token).then((d) => {
+        if (Array.isArray(d)) {
+          setPreviewCategories(d)
+        }
+      })
+    }
+  }, [isAuthenticated, setPreviewCategories, token])
+
+  const elements = previewCategories.map((el) => {
     return (
-      <div key={el} className="col s12 m4">
-        <div className="card">
+      <div key={el.categroyId} className="col s12 m4">
+        <div style={{ height: '400px' }} className="card small">
           <div className="card-image">
-            <img src="sa_categories/authorization.png" />
-            <span className="card-title">Card Title</span>
+            <img style={{ maxWidth: '270px', maxHeight: '150px' }} src={el.imageUrl} />
+            <span className="card-title">{el.name}</span>
           </div>
-          <div className="card-content">
-            <p>
-              I am a very simple card. I am good at containing small bits of information. I am convenient because I
-              require little markup to use effectively.
-            </p>
+          <div className="card-content ">
+            <FixedMultilineSpan linesCount={6}>{el.description}</FixedMultilineSpan>
           </div>
           <div className="card-action">
-            <a href="#">This is a link</a>
+            <a className="blue-text" href="#">
+              Evaluare conform categoriei
+            </a>
           </div>
         </div>
       </div>
@@ -29,11 +47,10 @@ export function CategoriesPage(): ReactElement {
 
   return (
     <MainLayout>
-      <div style={{ marginTop: '30px' }} className="container">
-        <Loader />
-      </div>
       <div className="container">
-        <div className="row">{elements}</div>
+        <div style={{ marginTop: '20px' }} className="row">
+          {elements}
+        </div>
       </div>
     </MainLayout>
   )

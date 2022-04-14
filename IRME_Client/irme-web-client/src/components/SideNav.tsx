@@ -2,18 +2,18 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-const M = require('materialize-css/dist/js/materialize.min.js')
 import styled from 'styled-components'
 import { authActionTypeConstants, DeauthenticateActionType } from '../store/auth/authTypes'
 import { AppDispatch, GlobalStateType } from '../store/store'
+const M = require('materialize-css/dist/js/materialize.min.js')
 
 const StyledNav = styled.nav`
   background: #2c3e50;
 `
 
 function mapStateToProps(state: GlobalStateType) {
-  const { isAuthenticated } = state.auth
-  return { isAuthenticated }
+  const { isAuthenticated, email, firstName, lastName } = state.auth
+  return { isAuthenticated, email, firstName, lastName }
 }
 
 function mapDispatchToProps(dispatch: AppDispatch) {
@@ -25,6 +25,8 @@ function mapDispatchToProps(dispatch: AppDispatch) {
 type SideNavPropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
 
 class SideNavComponent extends Component<SideNavPropsType> {
+  private readonly _adminUrl = 'http://localhost:8081'
+
   componentDidMount() {
     const elems = document.querySelectorAll('.sidenav')
     M.Sidenav.init(elems, {})
@@ -41,14 +43,23 @@ class SideNavComponent extends Component<SideNavPropsType> {
     })
   }
 
+  hideSideMenu = () => {
+    const node = document.querySelector('#sidemenuId')
+    if (node) {
+      const instance = M.Sidenav.getInstance(node)
+      instance.close()
+    }
+  }
+
   render() {
-    const desktopElements = this.props.isAuthenticated ? (
+    const { isAuthenticated, firstName, lastName, email } = this.props
+    const desktopElements = isAuthenticated ? (
       <Fragment>
         <li>
           <Link to={'/categories'}>Categorii de evaluari</Link>
         </li>
         <li>
-          <a href="#">Control administrator</a>
+          <a href={this._adminUrl}>Control administrator</a>
         </li>
         <li>
           <a className="dropdown-trigger" data-target="profileDropDownId" id="profileDropDownBtnId">
@@ -80,6 +91,82 @@ class SideNavComponent extends Component<SideNavPropsType> {
       </li>
     )
 
+    const mobileMenu = isAuthenticated ? (
+      <Fragment>
+        <li>
+          <div className="user-view">
+            <a href="#user">
+              <img style={{ width: '60px', height: '60px' }} src="defaultUserImage.png" />
+            </a>
+            <a href="#name">
+              <span className="name  grey-text text-darken-3">{firstName + ' ' + lastName}</span>
+            </a>
+            <a href="#email">
+              <span className="grey-text text-darken-1 email">{email}</span>
+            </a>
+          </div>
+        </li>
+        <li>
+          <a className="" href="#">
+            Informații
+          </a>
+        </li>
+        <li>
+          <div className="divider"></div>
+        </li>
+        <li>
+          <Link onClick={this.hideSideMenu} className="" to={'/categories'}>
+            Categorii de evaluari
+          </Link>
+        </li>
+        <li>
+          <a href={this._adminUrl} className="">
+            Control administrator
+          </a>
+        </li>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <li>
+          <div className="user-view">
+            <a href="#user">
+              <img style={{ width: '60px', height: '60px' }} src="defaultUserImage.png" />
+            </a>
+            <a href="#name">
+              <span className="name  grey-text text-darken-3">Guest</span>
+            </a>
+            <a href="#email">
+              <span className="grey-text text-darken-1 email"></span>
+            </a>
+          </div>
+        </li>
+        <li>
+          <Link to={'/login'} onClick={this.hideSideMenu}>
+            <i className="material-icons">person</i>
+            <span>Autentificare</span>
+          </Link>
+        </li>
+        <li>
+          <a className="" href="#">
+            Informații
+          </a>
+        </li>
+        <li>
+          <div className="divider"></div>
+        </li>
+        <li>
+          <Link className="subheader" to={'/categories'}>
+            Categorii de evaluari
+          </Link>
+        </li>
+        <li>
+          <a href={this._adminUrl} className="subheader">
+            Control administrator
+          </a>
+        </li>
+      </Fragment>
+    )
+
     return (
       <Fragment>
         <div className="navbar-fixed">
@@ -101,39 +188,7 @@ class SideNavComponent extends Component<SideNavPropsType> {
         </div>
 
         <ul id="sidemenuId" className="sidenav indigo lighten-5">
-          <li>
-            <div className="user-view">
-              <a href="#user">
-                {/* <img className="circle" src="images/yuna.jpg" /> */}
-                <img style={{ width: '60px', height: '60px' }} src="defaultUserImage.png" />
-              </a>
-              <a href="#name">
-                <span className="white-text name  grey-text text-darken-3">John Doe</span>
-              </a>
-              <a href="#email">
-                <span className="white-text email">jdandturk@gmail.com</span>
-              </a>
-            </div>
-          </li>
-          <li>
-            <a href="#!">
-              <i className="material-icons">cloud</i>First Link With Icon
-            </a>
-          </li>
-          <li>
-            <a href="#!">Second Link</a>
-          </li>
-          <li>
-            <div className="divider"></div>
-          </li>
-          <li>
-            <a className="subheader">Subheader</a>
-          </li>
-          <li>
-            <a className="waves-effect" href="#!">
-              Third Link With Waves
-            </a>
-          </li>
+          {mobileMenu}
         </ul>
       </Fragment>
     )

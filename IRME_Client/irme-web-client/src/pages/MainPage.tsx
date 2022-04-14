@@ -11,34 +11,35 @@ const Section = styled.section`
 
 export function MainPage(): ReactElement {
   const [previewCategories, setPreviewCategories] = useState<Array<ISACategory>>([])
-  const isAuthenticated = useSelector((state: GlobalStateType) => {
-    return state.auth.isAuthenticated
+  const { isAuthenticated, token } = useSelector((state: GlobalStateType) => {
+    const { isAuthenticated, token } = state.auth
+    return { isAuthenticated, token }
   })
 
   useEffect(() => {
     const provider = new SACategoryProvider()
 
-    if (isAuthenticated) {
-      provider
-        .getSecurityAssessmentCategories(
-          'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTg4NTAwNCwiZXhwIjoxNjQ5ODg4NjA0fQ.xdEdzh1fIKGOh8kNK-sAi68qzI91_umV-GYV0K-oaok'
-        )
-        .then((d) => console.log(d))
+    if (isAuthenticated && token !== null) {
+      provider.getSecurityAssessmentCategories(token).then((d) => {
+        if (Array.isArray(d)) {
+          setPreviewCategories(d.filter((item, index) => index < 3))
+        }
+      })
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, setPreviewCategories, token])
 
   const previewCategoriesElement =
     previewCategories.length > 0 ? (
       <ul className="collection">
         {previewCategories.map((category, index) => {
+          const color = index === 1 ? 'red' : index === 2 ? 'green' : ''
           return (
             <li key={index} className="collection-item avatar">
-              <i className="material-icons circle">folder</i>
-              <span className="title">Title</span>
-              <p>
-                First Line <br />
-                Second Line
-              </p>
+              <i className={'material-icons circle ' + color}>folder</i>
+              <span className="title">
+                <b>{category.name}</b>
+              </span>
+              <p style={{ width: '95%' }}>{category.description}</p>
               <a href="#!" className="secondary-content">
                 <i className="material-icons">grade</i>
               </a>
