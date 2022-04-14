@@ -1,31 +1,32 @@
 import { BaseApiProvider } from './BaseApiProvider'
-import { request } from 'graphql-request'
+import { ErrorResult } from './models/ErrorResult'
 
 interface IAuthUserResponse {
-  authUser: {
-    token: string
-    email: string
-  }
+  token: string
+  email: string
+  firstName: string
+  lastName: string
 }
 
 export class AuthUserProvider extends BaseApiProvider {
-  private _authQueryBuilder(email: string, password: string): string {
+  private _authQueryBuilder(action: string, email: string, password: string): string {
     return `
       {
-        authUser(email: "${email}", password: "${password}") {
+        ${action}(email: "${email}", password: "${password}") {
           email
           token
+          firstName
+          lastName
         }
       }
     `
   }
 
-  public async authUser(email: string, password: string): Promise<IAuthUserResponse | null> {
-    try {
-      const data: IAuthUserResponse = await request('/graphql', this._authQueryBuilder(email, password))
-      return data
-    } catch (e) {
-      return null
-    }
+  public async authUser(email: string, password: string): Promise<IAuthUserResponse | null | ErrorResult> {
+    const action = 'authUser'
+    const query = this._authQueryBuilder(action, email, password)
+    const data = await this._performCall<IAuthUserResponse>(action, query)
+
+    return data
   }
 }

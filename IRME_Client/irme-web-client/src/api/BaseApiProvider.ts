@@ -1,4 +1,7 @@
+import { GraphQLClient } from 'graphql-request'
 import { IProviderConfiguration } from './IProviderConfiguration'
+import { ErrorResult } from './models/ErrorResult'
+import { IError } from './models/IError'
 
 export interface IGraphQLQuery {
   operationName: string
@@ -9,21 +12,55 @@ export interface IGraphQLQuery {
 export class BaseApiProvider {
   public static config: IProviderConfiguration
 
-  protected async _performCall<_RType>(graphQLSchema: IGraphQLQuery): Promise<_RType> {
-    const fetchResult = await fetch('/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'null',
-        'X-REQUEST-TYPE': 'GraphQL',
-      },
-      body: JSON.stringify({ query: graphQLSchema.query }),
-    })
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private tryToExtractArrayWithErrors = (e: any): Array<IError> | null => {
+    let errors: Array<IError> | null = null
 
-    // console.log(fetchResult)
-    const data = await fetchResult.json()
-    console.log(data)
+    if (e && Object.hasOwn(e, 'response') && Object.hasOwn(e['response'], 'errors')) {
+      errors = e.response.errors as Array<IError>
+    }
 
-    return {} as _RType
+    return errors
+  }
+
+  protected async _performCall<_RType>(
+    action: string,
+    query: string,
+    authToken?: string,
+    headers?: Record<string, string>
+  ): Promise<_RType | ErrorResult | null> {
+    try {
+      const client = new GraphQLClient('/graphql')
+      const defaultHeaders = headers ? headers : {}
+      defaultHeaders['Authorization'] = authToken ? `Bearer_${authToken}` : 'null'
+
+      client.setHeaders(defaultHeaders)
+
+      const result = await client.request(query)
+
+      return result[action] as _RType
+    } catch (e) {
+      const mappedErrors = this.tryToExtractArrayWithErrors(e)
+      if (mappedErrors !== null) {
+        const result = new ErrorResult(mappedErrors)
+        const errorHandlers = BaseApiProvider.config.errorCodeHandler
+
+        if (errorHandlers) {
+          Object.keys(errorHandlers).forEach((k) => {
+            const errorCode = Number(k)
+            if (result.containsErrorCode(errorCode)) {
+              new Promise((resolve) => {
+                errorHandlers[errorCode]()
+                resolve(null)
+              })
+            }
+          })
+        }
+
+        return result
+      }
+      console.error(e)
+      return null
+    }
   }
 }

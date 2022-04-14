@@ -1,66 +1,96 @@
-import React, { ReactElement, useEffect } from 'react'
-import { useQuery } from 'react-query'
-import { useDispatch, useSelector } from 'react-redux'
-import { AuthUserProvider } from '../api/AuthUserProvider'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
 import { MainLayout } from '../layouts/MainLayout'
-import { decrement } from '../store/counter/counterActionCreators'
-import { counterActionTypeConstants, IncrementActionType, SetValueActionType } from '../store/counter/counterTypes'
-import { AppDispatch, GlobalStateType } from '../store/store'
+import { GlobalStateType } from '../store/store'
 
-const endpoint = '/graphql'
-const AUTH_USER = `
-  {
-    authUser(email: "admin@mail.ru", password: "12345")
-    {
-        email,
-        token
-    }
-  }
+const Section = styled.section`
+  margin: 15px 0;
 `
 
 export function MainPage(): ReactElement {
-  const count = useSelector((state: GlobalStateType) => {
-    return state.counter.value
+  const [previewCategories, setPreviewCategories] = useState<Array<ISACategory>>([])
+  const isAuthenticated = useSelector((state: GlobalStateType) => {
+    return state.auth.isAuthenticated
   })
-  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    const authProvider = new AuthUserProvider()
-    authProvider.authUser('admin@mail.ru', '12345').then((d) => {
-      alert(d?.authUser.email)
-    })
-  }, [])
+    const provider = new SACategoryProvider()
+
+    if (isAuthenticated) {
+      provider
+        .getSecurityAssessmentCategories(
+          'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTg4NTAwNCwiZXhwIjoxNjQ5ODg4NjA0fQ.xdEdzh1fIKGOh8kNK-sAi68qzI91_umV-GYV0K-oaok'
+        )
+        .then((d) => console.log(d))
+    }
+  }, [isAuthenticated])
+
+  const previewCategoriesElement =
+    previewCategories.length > 0 ? (
+      <ul className="collection">
+        {previewCategories.map((category, index) => {
+          return (
+            <li key={index} className="collection-item avatar">
+              <i className="material-icons circle">folder</i>
+              <span className="title">Title</span>
+              <p>
+                First Line <br />
+                Second Line
+              </p>
+              <a href="#!" className="secondary-content">
+                <i className="material-icons">grade</i>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    ) : null
 
   return (
     <MainLayout>
-      <div>{count}</div>
-      <button
-        onClick={() => {
-          dispatch({ type: counterActionTypeConstants.INCREMENT } as IncrementActionType)
-        }}
-      >
-        Incr
-      </button>
-      <button
-        onClick={() => {
-          dispatch(decrement())
-        }}
-      >
-        Decr
-      </button>
-
-      <button
-        onClick={() => {
-          dispatch({
-            type: counterActionTypeConstants.SET_VALUE,
-            payload: {
-              value: 100,
-            },
-          } as SetValueActionType)
-        }}
-      >
-        Set 100
-      </button>
+      <div className="container">
+        <Section>
+          <div className="card grey-text text-darken-4">
+            <div className="card-content">
+              <span className="card-title">
+                <h5>Categorii de evaluare a riscurilor</h5>
+              </span>
+              {previewCategoriesElement}
+            </div>
+            <div className="card-action">
+              <a className="blue-text" href="#">
+                Mai multe detalii...
+              </a>
+            </div>
+          </div>
+        </Section>
+        <Section style={{ margin: '20px 0 30px 0' }}>
+          <div className="card-panel grey-text text-darken-4">
+            <h5>Descriere platformă</h5>
+            Platforma de evaluare a riscurilor "Information Risk Management Expert" în companie permite utilizatorului
+            de a detecta și elimina eficient riscurile curente.
+            <br />
+            Platforma dată are scopul de a furniza cerințe pentru crearea, implementarea, întreținerea și îmbunătățirea
+            continuă a sistemului de management al companiei.
+            <br />
+            Utilizarea softului dat este o decizie strategică cu un impact pozitiv pentru organizatie. Crearea si
+            implementarea unui sistem de management al securitatii informatiei cu ajutorul platformei date oferă
+            companiei o bază fiabilă și minimizează probabilitatea de scrugere de informații sau spargere a sistemelor.
+            Platforma "Information Risk Management Expert" păstrează confidențialitatea, integritatea și
+            disponibilitatea informațiilor prin aplicarea unor procese de management al riscului și dă încredere
+            părților interesate că riscurile sunt gestionate în mod adecvat.
+            <br />
+            Este important ca sistemul de management al securității informațiilor să fie parte și integrat cu acesta
+            procesele organizaționale și structura generală de guvernanță și securitatea informațiilor luate în
+            considerare în dezvoltarea proceselor, sistemelor informaționale și controalelor. Este de așteptat ca
+            implementarea unui sistem de management al securității informațiilor să facă scala in functie de nevoile
+            organizatiei. Acest standard internațional poate fi utilizat de părți interne și externe pentru evaluare
+            capacitatea organizației de a-și îndeplini propriile cerințe de securitate a informațiilor.
+          </div>
+        </Section>
+      </div>
     </MainLayout>
   )
 }
