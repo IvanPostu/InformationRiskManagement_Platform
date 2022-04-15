@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
 import { MainLayout } from '../layouts/MainLayout'
@@ -61,9 +62,9 @@ export function MainPage(): ReactElement {
               {previewCategoriesElement}
             </div>
             <div className="card-action">
-              <a className="blue-text" href="#">
+              <Link className="blue-text" to={'/categories'}>
                 Mai multe detalii...
-              </a>
+              </Link>
             </div>
           </div>
         </Section>
