@@ -7,11 +7,13 @@ import { BaseApiProvider } from './api/BaseApiProvider'
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.min.js'
 import './App.css'
+import { authActionTypeConstants, DeauthenticateActionType } from './store/auth/authTypes'
 
 BaseApiProvider.config = {
   errorCodeHandler: {
     2: () => {
-      console.log('Auth error')
+      console.log(1)
+      // store.dispatch({ type: authActionTypeConstants.DEAUTHENTICATE_USER } as DeauthenticateActionType)
     },
   },
 }

@@ -96,7 +96,7 @@ class SideNavComponent extends Component<SideNavPropsType> {
         <li>
           <div className="user-view">
             <a href="#user">
-              <img style={{ width: '60px', height: '60px' }} src="defaultUserImage.png" />
+              <img style={{ width: '60px', height: '60px' }} src="/defaultUserImage.png" />
             </a>
             <a href="#name">
               <span className="name  grey-text text-darken-3">{firstName + ' ' + lastName}</span>
@@ -140,7 +140,7 @@ class SideNavComponent extends Component<SideNavPropsType> {
         <li>
           <div className="user-view">
             <a href="#user">
-              <img style={{ width: '60px', height: '60px' }} src="defaultUserImage.png" />
+              <img style={{ width: '60px', height: '60px' }} src="/defaultUserImage.png" />
             </a>
             <a href="#name">
               <span className="name  grey-text text-darken-3">Guest</span>
@@ -185,11 +185,11 @@ class SideNavComponent extends Component<SideNavPropsType> {
               <a href="#" data-target="sidemenuId" className="sidenav-trigger">
                 <i className="material-icons">menu</i>
               </a>
-              <a href="#" className="brand-logo">
+              <Link className="brand-logo" to={'/'}>
                 <div className="background">
-                  <img style={{ width: '150px' }} src="logo-removebg-preview.png" />
+                  <img style={{ width: '150px' }} src="/logo-removebg-preview.png" />
                 </div>
-              </a>
+              </Link>
               <ul className="side-nav right hide-on-med-and-down" id="mobile-demo">
                 {desktopElements}
               </ul>

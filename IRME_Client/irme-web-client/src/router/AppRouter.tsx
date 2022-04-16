@@ -8,10 +8,18 @@ import { LoginPage } from '../pages/LoginPage'
 import { MainPage } from '../pages/MainPage'
 import { GlobalStateType } from '../store/store'
 
+function SessionExpiredComponent() {
+  return (
+    <URLErrorWrapper errorCode={2}>
+      <MainPage />
+    </URLErrorWrapper>
+  )
+}
+
 function AuthElement(element: JSX.Element, isAuthenticated: boolean): JSX.Element {
-  // if (!isAuthenticated) {
-  //   return <MainPage />
-  // }
+  if (!isAuthenticated) {
+    return <SessionExpiredComponent />
+  }
 
   return element
 }
@@ -26,14 +34,7 @@ export const AppRouter = () => {
       <HashRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route
-            path="/error"
-            element={
-              <URLErrorWrapper>
-                <MainPage />
-              </URLErrorWrapper>
-            }
-          />
+          <Route path="/error/*" element={<SessionExpiredComponent />} />
           <Route path="/categories/*" element={AuthElement(<CategoriesPage />, isAuthenticated)} />
 
           {/* _categoryId

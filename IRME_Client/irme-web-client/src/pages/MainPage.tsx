@@ -41,7 +41,7 @@ export function MainPage(): ReactElement {
                 <b>{category.name}</b>
               </span>
               <p style={{ width: '95%' }}>{category.description}</p>
-              <a href="#!" className="secondary-content">
+              <a className="secondary-content">
                 <i className="material-icons">grade</i>
               </a>
             </li>

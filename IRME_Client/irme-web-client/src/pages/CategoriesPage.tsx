@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { OrganisationProvider } from '../api/OrganisationProvider'
 import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
 import { FixedMultilineSpan } from '../components/FixedMultilineSpan'
@@ -58,7 +59,7 @@ export function CategoriesPage(): ReactElement {
         }
       })
     }
-  }, [isAuthenticated, setPreviewCategories, token, organisations, setOrganisations])
+  }, [])
 
   const elements = previewCategories.map((el) => {
     return (
@@ -100,9 +101,13 @@ export function CategoriesPage(): ReactElement {
             <section>
               <div className="collection">
                 {Object.keys(organisations).map((k) => (
-                  <a key={k} className="btn-flat waves-effect waves-teal collection-item">
+                  <Link
+                    to={`/evaluation?_categoryId=${selectedCategoryId}&_organisationId=${k}`}
+                    key={k}
+                    className="btn-flat waves-effect waves-teal collection-item"
+                  >
                     {organisations[Number(k)]}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </section>
