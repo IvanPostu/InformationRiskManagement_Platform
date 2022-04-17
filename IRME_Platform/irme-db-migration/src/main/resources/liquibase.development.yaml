@@ -5,7 +5,7 @@ changeLogFile: db/changelog/changelog-master.xml
 # password: qwYertyZ_654321
 url: jdbc:sqlserver://localhost:1433;databaseName=InformationRiskManagementDatabase;
 username: sa
-password: 123456
+password: Testing1122990
 driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
 verbose: true
 logging: debug
