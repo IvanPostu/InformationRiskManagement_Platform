@@ -163,6 +163,21 @@
     </rollback>
   </changeSet>  
 
-  <!-- sa_get_questions_by_category -->
+  <changeSet author="IvanPostu" id="sa_create_evaluation_process">
+    <sqlFile path="sa_create_evaluation_process.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa_create_evaluation_process.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet> 
+
+  <changeSet author="IvanPostu" id="sa_get_evaluation_processes">
+    <sqlFile path="sa_get_evaluation_processes.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa_get_evaluation_processes.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet> 
+
 
 </databaseChangeLog>
