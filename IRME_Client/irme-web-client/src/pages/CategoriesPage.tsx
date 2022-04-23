@@ -96,7 +96,7 @@ export function CategoriesPage(): ReactElement {
         {/* Modal element */}
         <div id="orgsModalId" className="modal">
           <div className="modal-content grey-text text-darken-4">
-            <h4>Lista de organizație</h4>
+            <h4>Lista de organizații</h4>
             <p>Selectați o organizație asignată dvs. pentru care va fi realizată rvaluarea de riscuri</p>
             <section>
               <div className="collection">

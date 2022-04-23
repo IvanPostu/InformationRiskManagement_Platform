@@ -22,7 +22,7 @@ export function authenticate(email: string, password: string) {
 
     if (data instanceof ErrorResult || data === null) {
       dispatch({ type: T.DEAUTHENTICATE_USER } as DeauthenticateActionType)
-      alert('Autjentication error, something went wrong!!!')
+      alert('Authentication error, something went wrong!!!')
     } else {
       const { email, firstName, lastName, token } = data
       dispatch({
