@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[sa_get_evaluation_processes]
+CREATE OR ALTER PROCEDURE [dbo].[sa_get_evaluation_processes]
     @author_user_id 			INTEGER = -1,
     @organisation_id 			INTEGER = -1
 AS
