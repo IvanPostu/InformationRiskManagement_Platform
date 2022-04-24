@@ -19,7 +19,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'În organizație se utilizează la granițele rețelei ecrane inter-rețea sau alte elemente de gestiune a accesului la nivel de rețea pentru protecția resurselor corporative?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -47,7 +46,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Organizația implementează controale de gestiune a accesului la nivel de rețea pentru protecția resurselor corporative în fiecare birou?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -85,7 +83,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Organizația utilizează zone ce separă rețelele interne și externe în care sunt plasate serviciile?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -112,7 +109,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt plasate servicii legate cu Internetul în organizație?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -140,7 +136,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Organizația dvs. folosește software firewall pe computerul gazdă pentru a proteja serverele?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -168,7 +163,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt utilizate în organizație produse hardware sau software pentru a detecta intruziunea în sistem?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -196,7 +190,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Ce tip de sistem de detectare a intruziunilor utilizați?',
     1,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -231,7 +224,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt implementate soluții antivirus în sistem?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -258,7 +250,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Selectați sistemele ce utilizează soft din categoria antivirus:',
     1,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -308,7 +299,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Este posibil acces la distanță la rețeaua companiei?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -335,7 +325,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Cine are acces la distanță la rețeaua companiei?',
     1,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -361,7 +350,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt utilizate tehnologii de rețea virtuală (VPN) pentru a oferi securitate conexiunilor utilizatorilor la distanță la resursele corporative?',
     0,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -388,7 +376,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'VPN - ul companiei oferă posibilitatea de a parcurge toate verificările de securitate necesare?',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -414,7 +401,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt utilizate verificări de autenticitate bazate pe mai mulți factori pentru utilizatori conectați la distanță?',
     0,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -440,7 +426,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Există în rețea mai mult de un segment?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -467,7 +452,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Se utilizează segmentarea rețelei pentru clientul extern separat și serviciile rețelei externe de resursele corporative?',
     0,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -494,7 +478,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din roluri sau servicii oferite asemănătoare?',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -520,7 +503,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din doar serviciile necesare utilizatorilor ce se conectează?',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -546,7 +528,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'A fost creat și documentat planul ce permite de a gestiona adresele TCP/IP pentru sisteme în dependență de segmente?',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -572,7 +553,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Există posibilitatea de conexiune wireless la rețea?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 
@@ -599,7 +579,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Ce elemente de gestiune a securității se utilizează pentru a grupa conexiunile la rețeaua wireless?',
     1,
     @_inserted_question_answer_id1,
-    10,
     @last_inserted_question_id OUTPUT;
 -- answers:
 EXECUTE [sa_insert_answer_and_description] 

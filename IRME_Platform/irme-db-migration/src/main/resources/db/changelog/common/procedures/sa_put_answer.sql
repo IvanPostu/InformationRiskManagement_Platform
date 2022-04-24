@@ -39,12 +39,13 @@ BEGIN TRY
         RAISERROR(@error_message, 16, 1)
     END
 	
-	DECLARE @isMultiQuestion BIT = ISNULL((
-		SELECT TOP 1 sq.has_multiple_answers  
-		FROM sa__questions AS sq WHERE sq.question_id=@question_id
-	), 0);
+	DECLARE @isMultiQuestion BIT = (
+		SELECT TOP 1 1 
+		FROM sa__questions AS sq 
+		WHERE sq.question_id=@question_id AND sq.has_multiple_answers=1
+	);
 
-	IF @isMultiQuestion = 0
+	IF @isMultiQuestion <> 1
 	BEGIN
 		-- delete sa__results row if already have answer
 		DELETE sr
@@ -62,7 +63,8 @@ BEGIN TRY
 	ELSE
 	BEGIN
 		IF NOT EXISTS (
-        	SELECT TOP 1 1 FROM sa__results WHERE process_id=@process_id AND question_answer_id=@sa_question_answer_id
+        	SELECT TOP 1 1 FROM sa__results 
+            WHERE process_id=@process_id AND question_answer_id=@sa_question_answer_id
         )
         BEGIN
 			INSERT INTO sa__results (process_id, question_answer_id) 

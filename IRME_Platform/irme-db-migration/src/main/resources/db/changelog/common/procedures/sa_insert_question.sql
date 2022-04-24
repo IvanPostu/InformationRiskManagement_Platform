@@ -5,7 +5,6 @@ CREATE OR ALTER PROCEDURE [dbo].[sa_insert_question]
   	@question                               NVARCHAR(4000),
   	@question_has_multiple_answers          BIT,
     @depends_on_inserted_question_answer_id INTEGER, -- CAN BE NULL
-    @question_weight                        INTEGER,
     @last_inserted_question_id              INTEGER OUTPUT
 AS
 BEGIN TRY
@@ -33,14 +32,12 @@ BEGIN TRY
             [category_id],
             [depends_on_question_answer_id],
             [question],
-            [has_multiple_answers],
-            [question_weight]
+            [has_multiple_answers]
         ) VALUES (
             @category_id,
             @depends_on_inserted_question_answer_id,
             @question,
-            @question_has_multiple_answers,
-            @question_weight
+            @question_has_multiple_answers
         );
 
         SET @last_inserted_question_id = @@IDENTITY;

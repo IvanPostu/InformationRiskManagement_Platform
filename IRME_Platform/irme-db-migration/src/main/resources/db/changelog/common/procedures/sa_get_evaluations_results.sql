@@ -1,7 +1,7 @@
 
-CREATE OR ALTER PROCEDURE [dbo].[sa_category_get_evaluations_results]
-    @category_id 				INTEGER,
-    @organisation_id 			INTEGER
+CREATE OR ALTER PROCEDURE [dbo].[sa_get_evaluations_results]
+    @organisation_id 			INTEGER,
+    @category_id 				INTEGER
 AS
 BEGIN TRY 
 

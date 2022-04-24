@@ -1,2 +1,0 @@
-
-DROP PROCEDURE sa_category_get_evaluations_results.rollback;

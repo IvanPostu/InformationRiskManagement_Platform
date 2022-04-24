@@ -20,7 +20,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Există modalități de control a utilizării politicilor de parole pentru conturi de utilizatori de mai multe tipuri?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -49,7 +48,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Selectați conturile de utilizatori pentru care există modalități de control a utilizării politicilor de parole',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -78,7 +76,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Specificați opțiunea de verificare autenticității ce este utilizat pentru accesul administratorului la dispozitive și calculatoare',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -116,7 +113,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Indicați modalitatea de verificare a autenticității utilizat pentru accesul utilizatorilor interni la rețeaua internă și calculatorul-host',
     0,
     @_inserted_question_answer_id2,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -155,7 +151,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Indicați modalitatea de verificare a autenticității utilizat pentru accesul la distanță a utilizatorilor',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -193,7 +188,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Este posibil scenariu de blocare a contului ce a depășit un anumit număr de încercări nereușite de autentificare în sistem?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:
@@ -221,7 +215,6 @@ EXECUTE [dbo].[sa_insert_question]
     N'Sunt elaborate în organizație procese de urmărire a conturilor neactive a administratorilor, angajați, furnizori sau utilizatori cu acces la distanță?',
     0,
     NULL,
-    10,
     @last_inserted_question_id OUTPUT;
 
 -- answers:

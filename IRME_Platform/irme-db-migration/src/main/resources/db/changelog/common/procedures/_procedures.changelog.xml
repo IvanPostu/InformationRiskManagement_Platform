@@ -187,19 +187,20 @@
     </rollback>
   </changeSet> 
 
-  <changeSet author="IvanPostu" id="sa_category_get_evaluations_results">
-    <sqlFile path="sa_category_get_evaluations_results.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="sa_get_evaluations_results">
+    <sqlFile path="sa_get_evaluations_results.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="sa_category_get_evaluations_results.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="sa_get_evaluations_results.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet> 
 
-  <changeSet author="IvanPostu" id="sa_category_get_evaluations_results">
-    <sqlFile path="sa_category_get_evaluations_results.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="sa_finish_evaluation">
+    <sqlFile path="sa_finish_evaluation.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="sa_category_get_evaluations_results.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="sa_finish_evaluation.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet> 
+
 </databaseChangeLog>
