@@ -1,10 +1,4 @@
 
-
-
--- CREATE DATABASE InformationRiskManagementDatabase;
--- CREATE DATABASE InformationRiskManagementDatabase_Test;
-
-
 BEGIN
 
 DECLARE @current_category NVARCHAR(MAX) = N'Verificarea autenticității';
@@ -28,7 +22,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Da',
 	N'Implementarea modalității de control a utilizării politicelor de parole pentru conturi de utilizatori de mai multe tipuri este un factor foarte important ce permite de a gestiona situații excepționale sau încercările de a încălca politicele cu posibilitatea de a acționa în modul necesar.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -37,7 +30,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Nu',
 	N'Lipsa modalităților de control a utilizării politicilor de parole pentru conturi de utilizatori de mai multe tipuri poate avea urmări grave sub formă de scurgeri de informații fără posibilitatea de a detecta acțiunea dată.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -56,7 +48,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Administrator',
 	N'Pentru conturile de administratori există modalități de control a utilizării politicilor de parole, ceea ce înseamnă că sunt întreprinse acțiuni adecvate în privința perioadei în care parola este necesar de schimbat, complexitatea parolei și mulți alți factori ce minimizează probabilitatea de a sparge parola conturilor de administratori.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -65,7 +56,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Utilizator',
 	N'Pentru conturile de utilizatori este importantă prezența modalităților de control a utilizării politicilor de parole fiindcă exclude posibilitatea utilizatorului simplu de a seta o parole simplă sau de a o utiliza inadecvat.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -84,7 +74,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Verificarea autenticității bazate pe mai mulți factori',
 	N'Este o bună practică verificarea autenticității bazate pe mai mulți factori.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -93,7 +82,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola complexă',
 	N'Utilizarea parolei complexe oferă un nivel adecvat de securitate, dar este posibil prin ingineria socială ca persoanele neautorizate să capete acces la parolă.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -102,7 +90,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola simplă',
 	N'Utilizarea parolei simple crează vulnerabilități pentru resursele corporative și pentru sistemele a organizației, este necesar de soluționat problema dată.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -121,7 +108,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Verificarea autenticității bazate pe mai mulți factori',
 	N'Este o bună practică verificarea autenticității bazate pe mai mulți factori.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -130,7 +116,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola complexa',
 	N'Utilizarea parolei complexe oferă un nivel adecvat de securitate, dar este posibil prin ingineria socială ca persoanele neautorizate să capete acces la parolă.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -139,7 +124,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola simpla',
 	N'Utilizarea parolei simple crează vulnerabilități pentru resursele corporative și pentru sistemele a organizației, este necesar de soluționat problema dată.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -159,7 +143,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Verificarea autenticității bazate pe mai mulți factori',
 	N'Este o bună practică verificarea autenticității bazate pe mai mulți factori.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -168,7 +151,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola complexă',
 	N'Utilizarea parolei complexe oferă un nivel adecvat de securitate, dar este posibil prin ingineria socială ca persoanele neautorizate să capete acces la parolă.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -177,7 +159,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Parola simplă',
 	N'Utilizarea parolei simple crează vulnerabilități pentru resursele corporative și pentru sistemele a organizației, este necesar de soluționat problema dată.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -196,7 +177,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Da',
 	N'Blocarea conturilor ce a depășit numărul maximal de încercări de autentificare realizate este up pas adecvat împotriva accesului neautorizat.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -205,7 +185,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Nu',
 	N'Este foarte important de implementat scenariu de blocare a contului ce a depășit un anumit număr de încercări nereușite de autentificare în sistem.',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -223,7 +202,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Da',
 	N'Este o modalitate rețională de protecție a datelor și resurselor corporative urmărind conturile neactive a administratorilor, angajați, furnizori sau utilizatori cu acces la distanță.',
-    '',
     10,
     @inserted_question_answer_id OUTPUT; -- out
 
@@ -232,7 +210,6 @@ EXECUTE [sa_insert_answer_and_description]
 	@mid_sized_profile_id,
 	N'Nu',
 	N'Este necesar de elaborat procese de urmărire a conturilor neactive a administratorilor, angajați, furnizori sau utilizatori cu acces la distanță pentru a exclude posibilitatea de scurgere de informație și acces neautorizat',
-    '',
     2,
     @inserted_question_answer_id OUTPUT; -- out
 

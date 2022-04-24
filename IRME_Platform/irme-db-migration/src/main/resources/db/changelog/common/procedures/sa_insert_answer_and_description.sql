@@ -4,8 +4,7 @@ CREATE OR ALTER PROCEDURE [dbo].[sa_insert_answer_and_description]
     @question_id INTEGER,
     @profile_id INTEGER,
     @answer_text_param NVARCHAR(1024),
-    @description_if_is_present_answer NVARCHAR(4000),
-    @description_if_is_not_present_answer NVARCHAR(4000),
+    @description NVARCHAR(4000),
     @answer_weight INTEGER,
     @inserted_question_answer_id INTEGER OUTPUT
 AS
@@ -40,14 +39,12 @@ BEGIN TRY
         INSERT INTO [dbo].[sa__question_answer_descriptions]
         (
             question_answer_id,
-            description_if_is_present_answer,
-            description_if_is_not_present_answer
+            description
         )
         VALUES
         (
             @questions_answers_id,
-            @description_if_is_present_answer,
-            @description_if_is_not_present_answer
+            @description
         );
 
         SET @inserted_question_answer_id = @questions_answers_id;

@@ -1,6 +1,8 @@
 package com.irme.server.dal.dao;
 
 import com.irme.common.dto.EvaluationProcessDto;
+import com.irme.common.dto.EvaluationReport;
+import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SAAnswerDto;
 import com.irme.common.dto.SACategoryDto;
 import com.irme.common.dto.SAQuestionWithAnswers;
@@ -159,6 +161,42 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         // @user_email AS user_email,
         // e.category_id,
         // category.name AS category_name
+        return null;
+    }
+
+    @Override
+    public boolean putAnswerToQuestion(int questionId, int answerId, int processId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean removeAnswerFromQuestion(int questionId, int answerId, int processId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean finalizeEvaluation(int organisationId, int processId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean finalizeEvaluationForced(int organisationId, int processId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public List<EvaluationResult> getEvaluationsResults(int organisationId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<EvaluationReport> getEvaluationReport(int processId) {
+        // TODO Auto-generated method stub
         return null;
     }
 

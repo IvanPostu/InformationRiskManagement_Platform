@@ -203,11 +203,11 @@
     </rollback>
   </changeSet> 
 
-  <changeSet author="IvanPostu" id="sa_get_evaluations_report">
-    <sqlFile path="sa_get_evaluations_report.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="sa_get_evaluation_report">
+    <sqlFile path="sa_get_evaluation_report.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="sa_get_evaluations_report.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="sa_get_evaluation_report.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet> 
 
@@ -219,11 +219,11 @@
     </rollback>
   </changeSet> 
 
-  <changeSet author="IvanPostu" id="dev__random_item">
-    <sqlFile path="dev__random_item.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+  <changeSet author="IvanPostu" id="dev__evaluate_organisation">
+    <sqlFile path="dev__evaluate_organisation.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
 
     <rollback>
-      <sqlFile path="dev__random_item.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+      <sqlFile path="dev__evaluate_organisation.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
     </rollback>
   </changeSet> 
 
