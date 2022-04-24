@@ -1,9 +1,5 @@
 
 
-
--- CREATE DATABASE InformationRiskManagementDatabase;
--- CREATE DATABASE InformationRiskManagementDatabase_Test;
-
 BEGIN
 
 DECLARE @current_category NVARCHAR(MAX) = N'Protecție perimetrală';

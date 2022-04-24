@@ -1,5 +1,6 @@
 package com.irme.server.dal.dao;
 
+import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.SACategoryDto;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
@@ -18,5 +19,13 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
 
     public abstract List<SAQuestionWithAnswers> getQuestionsDataByCategory(int categoryId)
             throws DataAccessLayerException;
+
+    /**
+     * 
+     * @return -1 on fail or evaluation process id from db
+     */
+    public abstract int createEvaluationProcess();
+
+    public abstract List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId);
 
 }

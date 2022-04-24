@@ -1,5 +1,6 @@
 package com.irme.server.dal.dao;
 
+import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.SAAnswerDto;
 import com.irme.common.dto.SACategoryDto;
 import com.irme.common.dto.SAQuestionWithAnswers;
@@ -132,6 +133,33 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
+    }
+
+    @Override
+    public int createEvaluationProcess() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId) {
+
+        // e.process_id,
+        // e.organisation_id,
+        // o.name AS organisation_name,
+        // e.created,
+        // (CASE
+        // WHEN (e.status = 0) THEN 'OPEN'
+        // WHEN (e.status = 1) THEN 'COMPLETED'
+        // WHEN (e.status = 2) THEN 'FORCE CLOSED'
+        // ELSE 'UNKNOWN STATUS'
+        // END) AS status,
+        // e.status AS status_code,
+        // e.author_user_id,
+        // @user_email AS user_email,
+        // e.category_id,
+        // category.name AS category_name
+        return null;
     }
 
 }

@@ -3,7 +3,6 @@ CREATE OR ALTER PROCEDURE [dbo].[sa_put_answer]
     @question_id 			INTEGER,
     @answer_id				INTEGER,
     @process_id				INTEGER,
-    @user_id				INTEGER,
     @clean_answer			BIT = 0, --if 1 delete existed one
     @isSuccess  			BIT OUTPUT
 AS
@@ -14,12 +13,11 @@ BEGIN TRY
 	-- check if evaluation process exists
 	IF NOT EXISTS (
 		SELECT TOP 1 1 FROM sa__processes AS sp 
-		WHERE sp.process_id=@process_id AND sp.author_user_id=@user_id
+		WHERE sp.process_id=@process_id
 	)
 	BEGIN 
 		SET @error_message = CONCAT(
-			'Not found sa_process record with id: ', 
-			@process_id, ' for user: ', @user_id);
+			'Not found sa_process record with id: ', @process_id);
 		RAISERROR(@error_message, 16, 1)
 	END
 	
