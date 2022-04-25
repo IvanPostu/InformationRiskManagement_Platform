@@ -26,20 +26,28 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
      * 
      * @return -1 on fail or evaluation process id from db
      */
-    public abstract int createEvaluationProcess();
+    public abstract int createEvaluationProcess(int userId, int organisationId, int categoryId)
+            throws DataAccessLayerException;
 
-    public abstract List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId);
+    public abstract List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId)
+            throws DataAccessLayerException;
 
-    public abstract boolean putAnswerToQuestion(int questionId, int answerId, int processId);
+    public abstract boolean putAnswerToQuestion(int questionId, int answerId, int processId)
+            throws DataAccessLayerException;
 
-    public abstract boolean removeAnswerFromQuestion(int questionId, int answerId, int processId);
+    public abstract boolean removeAnswerFromQuestion(int questionId, int answerId, int processId)
+            throws DataAccessLayerException;
 
-    public abstract boolean finalizeEvaluation(int organisationId, int processId);
+    public abstract boolean finalizeEvaluation(int organisationId, int processId)
+            throws DataAccessLayerException;
 
-    public abstract boolean finalizeEvaluationForced(int organisationId, int processId);
+    public abstract boolean finalizeEvaluationForced(int organisationId, int processId)
+            throws DataAccessLayerException;
 
-    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId);
+    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId)
+            throws DataAccessLayerException;
 
-    public abstract List<EvaluationReport> getEvaluationReport(int processId);
+    public abstract List<EvaluationReport> getEvaluationReport(int processId)
+            throws DataAccessLayerException;
 
 }

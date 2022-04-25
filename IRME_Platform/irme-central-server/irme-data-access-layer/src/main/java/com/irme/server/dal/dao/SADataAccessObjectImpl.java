@@ -15,8 +15,10 @@ import javax.sql.DataSource;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
@@ -137,67 +139,169 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         }
     }
 
+    /**
+     * 
+     * @return -1 on fail or evaluation process id from db
+     */
     @Override
-    public int createEvaluationProcess() {
-        // TODO Auto-generated method stub
-        return 0;
+    public int createEvaluationProcess(int userId, int organisationId, int categoryId) throws DataAccessLayerException {
+
+        String sql = "{ call dbo.sa_create_evaluation_process( ?,?,?,? ) }";
+        int evaluationPrecessId = -1;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+
+            statement.setInt(1, organisationId);
+            statement.setInt(2, userId);
+            statement.setInt(3, categoryId);
+            statement.registerOutParameter(4, Types.INTEGER);
+
+            statement.executeUpdate();
+
+            evaluationPrecessId = statement.getInt(4);
+
+            if (evaluationPrecessId == -1) {
+                throw new DataAccessLayerException("INSERT_FAILED",
+                        DataAccessErrorCode.INSERT_FAILED);
+            }
+
+            return evaluationPrecessId;
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.INSERT_FAILED);
+        }
     }
 
     @Override
-    public List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId) {
+    public List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId)
+            throws DataAccessLayerException {
 
-        // e.process_id,
-        // e.organisation_id,
-        // o.name AS organisation_name,
-        // e.created,
-        // (CASE
-        // WHEN (e.status = 0) THEN 'OPEN'
-        // WHEN (e.status = 1) THEN 'COMPLETED'
-        // WHEN (e.status = 2) THEN 'FORCE CLOSED'
-        // ELSE 'UNKNOWN STATUS'
-        // END) AS status,
-        // e.status AS status_code,
-        // e.author_user_id,
-        // @user_email AS user_email,
-        // e.category_id,
-        // category.name AS category_name
+        String sql = "{ call dbo.sa_get_evaluation_processes( ?, ? ) }";
+        List<EvaluationProcessDto> result = new LinkedList<>();
+        ResultSet rs = null;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, organisationId);
+
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                EvaluationProcessDto processDto = new EvaluationProcessDto();
+
+                processDto.setProcessId(rs.getInt("process_id"));
+                processDto.setOrganisationId(rs.getInt("prganisation_id"));
+                processDto.setOrganisationName(rs.getString("prganisation_name"));
+                processDto.setCreated(rs.getDate("created"));
+                processDto.setUserId(rs.getInt("auth_user_id"));
+                processDto.setUserEmail(rs.getString("user_email"));
+                processDto.setStatusCode(rs.getInt("status"));
+                processDto.setCategoryId(rs.getInt("process_id"));
+                processDto.setCategoryName(rs.getString("category_name"));
+
+                result.add(processDto);
+            }
+            rs.close();
+
+        } catch (SQLException | IllegalArgumentException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean putAnswerToQuestion(int questionId, int answerId, int processId) throws DataAccessLayerException {
+        return manipulateWithAnswerToQuestion(questionId, answerId, processId, false);
+    }
+
+    @Override
+    public boolean removeAnswerFromQuestion(int questionId, int answerId, int processId)
+            throws DataAccessLayerException {
+        return manipulateWithAnswerToQuestion(questionId, answerId, processId, true);
+    }
+
+    @Override
+    public boolean finalizeEvaluation(int organisationId, int processId) throws DataAccessLayerException {
+        return finalizeEvaluation(organisationId, processId, false);
+    }
+
+    @Override
+    public boolean finalizeEvaluationForced(int organisationId, int processId) throws DataAccessLayerException {
+        return finalizeEvaluation(organisationId, processId, true);
+    }
+
+    @Override
+    public List<EvaluationResult> getEvaluationsResults(int organisationId) throws DataAccessLayerException {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public boolean putAnswerToQuestion(int questionId, int answerId, int processId) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean removeAnswerFromQuestion(int questionId, int answerId, int processId) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean finalizeEvaluation(int organisationId, int processId) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean finalizeEvaluationForced(int organisationId, int processId) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public List<EvaluationResult> getEvaluationsResults(int organisationId) {
+    public List<EvaluationReport> getEvaluationReport(int processId) throws DataAccessLayerException {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
-    public List<EvaluationReport> getEvaluationReport(int processId) {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * 
+     * 
+     * @param questionId
+     * @param answerId
+     * @param processId
+     * @param remove     If is true, remove current question-answer link, otherwise
+     *                   lint it
+     * @return success or fail
+     * @throws DataAccessLayerException
+     */
+    private boolean manipulateWithAnswerToQuestion(int questionId, int answerId, int processId, boolean remove)
+            throws DataAccessLayerException {
+        String sql = "{ call dbo.sa_put_answer( ?,?,?,?,? ) }";
+        boolean isSuccess = false;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+
+            statement.setInt(1, questionId);
+            statement.setInt(2, answerId);
+            statement.setInt(3, processId);
+            statement.setBoolean(4, remove);
+            statement.registerOutParameter(5, Types.BIT);
+
+            statement.executeUpdate();
+
+            isSuccess = statement.getBoolean(4);
+
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.INSERT_FAILED);
+        }
+
+        return isSuccess;
+
+    }
+
+    private boolean finalizeEvaluation(int organisationId, int processId, boolean finalizeForced)
+            throws DataAccessLayerException {
+        String sql = "{ call dbo.sa_finish_evaluation( ?,?,?,? ) }";
+        boolean isSuccess = false;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+
+            statement.setInt(1, processId);
+            statement.setInt(2, organisationId);
+            statement.setBoolean(3, finalizeForced);
+            statement.registerOutParameter(4, Types.BIT);
+
+            statement.executeUpdate();
+
+            isSuccess = statement.getBoolean(4);
+
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.INSERT_FAILED);
+        }
+
+        return isSuccess;
     }
 
 }
