@@ -232,15 +232,87 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     }
 
     @Override
-    public List<EvaluationResult> getEvaluationsResults(int organisationId) throws DataAccessLayerException {
-        // TODO Auto-generated method stub
-        return null;
+    public List<EvaluationResult> getEvaluationsResults(int organisationId, int categoryId)
+            throws DataAccessLayerException {
+
+        String sql = "{ call dbo.sa_get_evaluations_results( ?, ? ) }";
+        List<EvaluationResult> result = new LinkedList<>();
+        ResultSet rs = null;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, organisationId);
+            statement.setInt(2, categoryId);
+
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                EvaluationResult evaluationResult = new EvaluationResult();
+
+                evaluationResult.setProcessId(rs.getInt("process_id"));
+                evaluationResult.setCategoryId(rs.getInt("category_id"));
+                evaluationResult.setCreated(rs.getDate("created"));
+                evaluationResult.setAnswerTotalWeight(rs.getInt("created"));
+                evaluationResult.setAnswerMaxWeight(rs.getInt("created"));
+                evaluationResult.setStatusCode(rs.getInt("status"));
+
+                result.add(evaluationResult);
+            }
+            rs.close();
+
+        } catch (SQLException | IllegalArgumentException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
     }
 
     @Override
-    public List<EvaluationReport> getEvaluationReport(int processId) throws DataAccessLayerException {
-        // TODO Auto-generated method stub
-        return null;
+    public List<EvaluationResult> getEvaluationsResults(int organisationId)
+            throws DataAccessLayerException {
+
+        return getEvaluationsResults(organisationId, -1);
+    }
+
+    @Override
+    public EvaluationReport getEvaluationReport(int processId) throws DataAccessLayerException {
+        String sql = "{ call dbo.sa_get_evaluation_report( ? ) }";
+        EvaluationReport report = new EvaluationReport();
+        ResultSet rs;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, processId);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                EvaluationReport.EvaluationReportItem reportItem = new EvaluationReport.EvaluationReportItem();
+                reportItem.setAnswerId(rs.getInt("answer_id"));
+                reportItem.setQuestionId(rs.getInt("question_id"));
+                reportItem.setQuestion(rs.getString("question"));
+                reportItem.setAnswer(rs.getString("answer"));
+                reportItem.setDescription(rs.getString("description"));
+
+                report.getItems().add(reportItem);
+            }
+            rs.close();
+
+            if (!statement.getMoreResults()) {
+                throw new SQLException("The second result set is missing or empty");
+            }
+
+            rs = statement.getResultSet();
+            while (rs.next()) {
+                int maxCategoryWeight = rs.getInt("maxc_ategory_weight");
+                int totalProcessWeight = rs.getInt("total_process_weight");
+                report.setMaxCategoryWeight(maxCategoryWeight);
+                report.setTotalProcessWeight(totalProcessWeight);
+            }
+            rs.close();
+
+        } catch (SQLException | IllegalArgumentException ex) {
+            throw new DataAccessLayerException(ex.getMessage(),
+                    DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return report;
     }
 
     /**

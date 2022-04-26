@@ -44,10 +44,13 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     public abstract boolean finalizeEvaluationForced(int organisationId, int processId)
             throws DataAccessLayerException;
 
+    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId, int categoryId)
+            throws DataAccessLayerException;
+
     public abstract List<EvaluationResult> getEvaluationsResults(int organisationId)
             throws DataAccessLayerException;
 
-    public abstract List<EvaluationReport> getEvaluationReport(int processId)
+    public abstract EvaluationReport getEvaluationReport(int processId)
             throws DataAccessLayerException;
 
 }

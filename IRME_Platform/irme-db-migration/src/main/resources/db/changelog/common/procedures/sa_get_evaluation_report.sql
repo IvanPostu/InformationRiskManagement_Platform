@@ -33,7 +33,7 @@ BEGIN TRY
         WHERE sp.process_id=@category_id
     );
 
-	SELECT TOP 1
+	SELECT 
 		answers.answer_id,
 		questions.question_id,
 		questions.question ,
