@@ -13,7 +13,25 @@ type SAQuestionData {
     answers: [SAAnswerData]
 }
 
+type SAEvaluationProcess {
+    processId: Int,
+    organisationId: Int,
+    organisationName: String,
+    created: String,
+    status: String,
+    statusCode: Int,
+    userId: Int,
+    userEmail: String,
+    categoryId: Int,
+    categoryName: String,
+}
+
 extend type Query {
 	getSecurityAssessmentCategories: [SACategory]
     getSecurityAssessmentQuestionsDataByCategory(categoryId: Int): [SAQuestionData]
+    getEvaluationProcesses(organisationId: Int): [SAEvaluationProcess]
+}
+
+extend type Mutation {
+	createEvaluationProcess( organisationId: Int, categoryId: Int):Int
 }

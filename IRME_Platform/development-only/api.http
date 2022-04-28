@@ -41,7 +41,7 @@ query {
 
 
 
-POST http://localhost:3000/graphql
+POST http://localhost:8080/graphql
 Content-Type: application/json
 Authorization: null
 X-REQUEST-TYPE: GraphQL
@@ -108,7 +108,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTg4MzIxNywiZXhwIjoxNjQ5ODg2ODE3fQ.w_wnTQWpOLxwGu1X5AHA8y9dAiEZPHRTBcJ1NdFb32E
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3MjU2OCwiZXhwIjoxNjUxMTc2MTY4fQ.GhZUcdksU6FAyQnI9zjP1nL0q_0F_BweTza2YMZph9c
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -125,7 +125,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY0OTAxNTY0NCwiZXhwIjoxNjQ5MDE5MjQ0fQ.5buMjpbd5eo5F9QhbooToK7qIqsw0aqd4XP7zrZ5Wdw
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3MjU2OCwiZXhwIjoxNjUxMTc2MTY4fQ.GhZUcdksU6FAyQnI9zjP1nL0q_0F_BweTza2YMZph9c
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -142,4 +142,41 @@ query {
         question,
     }
 }
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3NDgzMiwiZXhwIjoxNjUxMTc4NDMyfQ.QXF_GYRFbaHzz8Ag3in4_1qkAZveLsOZ46XZ9egzC5U
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+    createEvaluationProcess(organisationId: 114, categoryId: 1)
+}
+
+//14
+
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3NDgzMiwiZXhwIjoxNjUxMTc4NDMyfQ.QXF_GYRFbaHzz8Ag3in4_1qkAZveLsOZ46XZ9egzC5U
+X-REQUEST-TYPE: GraphQL
+
+query {
+    getEvaluationProcesses(organisationId: 4)
+    {
+        processId,
+        organisationId,
+        organisationName,
+        created,
+        status,
+        statusCode,
+        userId,
+        userEmail,
+        categoryId,
+        categoryName,
+    }
+}
+
+
 

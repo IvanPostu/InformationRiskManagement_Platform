@@ -1,14 +1,18 @@
 package com.irme.server.webapp.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.SACategoryDto;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.business_entities.SABusinessLogic;
 import com.irme.server.webapp.graphql.model.SAAnswerResult;
 import com.irme.server.webapp.graphql.model.SACategoryResult;
 import com.irme.server.webapp.graphql.model.SAQuestionDataResult;
+import com.irme.server.webapp.jwt.JwtUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -68,5 +72,15 @@ public class SAQuery implements GraphQLQueryResolver {
                 .collect(Collectors.toList());
 
         return questionDataResults;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public List<EvaluationProcessDto> getEvaluationProcesses(int organisationId) {
+        AbstractAuthenticationToken auth = (AbstractAuthenticationToken) SecurityContextHolder.getContext()
+                .getAuthentication();
+        JwtUser user = (JwtUser) auth.getPrincipal();
+        int userId = user.getId();
+
+        return sABusinessLogic.getEvaluationProcesses(userId, organisationId);
     }
 }

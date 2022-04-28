@@ -189,10 +189,10 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
                 EvaluationProcessDto processDto = new EvaluationProcessDto();
 
                 processDto.setProcessId(rs.getInt("process_id"));
-                processDto.setOrganisationId(rs.getInt("prganisation_id"));
-                processDto.setOrganisationName(rs.getString("prganisation_name"));
+                processDto.setOrganisationId(rs.getInt("organisation_id"));
+                processDto.setOrganisationName(rs.getString("organisation_name"));
                 processDto.setCreated(rs.getDate("created"));
-                processDto.setUserId(rs.getInt("auth_user_id"));
+                processDto.setUserId(rs.getInt("author_user_id"));
                 processDto.setUserEmail(rs.getString("user_email"));
                 processDto.setStatusCode(rs.getInt("status"));
                 processDto.setCategoryId(rs.getInt("process_id"));
@@ -202,7 +202,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
             }
             rs.close();
 
-        } catch (SQLException | IllegalArgumentException ex) {
+        } catch (Exception ex) {
             throw new DataAccessLayerException(ex.getMessage(),
                     DataAccessErrorCode.UNKNOWN_ERROR);
         }
