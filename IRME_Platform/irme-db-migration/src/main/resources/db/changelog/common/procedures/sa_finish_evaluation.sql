@@ -18,7 +18,7 @@ BEGIN TRY
 	IF @process_exists=1
 	BEGIN 
 		UPDATE sp 
-		SET sp.status=1
+		SET sp.status=IIF(@force_close=0, 1, 2)
 		FROM sa__processes AS sp
 		WHERE sp.process_id=@process_id	AND sp.organisation_id=@organisation_id;
 	END

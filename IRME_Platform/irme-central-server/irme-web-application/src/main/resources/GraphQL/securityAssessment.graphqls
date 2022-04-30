@@ -34,4 +34,8 @@ extend type Query {
 
 extend type Mutation {
 	createEvaluationProcess( organisationId: Int, categoryId: Int):Int
+    putAnswerToQuestion(questionId: Int, answerId: Int, processId: Int):Boolean
+    removeAnswerFromQuestion(questionId: Int, answerId: Int, processId: Int):Boolean
+    finalizeEvaluation( organisationId: Int, processId: Int ):Boolean
+    finalizeEvaluationForced( organisationId: Int, processId: Int ):Boolean
 }

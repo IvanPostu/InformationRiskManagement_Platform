@@ -26,4 +26,28 @@ public class SAMutation implements GraphQLMutationResolver {
 
         return evaluationProcessId;
     }
+
+    @PreAuthorize("!isAnonymous()")
+    public Boolean putAnswerToQuestion(int questionId, int answerId, int processId) {
+        Boolean isSuccess = saBusinessLogic.putAnswerToQuestion(questionId, answerId, processId);
+        return isSuccess;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public Boolean removeAnswerFromQuestion(int questionId, int answerId, int processId) {
+        Boolean isSuccess = saBusinessLogic.removeAnswerFromQuestion(questionId, answerId, processId);
+        return isSuccess;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public boolean finalizeEvaluation(int organisationId, int processId) {
+        boolean isSuccess = saBusinessLogic.finalizeEvaluation(organisationId, processId);
+        return isSuccess;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public boolean finalizeEvaluationForced(int organisationId, int processId) {
+        boolean isSuccess = saBusinessLogic.finalizeEvaluationForced(organisationId, processId);
+        return isSuccess;
+    }
 }

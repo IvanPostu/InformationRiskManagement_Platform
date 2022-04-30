@@ -146,14 +146,14 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3NDgzMiwiZXhwIjoxNjUxMTc4NDMyfQ.QXF_GYRFbaHzz8Ag3in4_1qkAZveLsOZ46XZ9egzC5U
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
 X-REQUEST-TYPE: GraphQL
 
 mutation {
-    createEvaluationProcess(organisationId: 114, categoryId: 1)
+    createEvaluationProcess(organisationId: 4, categoryId: 1)
 }
 
-//14
+//1014
 
 
 
@@ -177,6 +177,61 @@ query {
         categoryName,
     }
 }
+
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+    putAnswerToQuestion(questionId: 1, answerId: 2, processId: 1014)
+}
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+    removeAnswerFromQuestion(questionId: 1, answerId: 2, processId: 1014)
+}
+
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+    finalizeEvaluationForced(organisationId: 4, processId: 1014)
+}
+
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
+X-REQUEST-TYPE: GraphQL
+
+mutation {
+    finalizeEvaluation(organisationId: 4, processId: 1014)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

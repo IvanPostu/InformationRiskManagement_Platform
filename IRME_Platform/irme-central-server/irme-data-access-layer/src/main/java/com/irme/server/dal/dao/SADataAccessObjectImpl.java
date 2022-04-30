@@ -341,7 +341,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
 
             statement.executeUpdate();
 
-            isSuccess = statement.getBoolean(4);
+            isSuccess = statement.getBoolean(5);
 
         } catch (SQLException ex) {
             throw new DataAccessLayerException(ex.getMessage(),

@@ -30,7 +30,7 @@ BEGIN TRY
         FROM sa__processes AS sp
         INNER JOIN sa__results AS sr ON sr.process_id=sp.process_id  
         INNER JOIN sa__questions_answers AS qa ON qa.id=sr.question_answer_id 
-        WHERE sp.process_id=@category_id
+        WHERE sp.process_id=@process_id
     );
 
 	SELECT 
