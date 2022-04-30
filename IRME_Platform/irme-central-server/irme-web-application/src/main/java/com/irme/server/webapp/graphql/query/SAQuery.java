@@ -2,6 +2,8 @@ package com.irme.server.webapp.graphql.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.irme.common.dto.EvaluationProcessDto;
+import com.irme.common.dto.EvaluationReport;
+import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SACategoryDto;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.business_entities.SABusinessLogic;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -82,5 +85,24 @@ public class SAQuery implements GraphQLQueryResolver {
         int userId = user.getId();
 
         return sABusinessLogic.getEvaluationProcesses(userId, organisationId);
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId) {
+        List<EvaluationResult> result;
+
+        if (categoryId.isPresent()) {
+            result = sABusinessLogic.getEvaluationsResults(organisationId, categoryId.get());
+        } else {
+            result = sABusinessLogic.getEvaluationsResults(organisationId);
+        }
+
+        return result;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public EvaluationReport getEvaluationReport(int processId) {
+        EvaluationReport result = sABusinessLogic.getEvaluationReport(processId);
+        return result;
     }
 }

@@ -124,7 +124,7 @@ public class SABusinessLogic implements BusinessLogicEntity {
             return sADataAccessObject.getEvaluationReport(processId);
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
-            return null;
+            return new EvaluationReport();
         }
     }
 

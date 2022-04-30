@@ -2,6 +2,7 @@ package com.irme.server.dal.dao;
 
 import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.EvaluationReport;
+import com.irme.common.dto.EvaluationReportItem;
 import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SAAnswerDto;
 import com.irme.common.dto.SACategoryDto;
@@ -250,9 +251,9 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
                 evaluationResult.setProcessId(rs.getInt("process_id"));
                 evaluationResult.setCategoryId(rs.getInt("category_id"));
                 evaluationResult.setCreated(rs.getDate("created"));
-                evaluationResult.setAnswerTotalWeight(rs.getInt("created"));
-                evaluationResult.setAnswerMaxWeight(rs.getInt("created"));
-                evaluationResult.setStatusCode(rs.getInt("status"));
+                evaluationResult.setAnswerTotalWeight(rs.getInt("answers_total_weight"));
+                evaluationResult.setAnswerMaxWeight(rs.getInt("answer_max_weight"));
+                evaluationResult.setStatusCode(rs.getInt("status_code"));
 
                 result.add(evaluationResult);
             }
@@ -283,7 +284,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
             statement.setInt(1, processId);
             rs = statement.executeQuery();
             while (rs.next()) {
-                EvaluationReport.EvaluationReportItem reportItem = new EvaluationReport.EvaluationReportItem();
+                EvaluationReportItem reportItem = new EvaluationReportItem();
                 reportItem.setAnswerId(rs.getInt("answer_id"));
                 reportItem.setQuestionId(rs.getInt("question_id"));
                 reportItem.setQuestion(rs.getString("question"));
@@ -300,7 +301,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
 
             rs = statement.getResultSet();
             while (rs.next()) {
-                int maxCategoryWeight = rs.getInt("maxc_ategory_weight");
+                int maxCategoryWeight = rs.getInt("max_category_weight");
                 int totalProcessWeight = rs.getInt("total_process_weight");
                 report.setMaxCategoryWeight(maxCategoryWeight);
                 report.setTotalProcessWeight(totalProcessWeight);

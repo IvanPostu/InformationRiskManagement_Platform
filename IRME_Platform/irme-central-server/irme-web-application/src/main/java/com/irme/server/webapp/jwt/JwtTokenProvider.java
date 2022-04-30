@@ -1,11 +1,9 @@
 package com.irme.server.webapp.jwt;
 
-
 import com.irme.common.dto.AuthUserDto;
 import com.irme.server.business_entities.UserBusinessLogic;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +15,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
-
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -37,12 +37,11 @@ public class JwtTokenProvider {
     @Autowired
     private UserBusinessLogic userBusinessLogic;
 
-    @SuppressWarnings({"deprecation"})
+    @SuppressWarnings({ "deprecation" })
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder =
-                org.springframework.security.crypto.password.NoOpPasswordEncoder
-                        .getInstance();
+        PasswordEncoder passwordEncoder = org.springframework.security.crypto.password.NoOpPasswordEncoder
+                .getInstance();
         return passwordEncoder;
     }
 
@@ -94,16 +93,19 @@ public class JwtTokenProvider {
     }
 
     public boolean validateToken(String token) {
+        Objects.requireNonNull(token);
+
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Date now = new Date();
 
-            if (claims.getBody().getExpiration().before(new Date())) {
+            if (claims.getBody().getExpiration().before(now)) {
                 return false;
             }
 
             return true;
-        } catch (JwtException | IllegalArgumentException e) {
-            log.warn(e.getMessage());
+        } catch (Exception e) {
+            log.error(e.getMessage());
             throw new JwtAuthenticationException("JWT token is expired or invalid");
         }
     }

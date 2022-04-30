@@ -159,7 +159,7 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTE3NDgzMiwiZXhwIjoxNjUxMTc4NDMyfQ.QXF_GYRFbaHzz8Ag3in4_1qkAZveLsOZ46XZ9egzC5U
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMzNTMwMCwiZXhwIjoxNjUxMzM4OTAwfQ.Kw_gcs_eduVEWRVp7fHyGPYmUOIHtokKN3VpH6WCQE8
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -221,17 +221,46 @@ mutation {
 
 
 
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM1MTc4MiwiZXhwIjoxNjUxMzU1MzgyfQ.9RfAQzdEn-U1ZqXSethYBh77wsWQ5yMQ4PU2wRnK3U4
+X-REQUEST-TYPE: GraphQL
+
+query {
+    getEvaluationsResults(organisationId: 4)
+    {
+        processId,
+        categoryId,
+        created,
+        answerTotalWeight,
+        answerMaxWeight,
+        statusCode,
+    }
+}
 
 
 
 
 
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM1MTc4MiwiZXhwIjoxNjUxMzU1MzgyfQ.9RfAQzdEn-U1ZqXSethYBh77wsWQ5yMQ4PU2wRnK3U4
+X-REQUEST-TYPE: GraphQL
 
-
-
-
-
-
+query {
+    getEvaluationReport(processId: 3)
+    {
+        maxCategoryWeight,
+        totalProcessWeight,
+        items {
+            questionId,
+            answerId,
+            question,
+            answer,
+            description,
+        }
+    }
+}
 
 
 

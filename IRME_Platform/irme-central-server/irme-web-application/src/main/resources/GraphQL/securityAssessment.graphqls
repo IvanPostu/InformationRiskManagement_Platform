@@ -26,10 +26,37 @@ type SAEvaluationProcess {
     categoryName: String,
 }
 
+type SAEvaluationResult {
+    processId: Int,
+    categoryId: Int,
+    created: String,
+    answerTotalWeight: Int,
+    answerMaxWeight: Int,
+    statusCode: Int,
+
+}
+
+type SAEvaluationReportItem {
+    questionId: Int,
+    answerId: Int,
+    question: String,
+    answer: String,
+    description: String,
+}
+
+type SAEvaluationReport {
+    maxCategoryWeight: Int,
+    totalProcessWeight: Int,
+    items: [SAEvaluationReportItem]
+}
+
 extend type Query {
 	getSecurityAssessmentCategories: [SACategory]
     getSecurityAssessmentQuestionsDataByCategory(categoryId: Int): [SAQuestionData]
     getEvaluationProcesses(organisationId: Int): [SAEvaluationProcess]
+    getEvaluationsResults(organisationId: Int!, categoryId: Int ): [SAEvaluationResult]
+    getEvaluationReport( processId: Int! ): SAEvaluationReport
+
 }
 
 extend type Mutation {
