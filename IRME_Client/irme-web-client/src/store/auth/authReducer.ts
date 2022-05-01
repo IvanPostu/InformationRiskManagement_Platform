@@ -8,7 +8,7 @@ const initialState: AuthStateType = {
   firstName: '',
   lastName: '',
   isAuthenticated: false,
-  isAuthRequestRunning: false,
+  isAuthRequestRunning: true,
 }
 
 export const authReducer: Reducer<AuthStateType, AuthRootActionType> = (

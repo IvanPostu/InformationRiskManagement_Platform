@@ -21,10 +21,5 @@ export const GlobalAppWrapper = (props: PropsWithChildren<unknown>) => {
     }
   }, [])
 
-  return (
-    <Fragment>
-      {isAuthRequestRunning && <FullScreenLoader />}
-      {props.children}
-    </Fragment>
-  )
+  return <Fragment>{isAuthRequestRunning ? <FullScreenLoader /> : props.children}</Fragment>
 }
