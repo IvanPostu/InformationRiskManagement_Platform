@@ -1,6 +1,5 @@
 package com.irme.server.webapp.configuration;
 
-
 import com.irme.server.webapp.jwt.JwtConfigurer;
 import com.irme.server.webapp.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -22,10 +22,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @EnableConfigurationProperties(SecurityProperties.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,7 +39,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .apply(new JwtConfigurer(jwtTokenProvider));
+                .apply(new JwtConfigurer(jwtTokenProvider))
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler((request, response, accessDeniedException) -> {
+                    AccessDeniedHandler defaultAccessDeniedHandler = new AccessDeniedHandlerImpl();
+                    defaultAccessDeniedHandler.handle(request, response, accessDeniedException);
+                });
+        ;
     }
 
 }

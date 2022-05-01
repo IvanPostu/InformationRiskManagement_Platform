@@ -12,8 +12,8 @@
     "window.customMenuBarAltFocus": false,
     "breadcrumbs.enabled": true,
     "terminal.integrated.fontSize": 12,
-    "debug.console.fontSize": 12,
-    "debug.console.lineHeight": 13,
+    "debug.console.fontSize": 15,
+    "debug.console.lineHeight": 15,
     "debug.console.fontFamily": "'Fira Code Medium'",
     "search.showLineNumbers": true,
     "workbench.colorCustomizations": {

@@ -50,6 +50,7 @@ type Query {
 	vehicle(id: ID): VehicleResult
     authUser(email: String, password: String):AuthResult
     userOrganisations: [Organisation]
+    extendToken( oldToken: String): String
 }
 
 type Mutation {

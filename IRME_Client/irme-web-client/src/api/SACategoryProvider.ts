@@ -25,7 +25,11 @@ export class SACategoryProvider extends BaseApiProvider {
   public async getSecurityAssessmentCategories(authToken: string): Promise<Array<ISACategory> | null | ErrorResult> {
     const action = 'getSecurityAssessmentCategories'
     const query = this._categoriesQueryBuilder(action)
-    const data = await this._performCall<Array<ISACategory>>(action, query, authToken)
+    const data = await this._performCall<Array<ISACategory>>({
+      action,
+      requestDocument: query,
+      authToken,
+    })
 
     return data
   }

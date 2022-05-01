@@ -27,7 +27,11 @@ export class OrganisationProvider extends BaseApiProvider {
   public async userOrganisations(authToken: string): Promise<Array<IOrganisation> | null | ErrorResult> {
     const action = 'userOrganisations'
     const query = this._userOrganisationsQueryBuilder(action)
-    const data = await this._performCall<Array<IOrganisation>>(action, query, authToken)
+    const data = await this._performCall<Array<IOrganisation>>({
+      action,
+      requestDocument: query,
+      authToken,
+    })
 
     return data
   }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Slf4j
 public class JwtExtractorFilter extends OncePerRequestFilter {
@@ -28,10 +29,10 @@ public class JwtExtractorFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws IOException, ServletException {
 
         try {
-            String token = jwtTokenProvider.resolveToken(request);
-            if (jwtTokenProvider.validateToken(token)) {
+            Optional<String> token = jwtTokenProvider.resolveToken(request);
+            if (token.isPresent() && jwtTokenProvider.validateToken(token.get())) {
 
-                Authentication auth = jwtTokenProvider.generateAuthentication(token);
+                Authentication auth = jwtTokenProvider.generateAuthentication(token.get());
 
                 if (auth != null) {
                     SecurityContextHolder.getContext().setAuthentication(auth);

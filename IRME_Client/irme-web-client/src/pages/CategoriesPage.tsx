@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { OrganisationProvider } from '../api/OrganisationProvider'
 import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
 import { FixedMultilineSpan } from '../components/FixedMultilineSpan'
+import { FullScreenLoader } from '../components/FullScreenLoader'
 import { MainLayout } from '../layouts/MainLayout'
 import { GlobalStateType } from '../store/store'
 const M = require('materialize-css/dist/js/materialize.min.js')
@@ -66,7 +67,7 @@ export function CategoriesPage(): ReactElement {
       <div key={el.categroyId} className="col s12 m4">
         <div style={{ height: '400px' }} className="card small">
           <div className="card-image">
-            <img style={{ maxWidth: '270px', maxHeight: '150px' }} src={el.imageUrl} />
+            <img style={{ maxHeight: '150px' }} src={el.imageUrl} />
             <span className="card-title">{el.name}</span>
           </div>
           <div className="card-content ">
@@ -88,6 +89,8 @@ export function CategoriesPage(): ReactElement {
 
   return (
     <MainLayout>
+      {previewCategories.length === 0 && <FullScreenLoader />}
+
       <div className="container">
         <div style={{ marginTop: '20px' }} className="row">
           {elements}

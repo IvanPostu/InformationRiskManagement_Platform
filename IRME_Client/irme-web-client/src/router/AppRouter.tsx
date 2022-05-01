@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import { HashRouter, Route, Routes } from 'react-router-dom'
+import { GlobalAppWrapper } from '../components/GlobalAppWrapper'
 import { URLErrorWrapper } from '../components/URLErrorWrapper'
 import { CategoriesPage } from '../pages/CategoriesPage'
 import { EvaluationPage } from '../pages/EvaluationPage'
@@ -30,7 +31,7 @@ export const AppRouter = () => {
   })
 
   return (
-    <Fragment>
+    <GlobalAppWrapper>
       <HashRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -44,6 +45,6 @@ export const AppRouter = () => {
           <Route path="*" element={<MainPage />} />
         </Routes>
       </HashRouter>
-    </Fragment>
+    </GlobalAppWrapper>
   )
 }

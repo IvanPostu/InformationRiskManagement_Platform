@@ -1,9 +1,10 @@
 import { Action } from 'redux'
 
 export enum authActionTypeConstants {
-  CHANGE_AUTH_DATA = '@counter/CHANGE_AUTH_DATA',
-  AUTHENTICATE_USER = '@counter/AUTHENTICATE_USER',
-  DEAUTHENTICATE_USER = '@counter/DEAUTHENTICATE_USER',
+  CHANGE_AUTH_DATA = '@auth/CHANGE_AUTH_DATA',
+  AUTHENTICATE_USER = '@auth/AUTHENTICATE_USER',
+  DEAUTHENTICATE_USER = '@auth/DEAUTHENTICATE_USER',
+  EXTEND_AUTH_TOKEN = '@auth/EXTEND_AUTH_TOKEN',
 }
 
 export type AuthStateType = {
@@ -12,6 +13,7 @@ export type AuthStateType = {
   readonly firstName: string
   readonly lastName: string
   readonly isAuthenticated: boolean
+  readonly isAuthRequestRunning: boolean
 }
 
 export type ChangeAuthDataActionType = Action<authActionTypeConstants.CHANGE_AUTH_DATA> & {
@@ -27,4 +29,10 @@ export type AuthenticateActionType = Action<authActionTypeConstants.AUTHENTICATE
 
 export type DeauthenticateActionType = Action<authActionTypeConstants.DEAUTHENTICATE_USER>
 
-export type AuthRootActionType = ChangeAuthDataActionType | DeauthenticateActionType | AuthenticateActionType
+export type ExtendTokenActionType = Action<authActionTypeConstants.EXTEND_AUTH_TOKEN>
+
+export type AuthRootActionType =
+  | ChangeAuthDataActionType
+  | DeauthenticateActionType
+  | AuthenticateActionType
+  | ExtendTokenActionType

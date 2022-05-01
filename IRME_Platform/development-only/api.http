@@ -57,6 +57,15 @@ query {
 }
 
 
+POST http://localhost:8080/graphql
+Content-Type: application/json
+Authorization: null
+X-REQUEST-TYPE: GraphQL
+
+query {
+    extendToken(oldToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTQwMjI1MSwiZXhwIjoxNjUxNDA1ODUxfQ.6Luub_OLc4hITuZ1bGVSsx-VSL8R_WKQ8uWj0cJvLUQ")
+}
+
 
 GET http://localhost:8080 HTTP/1.1
 
@@ -146,7 +155,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTMxNjYwNywiZXhwIjoxNjUxMzIwMjA3fQ.XMHvkeDW3PE32Mmw9Qf-rgKBS0lywqy0buX_kguTjMw
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM5MjMyOSwiZXhwIjoxNjUxMzk1OTI5fQ.aG_c2sZleQ-C6DF7Yz3jjK1iu8VZW0KML5IdjA7fabE
 X-REQUEST-TYPE: GraphQL
 
 mutation {
@@ -223,11 +232,11 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM1MTc4MiwiZXhwIjoxNjUxMzU1MzgyfQ.9RfAQzdEn-U1ZqXSethYBh77wsWQ5yMQ4PU2wRnK3U4
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM5MjMyOSwiZXhwIjoxNjUxMzk1OTI5fQ.aG_c2sZleQ-C6DF7Yz3jjK1iu8VZW0KML5IdjA7fabE
 X-REQUEST-TYPE: GraphQL
 
 query {
-    getEvaluationsResults(organisationId: 4)
+    getEvaluationsResults(organisationId: 4, categoryId: null)
     {
         processId,
         categoryId,

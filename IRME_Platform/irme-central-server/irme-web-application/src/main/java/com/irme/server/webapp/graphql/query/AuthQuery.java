@@ -7,12 +7,14 @@ import com.irme.server.webapp.graphql.GraphQLDomainError;
 import com.irme.server.webapp.graphql.GraphQLDomainErrorStatusCode;
 import com.irme.server.webapp.graphql.model.SuccessAuthResult;
 import com.irme.server.webapp.jwt.JwtTokenProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class AuthQuery implements GraphQLQueryResolver {
 
@@ -23,7 +25,7 @@ public class AuthQuery implements GraphQLQueryResolver {
     private UserBusinessLogic userBusinessLogic;
 
     @PreAuthorize("isAnonymous()")
-    public Optional<SuccessAuthResult> authUser(final String email, final String password) {
+    public Optional<SuccessAuthResult> authUser(String email, String password) {
         SuccessAuthResult result = new SuccessAuthResult();
 
         AuthUserDto user = userBusinessLogic.getUserByEmail(email);
@@ -41,5 +43,22 @@ public class AuthQuery implements GraphQLQueryResolver {
         result.setToken(token);
 
         return Optional.ofNullable(result);
+    }
+
+    @PreAuthorize("isAnonymous()")
+    public Optional<String> extendToken(String oldToken) {
+        Optional<String> result = Optional.ofNullable(null);
+
+        try {
+            if (tokenProvider.validateToken(oldToken)) {
+                result = tokenProvider.extendToken(oldToken);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new GraphQLDomainError("Token is invalid",
+                    GraphQLDomainErrorStatusCode.ACCESS_DENIED);
+        }
+
+        return result;
     }
 }

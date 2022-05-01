@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Objects;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -69,6 +69,24 @@ public class JwtTokenProvider {
         return token;
     }
 
+    public Optional<String> extendToken(String oldToken) {
+        Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(oldToken).getBody();
+
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
+
+        String token = Jwts
+                .builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+
+        return Optional.ofNullable(token);
+
+    }
+
     public Authentication generateAuthentication(String token) {
 
         String userName = getUsername(token);
@@ -84,17 +102,16 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest req) {
+    public Optional<String> resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7, bearerToken.length());
+            return Optional.ofNullable(bearerToken.substring(7, bearerToken.length()));
         }
-        return null;
+
+        return Optional.ofNullable(null);
     }
 
     public boolean validateToken(String token) {
-        Objects.requireNonNull(token);
-
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             Date now = new Date();

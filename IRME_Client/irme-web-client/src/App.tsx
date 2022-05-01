@@ -12,8 +12,7 @@ import { authActionTypeConstants, DeauthenticateActionType } from './store/auth/
 BaseApiProvider.config = {
   errorCodeHandler: {
     2: () => {
-      console.log(1)
-      // store.dispatch({ type: authActionTypeConstants.DEAUTHENTICATE_USER } as DeauthenticateActionType)
+      store.dispatch({ type: authActionTypeConstants.DEAUTHENTICATE_USER } as DeauthenticateActionType)
     },
   },
 }

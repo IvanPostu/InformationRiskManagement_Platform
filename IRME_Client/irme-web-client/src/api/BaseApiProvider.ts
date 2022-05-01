@@ -3,10 +3,11 @@ import { IProviderConfiguration } from './IProviderConfiguration'
 import { ErrorResult } from './models/ErrorResult'
 import { IError } from './models/IError'
 
-export interface IGraphQLQuery {
-  operationName: string
-  query: string
-  variables: Record<string, string>
+interface IPerformCallProps {
+  action: string
+  requestDocument: string
+  authToken?: string
+  headers?: Record<string, string>
 }
 
 export class BaseApiProvider {
@@ -23,12 +24,9 @@ export class BaseApiProvider {
     return errors
   }
 
-  protected async _performCall<_RType>(
-    action: string,
-    query: string,
-    authToken?: string,
-    headers?: Record<string, string>
-  ): Promise<_RType | ErrorResult | null> {
+  protected async _performCall<_RType>(props: IPerformCallProps): Promise<_RType | ErrorResult | null> {
+    const { action, requestDocument, authToken, headers } = props
+
     try {
       const client = new GraphQLClient('/graphql')
       const defaultHeaders = headers ? headers : {}
@@ -36,7 +34,7 @@ export class BaseApiProvider {
 
       client.setHeaders(defaultHeaders)
 
-      const result = await client.request(query)
+      const result = await client.request(requestDocument)
 
       return result[action] as _RType
     } catch (e) {
