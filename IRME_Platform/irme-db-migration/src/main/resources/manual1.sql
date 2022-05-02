@@ -157,6 +157,7 @@ EXECUTE [sa_insert_answer_and_description]
 	N'Continuați practica de utilizare a sistemei de detectare a intruziunii. Este necesar de urmărit după signaturile noi a virușilor, la fel este necesar de studiat noi tehnologii de prevenire a intruziunii.',
     10,
     @inserted_question_answer_id OUTPUT; -- out
+SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
 EXECUTE [sa_insert_answer_and_description] 
 	@last_inserted_question_id,
 	@mid_sized_profile_id,
@@ -166,36 +167,35 @@ EXECUTE [sa_insert_answer_and_description]
     @inserted_question_answer_id OUTPUT; -- out
 
 
-SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
--- question7:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Ce tip de sistem de detectare a intruziunilor utilizați?',
-    1,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Sistem de detectare a intruziunilor în rețea',
-	N'Este o bună practică de utilizat sisteme de detectare a intruziunilor la nivel de rețea în pentru a detecta dacă a avut loc una sau mai multe încercări de a primi acces la distanță de persoane neautorizate.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Sistem de detectare a intruziunilor nodale',
-	N'Este o bună practică de utilizat sisteme de detectare a intruziunilor nodale pe dispozitive fizice sau virtuale demilitarizate cu nivel de importanță înalt ce detectează evenimentele doar pe dispozitivul dat.',
-    5,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu știu',
-	N'Lipsa sistemelor de detectare a intruziunilor mărește probabilitatea de realizare a atacului asupra infrastructurii organizației ce v-a provoca pierderi financiare.',
-    3,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question7:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Ce tip de sistem de detectare a intruziunilor utilizați?',
+        1,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Sistem de detectare a intruziunilor în rețea',
+        N'Este o bună practică de utilizat sisteme de detectare a intruziunilor la nivel de rețea în pentru a detecta dacă a avut loc una sau mai multe încercări de a primi acces la distanță de persoane neautorizate.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Sistem de detectare a intruziunilor nodale',
+        N'Este o bună practică de utilizat sisteme de detectare a intruziunilor nodale pe dispozitive fizice sau virtuale demilitarizate cu nivel de importanță înalt ce detectează evenimentele doar pe dispozitivul dat.',
+        5,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Nu știu',
+        N'Lipsa sistemelor de detectare a intruziunilor mărește probabilitatea de realizare a atacului asupra infrastructurii organizației ce v-a provoca pierderi financiare.',
+        3,
+        @inserted_question_answer_id OUTPUT; -- out
 
 
 -- question8:
@@ -213,6 +213,8 @@ EXECUTE [sa_insert_answer_and_description]
 	N'Este necesar de utilizat versiunile noi a soluțiilor antivirus cu signaturile de viruși noi. Este necesar sistematic de verificat configurațiile și buna funcționare a soluțiilor antivirus.',
     10,
     @inserted_question_answer_id OUTPUT; -- out
+SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
+
 EXECUTE [sa_insert_answer_and_description] 
 	@last_inserted_question_id,
 	@mid_sized_profile_id,
@@ -221,50 +223,49 @@ EXECUTE [sa_insert_answer_and_description]
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
-SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
--- question9:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Selectați sistemele ce utilizează soft din categoria antivirus:',
-    1,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Servere de poștă electronică',
-	N'Oferă un nivel de protecție împotriva atacurilor de tip phishing și atașarea fișierelor malware la scrisoarea pe poșta electronică.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Gateway-uri de acces',
-	N'Oferă un nivel de protecție a sistemelor ce separă rețeaua globală de rețeaua organizației.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Stații de lucru',
-	N'Permite angajaților de a îndeplini acțiunile legate cu domeniul digital în siguranță.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Servere',
-	N'Este foarte important de utilizat soluții antivirus pe servere cu baze de date sau pe care sunt plasate aplicațiile web cît pentru clienți, atît și pentru utilizarea internă a companiei.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu știu',
-	N'Lipsa soluțiilor antivirus supune organizația riscurilor foarte mari, în special din cauza faptului că întreaga infrastructură a organizației poate fi infectată ți datele pot fi scruse 100% dar faptul dat nici nu v-a fi detectat.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question9:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Selectați sistemele ce utilizează soft din categoria antivirus:',
+        1,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Servere de poștă electronică',
+        N'Oferă un nivel de protecție împotriva atacurilor de tip phishing și atașarea fișierelor malware la scrisoarea pe poșta electronică.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Gateway-uri de acces',
+        N'Oferă un nivel de protecție a sistemelor ce separă rețeaua globală de rețeaua organizației.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Stații de lucru',
+        N'Permite angajaților de a îndeplini acțiunile legate cu domeniul digital în siguranță.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Servere',
+        N'Este foarte important de utilizat soluții antivirus pe servere cu baze de date sau pe care sunt plasate aplicațiile web cît pentru clienți, atît și pentru utilizarea internă a companiei.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Nu știu',
+        N'Lipsa soluțiilor antivirus supune organizația riscurilor foarte mari, în special din cauza faptului că întreaga infrastructură a organizației poate fi infectată ți datele pot fi scruse 100% dar faptul dat nici nu v-a fi detectat.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
 -- question10:
 EXECUTE [dbo].[sa_insert_question] 
@@ -281,6 +282,8 @@ EXECUTE [sa_insert_answer_and_description]
 	N'Este necesar de utilizat proceduri stricte de autentificare pentru utilizatori, administratori și utilizatori la distanță ce asigură că accesul neautorizat la rețea nu poate fi obținut prin atacuri locale sau la distanță.',
     10,
     @inserted_question_answer_id OUTPUT; -- out
+SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
+
 EXECUTE [sa_insert_answer_and_description] 
 	@last_inserted_question_id,
 	@mid_sized_profile_id,
@@ -289,99 +292,99 @@ EXECUTE [sa_insert_answer_and_description]
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
-SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
--- question11:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Cine are acces la distanță la rețeaua companiei?',
-    1,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Contractorii',
-	N'Este necesar de utilizat soluții adiționale de protecție la nivel de rețea în cadrul organizației, de exemplu securizarea traficului prin SSL/TLS, utilizarea protocolului SSH, utilizarea rețelei virtuale private VPN.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Angajați',
-	N'Este necesar de utilizat soluții adiționale de protecție la nivel de rețea în cadrul organizației, de exemplu securizarea traficului prin SSL/TLS, utilizarea protocolului SSH, utilizarea rețelei virtuale private VPN.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question11:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Cine are acces la distanță la rețeaua companiei?',
+        1,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Contractorii',
+        N'Este necesar de utilizat soluții adiționale de protecție la nivel de rețea în cadrul organizației, de exemplu securizarea traficului prin SSL/TLS, utilizarea protocolului SSH, utilizarea rețelei virtuale private VPN.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Angajați',
+        N'Este necesar de utilizat soluții adiționale de protecție la nivel de rețea în cadrul organizației, de exemplu securizarea traficului prin SSL/TLS, utilizarea protocolului SSH, utilizarea rețelei virtuale private VPN.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
--- question12:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Sunt utilizate tehnologii de rețea virtuală (VPN) pentru a oferi securitate conexiunilor utilizatorilor la distanță la resursele corporative?',
-    0,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Este o modalitate adecvată de securitate a resurselor corporative utilizînd soluțiile VPN.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Este necesar de implementat soluții VPN pentru a nu permite acces neautorizat la resursele corporative a organizației.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question12:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Sunt utilizate tehnologii de rețea virtuală (VPN) pentru a oferi securitate conexiunilor utilizatorilor la distanță la resursele corporative?',
+        0,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Da',
+        N'Este o modalitate adecvată de securitate a resurselor corporative utilizînd soluțiile VPN.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    SET @_inserted_question_answer_id2 = @inserted_question_answer_id;
 
-SET @_inserted_question_answer_id2 = @inserted_question_answer_id;
--- question13:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'VPN - ul companiei oferă posibilitatea de a parcurge toate verificările de securitate necesare?',
-    0,
-    @_inserted_question_answer_id2,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Este o modalitate adecvată de a parcurge toate verificările de securitate necesare inclusiv pentru utilizatorii conectați prin VPN.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Benificiile utilizării soluției VPN sunt la un nivel mai scăzut din motivul lipsei verificărilor de securitate necesare.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Nu',
+        N'Este necesar de implementat soluții VPN pentru a nu permite acces neautorizat la resursele corporative a organizației.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
--- question14:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Sunt utilizate verificări de autenticitate bazate pe mai mulți factori pentru utilizatori conectați la distanță?',
-    0,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Pentru a reduce în continuare riscul de spargere a parolei în conturile administrative, este necesar de blocat contul după 7 - 10 încercări de a introduce o parolă greșită, de setat configurație pentru expirarea parolei',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Utilizarea verificării de autencitate bazate pe mai mulți factori oferă un nivel de protecție înalt și necesită de a fi implementat în orice caz.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+        -- question13:
+        EXECUTE [dbo].[sa_insert_question] 
+            @current_category,
+            N'VPN - ul companiei oferă posibilitatea de a parcurge toate verificările de securitate necesare?',
+            0,
+            @_inserted_question_answer_id2,
+            @last_inserted_question_id OUTPUT;
+        -- answers:
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Da',
+            N'Este o modalitate adecvată de a parcurge toate verificările de securitate necesare inclusiv pentru utilizatorii conectați prin VPN.',
+            10,
+            @inserted_question_answer_id OUTPUT; -- out
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Nu',
+            N'Benificiile utilizării soluției VPN sunt la un nivel mai scăzut din motivul lipsei verificărilor de securitate necesare.',
+            2,
+            @inserted_question_answer_id OUTPUT; -- out
+
+    -- question14:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Sunt utilizate verificări de autenticitate bazate pe mai mulți factori pentru utilizatori conectați la distanță?',
+        0,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Da',
+        N'Pentru a reduce în continuare riscul de spargere a parolei în conturile administrative, este necesar de blocat contul după 7 - 10 încercări de a introduce o parolă greșită, de setat configurație pentru expirarea parolei',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Nu',
+        N'Utilizarea verificării de autencitate bazate pe mai mulți factori oferă un nivel de protecție înalt și necesită de a fi implementat în orice caz.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
 -- question15:
 EXECUTE [dbo].[sa_insert_question] 
@@ -398,6 +401,8 @@ EXECUTE [sa_insert_answer_and_description]
 	N'Este o bună practică segmentarea rețelei ce minimizează probabilitatea apariției accesului neautorizat la resursele corporative.',
     10,
     @inserted_question_answer_id OUTPUT; -- out
+SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
+
 EXECUTE [sa_insert_answer_and_description] 
 	@last_inserted_question_id,
 	@mid_sized_profile_id,
@@ -406,99 +411,99 @@ EXECUTE [sa_insert_answer_and_description]
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
-SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
--- question16:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Se utilizează segmentarea rețelei pentru clientul extern separat și serviciile rețelei externe de resursele corporative?',
-    0,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Este o bună practică separarea accesului clientului extern și a serviciilor externe de resursele corporative interne.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Apare riscul accesului neautorizat la resursele corporative în cazul dacă contul clientului a fost spart.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question16:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Se utilizează segmentarea rețelei pentru clientul extern separat și serviciile rețelei externe de resursele corporative?',
+        0,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Da',
+        N'Este o bună practică separarea accesului clientului extern și a serviciilor externe de resursele corporative interne.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    SET @_inserted_question_answer_id2 = @inserted_question_answer_id;
 
-SET @_inserted_question_answer_id2 = @inserted_question_answer_id;
--- question17:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din roluri sau servicii oferite asemănătoare?',
-    0,
-    @_inserted_question_answer_id2,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Este o modalitatea rațională separarea colculatoarelor host pe segmente în dependență de roluri sau serviciile oferite.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Este o încălcare majoră ce anulează utilitatea segmentării rețelei și separării serverelor cu acces public în internet de resursele corporative.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Nu',
+        N'Apare riscul accesului neautorizat la resursele corporative în cazul dacă contul clientului a fost spart.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
--- question18:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din doar serviciile necesare utilizatorilor ce se conectează?',
-    0,
-    @_inserted_question_answer_id2,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Gruparea calculatoarelor-host pe segmente reieșind doar din serviciile necesare utilizatorilor ce se conectează este foarte benefică doar ca urmare necesită resurse hardware și software.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Lipsa grupării calculatoarelor-host pe segmente reieșind doar din serviciile necesare utilizatorilor este o încălcare minoră fiindcă unele segmente pot include calculatoare host ce nu trebuie să fie anume în segmentul dat.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+        -- question17:
+        EXECUTE [dbo].[sa_insert_question] 
+            @current_category,
+            N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din roluri sau servicii oferite asemănătoare?',
+            0,
+            @_inserted_question_answer_id2,
+            @last_inserted_question_id OUTPUT;
+        -- answers:
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Da',
+            N'Este o modalitatea rațională separarea colculatoarelor host pe segmente în dependență de roluri sau serviciile oferite.',
+            10,
+            @inserted_question_answer_id OUTPUT; -- out
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Nu',
+            N'Este o încălcare majoră ce anulează utilitatea segmentării rețelei și separării serverelor cu acces public în internet de resursele corporative.',
+            2,
+            @inserted_question_answer_id OUTPUT; -- out
 
--- question19:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'A fost creat și documentat planul ce permite de a gestiona adresele TCP/IP pentru sisteme în dependență de segmente?',
-    0,
-    @_inserted_question_answer_id2,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Da',
-	N'Prezența planului ce permite de a gestiona accesul pentru adresele TCP/IP pentru sisteme în dependență de segmente joacă un rol foarte important din motivul anulării posibilității încercărilor de conexiune a persoanelor neautorizate adresele cărora nu sunt incluse în listă.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Nu',
-	N'Lipsa planului ce permite de a gestiona accesul pentru adresele TCP/IP pentru sisteme în dependență de segmente este o încălcare gravă ce poate aduce urmări majore.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+        -- question18:
+        EXECUTE [dbo].[sa_insert_question] 
+            @current_category,
+            N'Calculatoarele-host sunt grupate pe segmente de rețea reieșind din doar serviciile necesare utilizatorilor ce se conectează?',
+            0,
+            @_inserted_question_answer_id2,
+            @last_inserted_question_id OUTPUT;
+        -- answers:
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Da',
+            N'Gruparea calculatoarelor-host pe segmente reieșind doar din serviciile necesare utilizatorilor ce se conectează este foarte benefică doar ca urmare necesită resurse hardware și software.',
+            10,
+            @inserted_question_answer_id OUTPUT; -- out
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Nu',
+            N'Lipsa grupării calculatoarelor-host pe segmente reieșind doar din serviciile necesare utilizatorilor este o încălcare minoră fiindcă unele segmente pot include calculatoare host ce nu trebuie să fie anume în segmentul dat.',
+            2,
+            @inserted_question_answer_id OUTPUT; -- out
+
+        -- question19:
+        EXECUTE [dbo].[sa_insert_question] 
+            @current_category,
+            N'A fost creat și documentat planul ce permite de a gestiona adresele TCP/IP pentru sisteme în dependență de segmente?',
+            0,
+            @_inserted_question_answer_id2,
+            @last_inserted_question_id OUTPUT;
+        -- answers:
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Da',
+            N'Prezența planului ce permite de a gestiona accesul pentru adresele TCP/IP pentru sisteme în dependență de segmente joacă un rol foarte important din motivul anulării posibilității încercărilor de conexiune a persoanelor neautorizate adresele cărora nu sunt incluse în listă.',
+            10,
+            @inserted_question_answer_id OUTPUT; -- out
+        EXECUTE [sa_insert_answer_and_description] 
+            @last_inserted_question_id,
+            @mid_sized_profile_id,
+            N'Nu',
+            N'Lipsa planului ce permite de a gestiona accesul pentru adresele TCP/IP pentru sisteme în dependență de segmente este o încălcare gravă ce poate aduce urmări majore.',
+            2,
+            @inserted_question_answer_id OUTPUT; -- out
 
 -- question20:
 EXECUTE [dbo].[sa_insert_question] 
@@ -515,6 +520,8 @@ EXECUTE [sa_insert_answer_and_description]
 	N'Posibilitatea de conexiune wireless la rețea supune organizația unor noi riscuri, în special accesul neautorizat sau scurgeri de informație.',
     10,
     @inserted_question_answer_id OUTPUT; -- out
+SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
+
 EXECUTE [sa_insert_answer_and_description] 
 	@last_inserted_question_id,
 	@mid_sized_profile_id,
@@ -523,36 +530,35 @@ EXECUTE [sa_insert_answer_and_description]
     2,
     @inserted_question_answer_id OUTPUT; -- out
 
-SET @_inserted_question_answer_id1 = @inserted_question_answer_id;
--- question21:
-EXECUTE [dbo].[sa_insert_question] 
-    @current_category,
-    N'Ce elemente de gestiune a securității se utilizează pentru a grupa conexiunile la rețeaua wireless?',
-    1,
-    @_inserted_question_answer_id1,
-    @last_inserted_question_id OUTPUT;
--- answers:
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Utilizarea criptării (WEP) Wired Equivalent Privacy',
-	N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
-    10,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Utilizarea accesului protejat WPA',
-	N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
-EXECUTE [sa_insert_answer_and_description] 
-	@last_inserted_question_id,
-	@mid_sized_profile_id,
-	N'Limitarea bazată pe adrese MAC',
-	N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
-    2,
-    @inserted_question_answer_id OUTPUT; -- out
+    -- question21:
+    EXECUTE [dbo].[sa_insert_question] 
+        @current_category,
+        N'Ce elemente de gestiune a securității se utilizează pentru a grupa conexiunile la rețeaua wireless?',
+        1,
+        @_inserted_question_answer_id1,
+        @last_inserted_question_id OUTPUT;
+    -- answers:
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Utilizarea criptării (WEP) Wired Equivalent Privacy',
+        N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
+        10,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Utilizarea accesului protejat WPA',
+        N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
+    EXECUTE [sa_insert_answer_and_description] 
+        @last_inserted_question_id,
+        @mid_sized_profile_id,
+        N'Limitarea bazată pe adrese MAC',
+        N'Utilizarea criptării pentru rețeaua wireless este o soluție adecvată contra captării traficului.',
+        2,
+        @inserted_question_answer_id OUTPUT; -- out
 
 
 
