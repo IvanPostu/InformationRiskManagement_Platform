@@ -62,7 +62,7 @@ export function LoginPage(): ReactElement {
                   </div>
 
                   <div className="input-field col s10">
-                    <button type="submit" className="waves-effect waves-light btn">
+                    <button type="submit" className="waves-effect waves-light btn blue-grey darken-2">
                       Autentifică
                     </button>
                   </div>

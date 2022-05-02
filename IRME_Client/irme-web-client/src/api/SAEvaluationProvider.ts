@@ -123,4 +123,25 @@ export class SAEvaluationProvider extends BaseApiProvider implements ISAEvaluati
 
     return data
   }
+
+  public async finalizeEvaluation(
+    authToken: string,
+    organisationId: number,
+    processId: number,
+    forced = false
+  ): Promise<boolean | null | ErrorResult> {
+    const action = `finalizeEvaluation${forced ? 'Forced' : ''}`
+    const query = gql`
+      mutation {
+          ${action}(organisationId: ${organisationId}, processId: ${processId})
+      }
+    `
+    const data = await this._performCall<boolean>({
+      action,
+      requestDocument: query,
+      authToken,
+    })
+
+    return data
+  }
 }

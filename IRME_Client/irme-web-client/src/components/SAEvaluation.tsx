@@ -6,6 +6,9 @@ import { ErrorResult } from '../api/models/ErrorResult'
 import { IQuestionData } from '../api/models/IQuestionData'
 import { SAEvaluationProvider } from '../api/SAEvaluationProvider'
 import { MainLayout } from '../layouts/MainLayout'
+import { makeId } from '../utils/makeId'
+import { toastMessage } from '../utils/toastMessage'
+import { ConfirmModal, ConfirmModalTriggerButton } from './ConfirmModal'
 import { FullScreenLoader } from './FullScreenLoader'
 import { SAEvaluationItem } from './SAEvaluationItem'
 
@@ -15,6 +18,7 @@ interface SAEvaluationPropsType {
   categoryName: string
   organisationName: string
   token: string
+  organisationId: number
 }
 
 interface SAEvaluationStateType {
@@ -28,6 +32,8 @@ const EvaluationHeaderContainer = styled.div`
 
 export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationStateType> {
   private readonly _evaluationProvider: ISAEvaluationProvider
+  private readonly _confirmModalId: string = makeId(12)
+
   private _isMounted = false
 
   constructor(props: SAEvaluationPropsType) {
@@ -59,9 +65,6 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
   private onAnswerSelect = (questionId: number, answerId: number, questionAnswerId: number): void => {
     if (this.state.isFetching) return
 
-    this.setState({
-      isFetching: true,
-    })
     this.onAnswerSelectAsync(questionId, answerId, questionAnswerId)
   }
 
@@ -107,10 +110,27 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
         })
       }
     }
+  }
 
-    this.setState({
-      isFetching: false,
-    })
+  private finalizeEvaluation = async (): Promise<void> => {
+    const { organisationId, token, evaluationProcessId } = this.props
+    const data = await this._evaluationProvider.finalizeEvaluation(token, organisationId, evaluationProcessId)
+
+    if (!this._isMounted) return
+
+    if (data !== null && !(data instanceof ErrorResult)) {
+      if (data) {
+        toastMessage({
+          message: 'Evaluarea riscurilor a avit loc cu success!!!',
+          type: 'success',
+        })
+      } else {
+        toastMessage({
+          message: 'Evaluarea riscurilor a avit loc erori, reîncărcați pagina!!!',
+          type: 'error',
+        })
+      }
+    }
   }
 
   componentDidMount() {
@@ -140,8 +160,14 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
 
     return (
       <MainLayout>
+        <ConfirmModal
+          content="Doriți să finalizați evaluarea de riscuri?"
+          title="Confirmare"
+          onYesClick={() => this.finalizeEvaluation()}
+          id={this._confirmModalId}
+        />
         {isLoading && <FullScreenLoader />}
-        <div className="container">
+        <form className="container">
           <CardPanel className="card-panel grey-text text-darken-4">
             <EvaluationHeaderContainer>
               <h4>Proces de evaluare a riscurilor #{evaluationProcessId}</h4>
@@ -150,8 +176,19 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
             </EvaluationHeaderContainer>
 
             <section>{questionsItems}</section>
+
+            <section style={{ margin: ' 30px 0 10px 0' }}>
+              <ConfirmModalTriggerButton
+                type="submit"
+                className="modal-trigger waves-effect waves-light btn-large blue-grey darken-2"
+                href={'#' + this._confirmModalId}
+                node="button"
+              >
+                Finalizere evaluare
+              </ConfirmModalTriggerButton>
+            </section>
           </CardPanel>
-        </div>
+        </form>
       </MainLayout>
     )
   }

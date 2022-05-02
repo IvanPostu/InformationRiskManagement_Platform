@@ -32,4 +32,11 @@ export interface ISAEvaluationProvider {
     authToken: string,
     processId: number
   ): Promise<Array<IAnsweredQuestion> | null | ErrorResult>
+
+  finalizeEvaluation(
+    authToken: string,
+    organisationId: number,
+    processId: number,
+    forced?: boolean
+  ): Promise<boolean | null | ErrorResult>
 }

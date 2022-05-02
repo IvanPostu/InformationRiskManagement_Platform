@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { CardPanel } from 'react-materialize'
 import { IQuestionData } from '../api/models/IQuestionData'
 
@@ -17,7 +17,7 @@ type AnswersPropsType = {
 function AnswersUnique(props: AnswersPropsType) {
   const { answers, questionId, questionAnswerIds, onSelect } = props
   return (
-    <form>
+    <section>
       {answers.map((answer) => (
         <p key={answer.answerId}>
           <label>
@@ -31,14 +31,14 @@ function AnswersUnique(props: AnswersPropsType) {
           </label>
         </p>
       ))}
-    </form>
+    </section>
   )
 }
 
 function AnswersMultiple(props: AnswersPropsType) {
   const { answers, questionId, questionAnswerIds, onSelect } = props
   return (
-    <form>
+    <section>
       {answers.map((answer) => (
         <p key={answer.answerId}>
           <label>
@@ -52,21 +52,13 @@ function AnswersMultiple(props: AnswersPropsType) {
           </label>
         </p>
       ))}
-    </form>
+    </section>
   )
 }
 
 export function SAEvaluationItem(props: SAEvaluationItemPropsType) {
-  const {
-    answers,
-    hasMultipleAnswers,
-    // parentQuestionAnswerId,
-    question,
-    questionId,
-    // questionWeight,
-    questionAnswerIds,
-    onSelect,
-  } = props
+  const { answers, hasMultipleAnswers, parentQuestionAnswerId, question, questionId, questionAnswerIds, onSelect } =
+    props
 
   const answersElements = hasMultipleAnswers ? (
     <AnswersMultiple
@@ -84,8 +76,12 @@ export function SAEvaluationItem(props: SAEvaluationItemPropsType) {
     />
   )
 
+  const isVisible = parentQuestionAnswerId === 0 || questionAnswerIds.has(parentQuestionAnswerId)
+
+  if (!isVisible) return <Fragment />
+
   return (
-    <CardPanel className="blue-grey lighten-5">
+    <CardPanel className="blue-grey lighten-5" style={{ marginLeft: parentQuestionAnswerId !== 0 ? '30px' : '0' }}>
       <span className="grey-text text-darken-4">
         <b>{question}</b>
         <section>{answersElements}</section>

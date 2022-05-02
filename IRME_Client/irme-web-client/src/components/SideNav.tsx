@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import styled from 'styled-components'
+import { colors } from '../constants/colors'
+import { RouterPropsType, withRouter } from '../router/withRouter'
 import { authActionTypeConstants, DeauthenticateActionType } from '../store/auth/authTypes'
 import { AppDispatch, GlobalStateType } from '../store/store'
 const M = require('materialize-css/dist/js/materialize.min.js')
 
 const StyledNav = styled.nav`
-  background: #2c3e50;
+  background: ${colors.primary};
 `
 
 function mapStateToProps(state: GlobalStateType) {
@@ -17,12 +19,14 @@ function mapStateToProps(state: GlobalStateType) {
 }
 
 function mapDispatchToProps(dispatch: AppDispatch) {
-  const logout = () => ({ type: authActionTypeConstants.DEAUTHENTICATE_USER } as DeauthenticateActionType)
+  const logout = () => {
+    return { type: authActionTypeConstants.DEAUTHENTICATE_USER } as DeauthenticateActionType
+  }
 
   return bindActionCreators({ logout }, dispatch)
 }
 
-type SideNavPropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+type SideNavPropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps> & RouterPropsType
 
 class SideNavComponent extends Component<SideNavPropsType> {
   private readonly _adminUrl = 'http://localhost:8081'
@@ -78,7 +82,14 @@ class SideNavComponent extends Component<SideNavPropsType> {
             </li>
             <li className="divider"></li>
             <li>
-              <a onClick={this.props.logout} className="red-text" href="#">
+              <a
+                onClick={() => {
+                  this.props.logout()
+                  this.props.navigate('/')
+                }}
+                className="red-text"
+                href="#"
+              >
                 Deautentificare
               </a>
             </li>
@@ -104,16 +115,16 @@ class SideNavComponent extends Component<SideNavPropsType> {
             <a href="#email">
               <span className="grey-text text-darken-1 email">{email}</span>
             </a>
-            <a
+            <Link
               onClick={() => {
                 this.hideSideMenu()
                 this.props.logout()
               }}
               className="red-text"
-              href="#"
+              to={'/'}
             >
               Deautentificare
-            </a>
+            </Link>
           </div>
         </li>
         <li>
@@ -206,4 +217,4 @@ class SideNavComponent extends Component<SideNavPropsType> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const SideNav = connect(mapStateToProps, mapDispatchToProps)(SideNavComponent as any)
+export const SideNav = withRouter(connect(mapStateToProps, mapDispatchToProps)(SideNavComponent as any))

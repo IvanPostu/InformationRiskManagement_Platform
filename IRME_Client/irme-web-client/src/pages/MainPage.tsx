@@ -2,9 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { AuthUserProvider } from '../api/AuthUserProvider'
 import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
-import { SAEvaluationProvider } from '../api/SAEvaluationProvider'
 import { MainLayout } from '../layouts/MainLayout'
 import { GlobalStateType } from '../store/store'
 
@@ -29,12 +27,6 @@ export function MainPage(): ReactElement {
         }
       })
     }
-
-    const _evaluationProvider = new SAEvaluationProvider()
-    // _evaluationProvider.getSecurityAssessmentQuestionsDataByCategory(
-    //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTQ2NzI0MSwiZXhwIjoxNjUxNDcwODQxfQ.q5v9i5VXomm4vjN5TSym9Je2npeEh-qRSiFB1OW6aTQ',
-    //   2
-    // )
   }, [isAuthenticated, setPreviewCategories, token])
 
   const previewCategoriesElement =

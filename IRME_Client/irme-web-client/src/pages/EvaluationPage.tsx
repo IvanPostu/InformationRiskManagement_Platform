@@ -120,6 +120,7 @@ class EvaluationPageComponent extends Component<EvaluationPageComponentPropsType
           questions={questions}
           categoryName={this._categoryName}
           organisationName={this._organisationName}
+          organisationId={this._organisationId}
         />
       </Fragment>
     )
