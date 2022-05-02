@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 public class SABusinessLogic implements BusinessLogicEntity {
@@ -129,12 +130,12 @@ public class SABusinessLogic implements BusinessLogicEntity {
         }
     }
 
-    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) {
+    public Optional<List<SAProcessAnsweredQuestion>> getProcessAnsweredQuestions(int processId) {
         try {
             return sADataAccessObject.getProcessAnsweredQuestions(processId);
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
-            return new ArrayList<>();
+            return Optional.ofNullable(null);
         }
     }
 

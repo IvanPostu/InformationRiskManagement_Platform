@@ -276,11 +276,11 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTQ5NjgwNSwiZXhwIjoxNjUxNTAwNDA1fQ.I4P2FUPkhshwwYubw8oEIE2sUD-vG_71S9JkZN7mM6s
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTUxOTAyNiwiZXhwIjoxNjUxNTIyNjI2fQ.cMCqBAgdU2naUm31j1eNbb340nvHuRJevVcrq-8C-Xg
 X-REQUEST-TYPE: GraphQL
 
 query {
-    getProcessAnsweredQuestions(processId: 5089)
+    getProcessAnsweredQuestions(processId: 400)
     {
        questionAnswerId,
         questionId,

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 public class SADataAccessObjectImpl extends SADataAccessObject {
 
@@ -349,13 +350,16 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     }
 
     @Override
-    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) throws DataAccessLayerException {
-        String sql = "{ CALL dbo.sa_get_process_answered_questions( ? ) }";
+    public Optional<List<SAProcessAnsweredQuestion>> getProcessAnsweredQuestions(int processId)
+            throws DataAccessLayerException {
+        String sql = "{ CALL dbo.sa_get_process_answered_questions( ?, ? ) }";
         List<SAProcessAnsweredQuestion> result = new LinkedList<>();
         ResultSet rs;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setInt(1, processId);
+            statement.registerOutParameter(2, Types.BIT);
+
             rs = statement.executeQuery();
 
             while (rs.next()) {
@@ -367,11 +371,12 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
                 result.add(processAnsweredQuestion);
             }
 
+            boolean processExists = statement.getBoolean(2);
+
+            return Optional.ofNullable(processExists ? result : null);
         } catch (Exception ex) {
             throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
         }
-
-        return result;
     }
 
 }

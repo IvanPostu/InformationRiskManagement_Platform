@@ -11,6 +11,7 @@ import com.irme.server.dal.exceptions.DataAccessLayerException;
 import javax.sql.DataSource;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class SADataAccessObject extends BaseDataAccessObject {
 
@@ -54,7 +55,7 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     public abstract EvaluationReport getEvaluationReport(int processId)
             throws DataAccessLayerException;
 
-    public abstract List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId)
+    public abstract Optional<List<SAProcessAnsweredQuestion>> getProcessAnsweredQuestions(int processId)
             throws DataAccessLayerException;
 
 }

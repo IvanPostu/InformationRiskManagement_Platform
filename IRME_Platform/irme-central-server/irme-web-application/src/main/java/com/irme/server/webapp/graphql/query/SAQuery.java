@@ -82,16 +82,8 @@ public class SAQuery implements GraphQLQueryResolver {
     }
 
     @PreAuthorize("!isAnonymous()")
-    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) {
-        List<SAProcessAnsweredQuestion> result = sABusinessLogic.getProcessAnsweredQuestions(processId);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+    public Optional<List<SAProcessAnsweredQuestion>> getProcessAnsweredQuestions(int processId) {
+        Optional<List<SAProcessAnsweredQuestion>> result = sABusinessLogic.getProcessAnsweredQuestions(processId);
         return result;
     }
 }
