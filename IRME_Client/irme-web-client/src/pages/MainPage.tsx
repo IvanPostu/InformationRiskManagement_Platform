@@ -30,11 +30,10 @@ export function MainPage(): ReactElement {
       })
     }
 
-    // const _evaluationProvider = new SAEvaluationProvider()
-    // _evaluationProvider.createEvaluationProcess(
-    //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM5MjMyOSwiZXhwIjoxNjUxMzk1OTI5fQ.aG_c2sZleQ-C6DF7Yz3jjK1iu8VZW0KML5IdjA7fabE',
-    //   4,
-    //   1
+    const _evaluationProvider = new SAEvaluationProvider()
+    // _evaluationProvider.getSecurityAssessmentQuestionsDataByCategory(
+    //   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTQ2NzI0MSwiZXhwIjoxNjUxNDcwODQxfQ.q5v9i5VXomm4vjN5TSym9Je2npeEh-qRSiFB1OW6aTQ',
+    //   2
     // )
   }, [isAuthenticated, setPreviewCategories, token])
 

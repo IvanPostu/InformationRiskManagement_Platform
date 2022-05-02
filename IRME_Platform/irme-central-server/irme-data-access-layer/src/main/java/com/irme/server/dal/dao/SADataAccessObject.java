@@ -4,6 +4,7 @@ import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.EvaluationReport;
 import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAProcessAnsweredQuestion;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
 
@@ -51,6 +52,9 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
             throws DataAccessLayerException;
 
     public abstract EvaluationReport getEvaluationReport(int processId)
+            throws DataAccessLayerException;
+
+    public abstract List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId)
             throws DataAccessLayerException;
 
 }

@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { GlobalAppWrapper } from '../components/GlobalAppWrapper'
 import { URLErrorWrapper } from '../components/URLErrorWrapper'
 import { CategoriesPage } from '../pages/CategoriesPage'
@@ -11,7 +11,7 @@ import { GlobalStateType } from '../store/store'
 
 function SessionExpiredComponent() {
   return (
-    <URLErrorWrapper errorCode={2}>
+    <URLErrorWrapper>
       <MainPage />
     </URLErrorWrapper>
   )
@@ -32,7 +32,7 @@ export const AppRouter = () => {
 
   return (
     <GlobalAppWrapper>
-      <HashRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/error/*" element={<SessionExpiredComponent />} />
@@ -44,7 +44,7 @@ export const AppRouter = () => {
           <Route path="/login/*" element={<LoginPage />} />
           <Route path="*" element={<MainPage />} />
         </Routes>
-      </HashRouter>
+      </Router>
     </GlobalAppWrapper>
   )
 }

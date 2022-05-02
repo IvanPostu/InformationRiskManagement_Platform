@@ -7,6 +7,8 @@ import { FixedMultilineSpan } from '../components/FixedMultilineSpan'
 import { FullScreenLoader } from '../components/FullScreenLoader'
 import { MainLayout } from '../layouts/MainLayout'
 import { GlobalStateType } from '../store/store'
+import base64 from '../utils/base64'
+
 const M = require('materialize-css/dist/js/materialize.min.js')
 
 export function CategoriesPage(): ReactElement {
@@ -15,7 +17,10 @@ export function CategoriesPage(): ReactElement {
     const { isAuthenticated, token } = state.auth
     return { isAuthenticated, token }
   })
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(-1)
+  const [selectedCategory, setSelectedCategory] = useState<{
+    categoryName: string
+    categoryId: number
+  }>({ categoryId: -1, categoryName: '' })
   const [organisations, setOrganisations] = useState<Record<number, string>>({})
 
   useEffect(() => {
@@ -75,7 +80,12 @@ export function CategoriesPage(): ReactElement {
           </div>
           <div className="card-action">
             <a
-              onClick={() => setSelectedCategoryId(el.categroyId)}
+              onClick={() =>
+                setSelectedCategory({
+                  categoryId: el.categroyId,
+                  categoryName: el.name,
+                })
+              }
               href="#orgsModalId"
               className="waves-effect waves-light btn blue darken-2 modal-trigger "
             >
@@ -103,15 +113,18 @@ export function CategoriesPage(): ReactElement {
             <p>Selectați o organizație asignată dvs. pentru care va fi realizată rvaluarea de riscuri</p>
             <section>
               <div className="collection">
-                {Object.keys(organisations).map((k) => (
-                  <Link
-                    to={`/evaluation?_categoryId=${selectedCategoryId}&_organisationId=${k}`}
-                    key={k}
-                    className="btn-flat waves-effect waves-teal collection-item"
-                  >
-                    {organisations[Number(k)]}
-                  </Link>
-                ))}
+                {Object.keys(organisations).map((k) => {
+                  const link = `/evaluation?categoryId=${
+                    selectedCategory.categoryId
+                  }&organisationId=${k}&organisationName=${base64.encode(
+                    organisations[Number(k)]
+                  )}&categoryName=${base64.encode(selectedCategory.categoryName)}`
+                  return (
+                    <Link to={link} key={k} className="btn-flat waves-effect waves-teal collection-item">
+                      {organisations[Number(k)]}
+                    </Link>
+                  )
+                })}
               </div>
             </section>
           </div>

@@ -4,6 +4,7 @@ import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.EvaluationReport;
 import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAProcessAnsweredQuestion;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.DataAccessObjectFactory;
 import com.irme.server.dal.dao.SADataAccessObject;
@@ -125,6 +126,15 @@ public class SABusinessLogic implements BusinessLogicEntity {
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
             return new EvaluationReport();
+        }
+    }
+
+    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) {
+        try {
+            return sADataAccessObject.getProcessAnsweredQuestions(processId);
+        } catch (DataAccessLayerException e) {
+            log.error(e.getMessage());
+            return new ArrayList<>();
         }
     }
 

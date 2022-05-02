@@ -227,5 +227,12 @@
     </rollback>
   </changeSet> 
 
+  <changeSet author="IvanPostu" id="sa_get_process_answered_questions">
+    <sqlFile path="sa_get_process_answered_questions.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+
+    <rollback>
+      <sqlFile path="sa_get_process_answered_questions.rollback.sql" relativeToChangelogFile="true" splitStatements="true" endDelimiter="GO" />
+    </rollback>
+  </changeSet> 
   
 </databaseChangeLog>

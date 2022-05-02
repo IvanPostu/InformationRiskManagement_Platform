@@ -1,12 +1,13 @@
 
 type SAAnswerData {
     answerId: Int,
+    questionAnswerId: Int,
     answer: String,
 }
 
 type SAQuestionData {
     questionId: Int,
-    parentQuestionId: Int,
+    parentQuestionAnswerId: Int,
     question: String,
     hasMultipleAnswers: Boolean,
     questionWeight: Int,
@@ -50,13 +51,19 @@ type SAEvaluationReport {
     items: [SAEvaluationReportItem]
 }
 
+type SAProcessAnsweredQuestion {
+    questionAnswerId: Int,
+    questionId: Int,
+    answerId: Int,
+}
+
 extend type Query {
 	getSecurityAssessmentCategories: [SACategory]
     getSecurityAssessmentQuestionsDataByCategory(categoryId: Int): [SAQuestionData]
     getEvaluationProcesses(organisationId: Int): [SAEvaluationProcess]
     getEvaluationsResults(organisationId: Int!, categoryId: Int ): [SAEvaluationResult]
     getEvaluationReport( processId: Int! ): SAEvaluationReport
-
+    getProcessAnsweredQuestions( processId: Int! ): [SAProcessAnsweredQuestion]
 }
 
 extend type Mutation {

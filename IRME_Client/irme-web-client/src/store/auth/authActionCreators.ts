@@ -47,7 +47,6 @@ export function extendAuthentication(email: string, firstName: string, lastName:
 
     if (data instanceof ErrorResult || data === null) {
       dispatch({ type: T.DEAUTHENTICATE_USER } as DeauthenticateActionType)
-      alert('Authentication error, something went wrong!!!')
     } else {
       dispatch({
         type: T.CHANGE_AUTH_DATA,

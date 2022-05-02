@@ -1,18 +1,17 @@
 package com.irme.common.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class SAQuestionWithAnswers {
     private int questionId;
 
-    private int parentQuestionId;
+    private int parentQuestionAnswerId;
 
     private String question;
 
@@ -20,5 +19,5 @@ public class SAQuestionWithAnswers {
 
     private int questionWeight;
 
-    private List<SAAnswerDto> answers;
+    private List<SAAnswerDto> answers = new ArrayList<>();
 }

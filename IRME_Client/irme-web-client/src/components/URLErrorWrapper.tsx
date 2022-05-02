@@ -11,7 +11,7 @@ interface IErrorState {
 const defaultError: IErrorState = {
   description: 'A avut loc o eroare de sistem, la moment are loc procesul de soluționare...',
   footerText: 'Rugăm să contactați administratorul sistemului. Cu respect...',
-  title: 'Ceva n-a mers bine',
+  title: 'Eroare',
 }
 
 const sessionExpiredError: IErrorState = {
@@ -20,9 +20,7 @@ const sessionExpiredError: IErrorState = {
   title: 'Sesiunea de autentificare a expirat',
 }
 
-type URLErrorWrapperPropsType = PropsWithChildren<{
-  errorCode?: number
-}>
+type URLErrorWrapperPropsType = PropsWithChildren<unknown>
 
 export function URLErrorWrapper(props: URLErrorWrapperPropsType) {
   const nodeId = 'errorMModalId'
@@ -30,9 +28,10 @@ export function URLErrorWrapper(props: URLErrorWrapperPropsType) {
   const location = useLocation()
 
   useEffect(() => {
-    let errorCode = props.errorCode
+    let errorCode = 1
     try {
       const pathErrorCode = Number(location.pathname.split('/error/')[1])
+
       if (pathErrorCode) {
         errorCode = pathErrorCode
       }

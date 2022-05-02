@@ -5,11 +5,10 @@ import com.irme.common.dto.EvaluationProcessDto;
 import com.irme.common.dto.EvaluationReport;
 import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAProcessAnsweredQuestion;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.business_entities.SABusinessLogic;
-import com.irme.server.webapp.graphql.model.SAAnswerResult;
 import com.irme.server.webapp.graphql.model.SACategoryResult;
-import com.irme.server.webapp.graphql.model.SAQuestionDataResult;
 import com.irme.server.webapp.jwt.JwtUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class SAQuery implements GraphQLQueryResolver {
@@ -49,32 +47,9 @@ public class SAQuery implements GraphQLQueryResolver {
     }
 
     @PreAuthorize("!isAnonymous()")
-    public List<SAQuestionDataResult> getSecurityAssessmentQuestionsDataByCategory(int categoryId) {
+    public List<SAQuestionWithAnswers> getSecurityAssessmentQuestionsDataByCategory(int categoryId) {
         List<SAQuestionWithAnswers> questions = sABusinessLogic.getQuestionsDataByCategory(categoryId);
-        List<SAQuestionDataResult> questionDataResults;
-
-        questionDataResults = questions
-                .stream()
-                .map(q -> {
-                    List<SAAnswerResult> answers = q.getAnswers()
-                            .stream()
-                            .map(a -> new SAAnswerResult(a.getAnswerId(), a.getAnswer()))
-                            .collect(Collectors.toList());
-
-                    SAQuestionDataResult questionData = SAQuestionDataResult.builder()
-                            .questionId(q.getQuestionId())
-                            .question(q.getQuestion())
-                            .parentQuestionId(q.getParentQuestionId())
-                            .answers(answers)
-                            .hasMultipleAnswers(q.isHasMultipleAnswers())
-                            .questionWeight(q.getQuestionWeight())
-                            .build();
-
-                    return questionData;
-                })
-                .collect(Collectors.toList());
-
-        return questionDataResults;
+        return questions;
     }
 
     @PreAuthorize("!isAnonymous()")
@@ -103,6 +78,20 @@ public class SAQuery implements GraphQLQueryResolver {
     @PreAuthorize("!isAnonymous()")
     public EvaluationReport getEvaluationReport(int processId) {
         EvaluationReport result = sABusinessLogic.getEvaluationReport(processId);
+        return result;
+    }
+
+    @PreAuthorize("!isAnonymous()")
+    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) {
+        List<SAProcessAnsweredQuestion> result = sABusinessLogic.getProcessAnsweredQuestions(processId);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         return result;
     }
 }

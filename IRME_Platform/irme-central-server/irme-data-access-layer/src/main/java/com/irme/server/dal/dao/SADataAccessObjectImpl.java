@@ -6,10 +6,10 @@ import com.irme.common.dto.EvaluationReportItem;
 import com.irme.common.dto.EvaluationResult;
 import com.irme.common.dto.SAAnswerDto;
 import com.irme.common.dto.SACategoryDto;
+import com.irme.common.dto.SAProcessAnsweredQuestion;
 import com.irme.common.dto.SAQuestionWithAnswers;
 import com.irme.server.dal.exceptions.DataAccessErrorCode;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
-import org.javatuples.Pair;
 
 import javax.sql.DataSource;
 
@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
 
 public class SADataAccessObjectImpl extends SADataAccessObject {
 
@@ -57,31 +55,19 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     @Override
     public List<SAQuestionWithAnswers> getQuestionsDataByCategory(int categoryId) throws DataAccessLayerException {
         String sql = "{ call dbo.sa_get_questions_by_category(?) }";
-        List<SAQuestionWithAnswers> result;
+        List<SAQuestionWithAnswers> result = new LinkedList<>();
 
-        HashMap<Integer, Pair<SAQuestionWithAnswers, String>> questions = new HashMap<>();
-        HashMap<Integer, SAAnswerDto> answers = new HashMap<>();
+        // [K:AnswerId,V:AnswerText]
+        HashMap<Integer, String> answers = new HashMap<>();
         ResultSet rs;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setInt(1, categoryId);
             rs = statement.executeQuery();
             while (rs.next()) {
-                SAQuestionWithAnswers questionData = new SAQuestionWithAnswers();
-
-                int questionId = rs.getInt("question_id");
-                String answersIds = rs.getString("answers_ids");
-
-                questionData.setAnswers(new ArrayList<>());
-                questionData.setHasMultipleAnswers(rs.getInt("has_multiple_answers") == 1);
-                questionData.setQuestion(rs.getString("question"));
-                questionData.setQuestionId(questionId);
-                questionData.setQuestionWeight(rs.getInt("question_max_weight"));
-
-                int parentQuestionId = rs.getInt("question_max_weight");
-                questionData.setParentQuestionId(rs.wasNull() ? -1 : parentQuestionId);
-
-                questions.put(questionId, Pair.with(questionData, answersIds));
+                int answerId = rs.getInt("answer_id");
+                String answer = rs.getString("answer");
+                answers.put(answerId, answer);
             }
             rs.close();
 
@@ -91,53 +77,38 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
 
             rs = statement.getResultSet();
             while (rs.next()) {
-                int answerId = rs.getInt("answer_id");
-                answers.put(answerId, new SAAnswerDto(answerId, rs.getString("answer")));
+                SAQuestionWithAnswers questionData = new SAQuestionWithAnswers();
+
+                int questionId = rs.getInt("question_id");
+
+                String answersIds = rs.getString("answers_ids");
+                String[] splittedAnswersIds = answersIds.split(";");
+                for (String tuple : splittedAnswersIds) {
+                    String[] answerIdAndQuestionAnswerId = tuple.split(",");
+                    int answerId = Integer.parseInt(answerIdAndQuestionAnswerId[0]);
+                    int questionAnswerId = Integer.parseInt(answerIdAndQuestionAnswerId[1]);
+                    String answerText = answers.get(answerId);
+                    questionData.getAnswers().add(new SAAnswerDto(answerId, questionAnswerId, answerText));
+                }
+
+                questionData.setHasMultipleAnswers(rs.getInt("has_multiple_answers") == 1);
+                questionData.setQuestion(rs.getString("question"));
+                questionData.setQuestionId(questionId);
+                questionData.setQuestionWeight(rs.getInt("question_max_weight"));
+
+                int parentQuestionId = rs.getInt("depends_on_question_answer_id");
+                questionData.setParentQuestionAnswerId(parentQuestionId);
+
+                result.add(questionData);
             }
             rs.close();
 
-            result = joinAnswersToQuestions(questions, answers);
-
-        } catch (SQLException | IllegalArgumentException ex) {
+        } catch (Exception ex) {
             throw new DataAccessLayerException(ex.getMessage(),
                     DataAccessErrorCode.UNKNOWN_ERROR);
         }
 
         return result;
-    }
-
-    private List<SAQuestionWithAnswers> joinAnswersToQuestions(
-            Map<Integer, Pair<SAQuestionWithAnswers, String>> questions, Map<Integer, SAAnswerDto> answers) {
-
-        try {
-            return questions.entrySet()
-                    .stream()
-                    .collect(Collector.of(ArrayList<SAQuestionWithAnswers>::new,
-                            (acc, entry) -> {
-                                String joinedAnswersIds = entry.getValue().getValue1();
-                                SAQuestionWithAnswers currentQuestion = entry.getValue().getValue0();
-                                List<SAAnswerDto> questionAnswers = currentQuestion.getAnswers();
-
-                                if (joinedAnswersIds != null && joinedAnswersIds.length() > 0) {
-                                    String[] ids = joinedAnswersIds.split(",");
-                                    for (String id : ids) {
-                                        int answerId = Integer.parseInt(id);
-                                        SAAnswerDto answer = answers.get(answerId);
-                                        if (answer != null) {
-                                            questionAnswers.add(answer);
-                                        }
-                                    }
-                                }
-
-                                acc.add(currentQuestion);
-                            },
-                            (m1, m2) -> {
-                                return m1;
-                            }));
-
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
     }
 
     /**
@@ -375,6 +346,32 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         }
 
         return isSuccess;
+    }
+
+    @Override
+    public List<SAProcessAnsweredQuestion> getProcessAnsweredQuestions(int processId) throws DataAccessLayerException {
+        String sql = "{ CALL dbo.sa_get_process_answered_questions( ? ) }";
+        List<SAProcessAnsweredQuestion> result = new LinkedList<>();
+        ResultSet rs;
+
+        try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
+            statement.setInt(1, processId);
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                SAProcessAnsweredQuestion processAnsweredQuestion = new SAProcessAnsweredQuestion();
+                processAnsweredQuestion.setAnswerId(rs.getInt("answer_id"));
+                processAnsweredQuestion.setQuestionId(rs.getInt("question_id"));
+                processAnsweredQuestion.setQuestionAnswerId(rs.getInt("question_answer_id"));
+
+                result.add(processAnsweredQuestion);
+            }
+
+        } catch (Exception ex) {
+            throw new DataAccessLayerException(ex.getMessage(), DataAccessErrorCode.UNKNOWN_ERROR);
+        }
+
+        return result;
     }
 
 }

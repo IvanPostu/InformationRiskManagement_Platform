@@ -1,4 +1,3 @@
-
 CREATE OR ALTER PROCEDURE [dbo].[sa_get_questions_by_category] 
     @category_id    INTEGER
 AS
@@ -32,8 +31,9 @@ BEGIN TRY
 	        	GROUP BY qa.question_id
 	        ),
 	        answers_ids=(
-	        	SELECT STRING_AGG( ISNULL(answers.answer_id, ''), ',') 
+	        	SELECT STRING_AGG( CONCAT(ISNULL(answers.answer_id, '-1'), ',', ISNULL(qqa.id , '-1')), ';') 
 	        	FROM sa__answers AS answers
+	        	INNER JOIN sa__questions_answers AS qqa ON qqa.question_id=sq.question_id AND qqa.answer_id=answers.answer_id
 	        	WHERE answers.answer_id IN (SELECT sqa.answer_id 
 	        								FROM sa__questions_answers AS sqa 
 	        								WHERE sqa.question_id=sq.question_id)
@@ -41,6 +41,15 @@ BEGIN TRY
     FROM
         dbo.sa__questions AS sq
     WHERE sq.category_id=@category_id;
+   
+   	SELECT 
+		sa.answer_id,
+		sa.answer
+	FROM sa__answers AS sa 
+	WHERE sa.answer_id IN (
+		SELECT answer_id FROM sa__questions_answers sqa 
+		WHERE sqa.question_id IN (SELECT question_id FROM @targetQuestions)	
+	);
    
 	SELECT 
 		question_id, 
@@ -51,16 +60,8 @@ BEGIN TRY
 		answers_ids
 	FROM @targetQuestions;
 
-	SELECT 
-		sa.answer_id,
-		sa.answer
-	FROM sa__answers AS sa 
-	WHERE sa.answer_id IN (
-		SELECT answer_id FROM sa__questions_answers sqa 
-		WHERE sqa.question_id IN (SELECT question_id FROM @targetQuestions)	
-	);
-
 END TRY
 BEGIN CATCH  
 	EXECUTE dbo.report_error;
 END CATCH 
+
