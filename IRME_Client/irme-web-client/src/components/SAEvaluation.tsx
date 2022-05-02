@@ -8,7 +8,7 @@ import { SAEvaluationProvider } from '../api/SAEvaluationProvider'
 import { MainLayout } from '../layouts/MainLayout'
 import { makeId } from '../utils/makeId'
 import { toastMessage } from '../utils/toastMessage'
-import { ConfirmModal, ConfirmModalTriggerButton } from './ConfirmModal'
+import { ConfirmModal, GenericModalTriggerButton as ConfirmModalTriggerButton } from './modal'
 import { FullScreenLoader } from './FullScreenLoader'
 import { SAEvaluationItem } from './SAEvaluationItem'
 
@@ -52,6 +52,7 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
       this.props.token,
       this.props.evaluationProcessId
     )
+
     if (Array.isArray(questionAnswers)) {
       const newSet = new Set<number>()
       questionAnswers.forEach((q) => newSet.add(q.questionAnswerId))
@@ -121,12 +122,12 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
     if (data !== null && !(data instanceof ErrorResult)) {
       if (data) {
         toastMessage({
-          message: 'Evaluarea riscurilor a avit loc cu success!!!',
+          message: 'Evaluarea riscurilor a avut loc cu success!!!',
           type: 'success',
         })
       } else {
         toastMessage({
-          message: 'Evaluarea riscurilor a avit loc erori, reîncărcați pagina!!!',
+          message: 'Evaluarea riscurilor a avut loc erori, reîncărcați pagina!!!',
           type: 'error',
         })
       }

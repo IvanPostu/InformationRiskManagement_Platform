@@ -45,33 +45,13 @@ class EvaluationPageComponent extends Component<EvaluationPageComponentPropsType
     this._organisationName = base64.decode(paramResolver.get('organisationName') || '')
 
     this.state = {
-      evaluationProcessId: -1,
+      evaluationProcessId: Number(paramResolver.get('processId')) || -1,
       questions: new Array<IQuestionData>(),
     }
 
     if (this._categoryId && this._organisationId) {
       this._paramsExtractedWithSuccess = true
-      this.createEvaluation()
       this.fetchQuestionsData()
-    }
-  }
-
-  private createEvaluation = async (): Promise<void> => {
-    const token = this.props.token || ''
-    const evaluationProcessId = await this._evaluationProvider.createEvaluationProcess(
-      token,
-      this._organisationId,
-      this._categoryId
-    )
-    if (!this._isMounted) return
-
-    if (evaluationProcessId !== null && !(evaluationProcessId instanceof ErrorResult)) {
-      this.setState({
-        evaluationProcessId,
-      })
-    } else {
-      console.error(`Can't create evaluation process, evaluationProcessId: ${evaluationProcessId}`)
-      this.props.navigate('/error/1')
     }
   }
 

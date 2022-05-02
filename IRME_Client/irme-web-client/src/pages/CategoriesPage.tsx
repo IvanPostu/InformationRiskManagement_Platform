@@ -1,73 +1,124 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { Fragment, ReactElement, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { ISAEvaluationProvider } from '../api/ISAEvaluationProvider'
+import { ErrorResult } from '../api/models/ErrorResult'
 import { OrganisationProvider } from '../api/OrganisationProvider'
 import { ISACategory, SACategoryProvider } from '../api/SACategoryProvider'
+import { SAEvaluationProvider } from '../api/SAEvaluationProvider'
 import { FixedMultilineSpan } from '../components/FixedMultilineSpan'
 import { FullScreenLoader } from '../components/FullScreenLoader'
+import { GenericModal, GenericModalTriggerButton } from '../components/modal'
 import { MainLayout } from '../layouts/MainLayout'
 import { GlobalStateType } from '../store/store'
 import base64 from '../utils/base64'
-
+import { makeId } from '../utils/makeId'
 const M = require('materialize-css/dist/js/materialize.min.js')
 
-export function CategoriesPage(): ReactElement {
-  const [previewCategories, setPreviewCategories] = useState<Array<ISACategory>>([])
-  const { isAuthenticated, token } = useSelector((state: GlobalStateType) => {
-    const { isAuthenticated, token } = state.auth
-    return { isAuthenticated, token }
-  })
-  const [selectedCategory, setSelectedCategory] = useState<{
+type CategoriesPageStateType = {
+  previewCategories: Array<ISACategory>
+  processCreatingRequest: boolean
+  selectedOrganisation: {
+    organisationId: number
+    organisationName: string
+  }
+  selectedCategory: {
     categoryName: string
     categoryId: number
-  }>({ categoryId: -1, categoryName: '' })
-  const [organisations, setOrganisations] = useState<Record<number, string>>({})
+  }
+  organisations: Record<number, string>
+}
+
+export function CategoriesPage(): ReactElement {
+  const modalId = useRef(makeId(15))
+  const isMounted = useRef<boolean>(false)
+  const navigate = useNavigate()
+
+  const { token: tokenFromStore } = useSelector((state: GlobalStateType) => {
+    const { token } = state.auth
+    return { token }
+  })
+  const token = tokenFromStore || ''
+  const [state, setState] = useState<CategoriesPageStateType>({
+    organisations: {},
+    previewCategories: [],
+    processCreatingRequest: false,
+    selectedOrganisation: {
+      organisationId: -1,
+      organisationName: '',
+    },
+    selectedCategory: {
+      categoryId: -1,
+      categoryName: '',
+    },
+  })
 
   useEffect(() => {
-    const modalNode = document.querySelector('#orgsModalId')
-    if (modalNode) {
-      M.Modal.init(modalNode, {
-        inDuration: 250,
-        outDuration: 250,
-        opacity: 0.5,
-        startingTop: '4%',
-        endingTop: '10%',
-      })
-    }
-
-    return () => {
-      const modalNode = document.querySelector('#orgsModalId')
-      if (modalNode) {
-        const instance = M.Modal.getInstance(modalNode)
-        instance && instance.destroy()
-      }
-    }
-  }, [])
-
-  useEffect(() => {
+    isMounted.current = true
     const categoryProvider = new SACategoryProvider()
     const organisationProvider = new OrganisationProvider()
 
-    if (isAuthenticated && token !== null) {
-      categoryProvider.getSecurityAssessmentCategories(token).then((d) => {
-        if (Array.isArray(d)) {
-          setPreviewCategories(d)
-        }
-      })
+    categoryProvider.getSecurityAssessmentCategories(token).then((d) => {
+      if (!isMounted.current) return
 
-      organisationProvider.userOrganisations(token).then((d) => {
-        if (Array.isArray(d)) {
-          const elements = d.reduce((acc, current) => {
-            acc[current.id] = current.name
-            return acc
-          }, {} as Record<number, string>)
-          setOrganisations(elements)
-        }
-      })
+      if (Array.isArray(d)) {
+        setState((prevState) => ({
+          ...prevState,
+          previewCategories: d,
+        }))
+      }
+    })
+
+    organisationProvider.userOrganisations(token).then((d) => {
+      if (!isMounted.current) return
+
+      if (Array.isArray(d)) {
+        const elements = d.reduce((acc, current) => {
+          acc[current.id] = current.name
+          return acc
+        }, {} as Record<number, string>)
+        setState((prevState) => ({
+          ...prevState,
+          organisations: elements,
+        }))
+      }
+    })
+
+    return () => {
+      isMounted.current = false
     }
   }, [])
 
-  const elements = previewCategories.map((el) => {
+  useEffect(() => {
+    const { categoryId, categoryName } = state.selectedCategory
+    const { organisationId, organisationName } = state.selectedOrganisation
+    const { processCreatingRequest } = state
+
+    if (processCreatingRequest) return
+
+    const provider: ISAEvaluationProvider = new SAEvaluationProvider()
+
+    if (organisationId !== -1 && categoryId !== -1) {
+      setState((prevState) => ({
+        ...prevState,
+        processCreatingRequest: true,
+      }))
+
+      provider.createEvaluationProcess(token, organisationId, categoryId).then((data) => {
+        if (!isMounted.current) return
+
+        if (data !== null && !(data instanceof ErrorResult) && data > 0) {
+          const link = `/evaluation?processId=${data}&categoryId=${categoryId}&organisationId=${organisationId}&organisationName=${base64.encode(
+            organisationName
+          )}&categoryName=${base64.encode(categoryName)}`
+
+          navigate(link)
+        }
+      })
+    }
+  }, [state])
+
+  const elements = state.previewCategories.map((el) => {
     return (
       <div key={el.categroyId} className="col s12 m4">
         <div style={{ height: '400px' }} className="card small">
@@ -79,18 +130,22 @@ export function CategoriesPage(): ReactElement {
             <FixedMultilineSpan linesCount={6}>{el.description}</FixedMultilineSpan>
           </div>
           <div className="card-action">
-            <a
-              onClick={() =>
-                setSelectedCategory({
-                  categoryId: el.categroyId,
-                  categoryName: el.name,
-                })
-              }
-              href="#orgsModalId"
+            <GenericModalTriggerButton
+              href={'#' + modalId.current}
               className="waves-effect waves-light btn blue darken-2 modal-trigger "
+              style={{ zIndex: 0 }}
+              onClick={() => {
+                setState((prevState) => ({
+                  ...prevState,
+                  selectedCategory: {
+                    categoryId: el.categroyId,
+                    categoryName: el.name,
+                  },
+                }))
+              }}
             >
               Evaluează
-            </a>
+            </GenericModalTriggerButton>
           </div>
         </div>
       </div>
@@ -98,41 +153,62 @@ export function CategoriesPage(): ReactElement {
   })
 
   return (
-    <MainLayout>
-      {previewCategories.length === 0 && <FullScreenLoader />}
+    <Fragment>
+      <MainLayout>
+        <GenericModal
+          content={
+            <Fragment>
+              <h4>Lista de organizații</h4>
+              <p>Selectați o organizație asignată dvs. pentru care va fi realizată rvaluarea de riscuri</p>
+              <section>
+                <div className="collection">
+                  {Object.keys(state.organisations).map((k) => {
+                    const organisationName = state.organisations[Number(k)]
 
-      <div className="container">
-        <div style={{ marginTop: '20px' }} className="row">
-          {elements}
-        </div>
+                    return (
+                      <a
+                        onClick={() => {
+                          setState((prevState) => ({
+                            ...prevState,
+                            selectedOrganisation: {
+                              organisationId: Number(k),
+                              organisationName: organisationName,
+                            },
+                          }))
 
-        {/* Modal element */}
-        <div id="orgsModalId" className="modal">
-          <div className="modal-content grey-text text-darken-4">
-            <h4>Lista de organizații</h4>
-            <p>Selectați o organizație asignată dvs. pentru care va fi realizată rvaluarea de riscuri</p>
-            <section>
-              <div className="collection">
-                {Object.keys(organisations).map((k) => {
-                  const link = `/evaluation?categoryId=${
-                    selectedCategory.categoryId
-                  }&organisationId=${k}&organisationName=${base64.encode(
-                    organisations[Number(k)]
-                  )}&categoryName=${base64.encode(selectedCategory.categoryName)}`
-                  return (
-                    <Link to={link} key={k} className="btn-flat waves-effect waves-teal collection-item">
-                      {organisations[Number(k)]}
-                    </Link>
-                  )
-                })}
-              </div>
-            </section>
-          </div>
-          <div className="modal-footer" style={{ padding: '15px' }}>
-            <p>Platforma dată garantează că datele ce introduse de dvs. se vor păstra securizat.</p>
+                          const modalNode = document.querySelector('#' + modalId.current)
+                          if (modalNode) {
+                            const instance = M.Modal.getInstance(modalNode)
+                            instance && instance.close()
+                          }
+                        }}
+                        key={k}
+                        className="btn-flat waves-effect waves-teal collection-item"
+                      >
+                        {organisationName}
+                      </a>
+                    )
+                  })}
+                </div>
+              </section>
+            </Fragment>
+          }
+          id={modalId.current}
+          footerContent={
+            <div className="modal-footer" style={{ padding: '0' }}>
+              <p>Platforma dată garantează că datele ce introduse de dvs. se vor păstra securizat.</p>
+            </div>
+          }
+        />
+
+        <div className="container">
+          <div style={{ marginTop: '20px' }} className="row">
+            {elements}
           </div>
         </div>
-      </div>
-    </MainLayout>
+      </MainLayout>
+
+      {state.processCreatingRequest && <FullScreenLoader zIndex={99} />}
+    </Fragment>
   )
 }

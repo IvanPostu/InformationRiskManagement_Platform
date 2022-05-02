@@ -5,7 +5,6 @@ const Overlay = styled.div`
   height: 100%;
   width: 100%;
   position: fixed;
-  z-index: 5;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.35);
@@ -13,8 +12,13 @@ const Overlay = styled.div`
   display: flex;
   justify-content: space-between;
 `
+interface IFullScreenLoaderProps {
+  zIndex?: number
+}
 
-export function FullScreenLoader() {
+export function FullScreenLoader(props: IFullScreenLoaderProps) {
+  const defaultZIndex = props.zIndex || 5
+
   return (
     <Fragment>
       <Overlay>
@@ -26,6 +30,7 @@ export function FullScreenLoader() {
             width: '70px',
             height: '70px',
             transform: 'translate(-50%, -50%)',
+            zIndex: defaultZIndex,
           }}
         >
           <div className="preloader-wrapper big active">

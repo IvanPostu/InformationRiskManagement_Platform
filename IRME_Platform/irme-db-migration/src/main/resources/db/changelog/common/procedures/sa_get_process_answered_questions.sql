@@ -1,4 +1,5 @@
 
+
 CREATE OR ALTER PROCEDURE [dbo].[sa_get_process_answered_questions] 
     @process_id    		INTEGER,
     @process_exists		BIT OUTPUT
@@ -6,7 +7,7 @@ AS
 BEGIN TRY
     
 	SET @process_exists = IIF(EXISTS (
-		SELECT TOP 1 1 FROM sa__results AS sr WHERE sr.process_id=@process_id
+		SELECT TOP 1 1 FROM sa__processes AS sp WHERE sp.process_id=@process_id
 	), 1, 0)
 
 

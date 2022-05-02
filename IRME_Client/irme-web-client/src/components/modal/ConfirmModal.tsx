@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react'
-import { Button, ButtonProps, Modal, ModalProps } from 'react-materialize'
+import { Button, Modal, ModalProps } from 'react-materialize'
 
 const CustomModal = Modal as FC<ModalProps & PropsWithChildren<unknown>>
 
@@ -44,13 +44,4 @@ export function ConfirmModal(props: ConfirmModalPropsType) {
       </span>
     </CustomModal>
   )
-}
-
-type ConfirmModalTriggerButtonPropsType = ButtonProps & {
-  href: string
-  type: string
-}
-
-export function ConfirmModalTriggerButton(props: ConfirmModalTriggerButtonPropsType) {
-  return <Button {...props} />
 }
