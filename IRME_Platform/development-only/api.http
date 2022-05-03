@@ -255,7 +255,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTYwMDMzNywiZXhwIjoxNjUxNjAzOTM3fQ.x5qP5mw23zm3DBpZWiYUE7IOgnfjvGqnM1LzohjVlSQ
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTYwNDk5MywiZXhwIjoxNjUxNjA4NTkzfQ.tjtTeL2t8ylzwo5jP8fi0rHb8h9kpd4XFAvyAMGT4WM
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -273,6 +273,8 @@ query {
         }
     }
 }
+
+GET  http://localhost:8080/api/securityAssessment/download?processId=1
 
 
 POST http://localhost:8080/graphql
