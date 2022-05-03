@@ -255,7 +255,7 @@ query {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM1MTc4MiwiZXhwIjoxNjUxMzU1MzgyfQ.9RfAQzdEn-U1ZqXSethYBh77wsWQ5yMQ4PU2wRnK3U4
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTYwMDMzNywiZXhwIjoxNjUxNjAzOTM3fQ.x5qP5mw23zm3DBpZWiYUE7IOgnfjvGqnM1LzohjVlSQ
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -263,6 +263,7 @@ query {
     {
         maxCategoryWeight,
         totalProcessWeight,
+        expectedProcessWeight,
         items {
             questionId,
             answerId,

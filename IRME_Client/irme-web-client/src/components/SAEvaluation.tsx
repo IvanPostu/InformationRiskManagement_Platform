@@ -11,11 +11,15 @@ import { toastMessage } from '../utils/toastMessage'
 import { ConfirmModal, GenericModalTriggerButton as ConfirmModalTriggerButton } from './modal'
 import { FullScreenLoader } from './FullScreenLoader'
 import { SAEvaluationItem } from './SAEvaluationItem'
+import base64 from '../utils/base64'
+import { NavigateFunction } from 'react-router-dom'
 
 interface SAEvaluationPropsType {
+  navigate: NavigateFunction
   questions: Array<IQuestionData>
   evaluationProcessId: number
   categoryName: string
+  categoryId: number
   organisationName: string
   token: string
   organisationId: number
@@ -30,7 +34,7 @@ const EvaluationHeaderContainer = styled.div`
   margin: 10px 0 30px 0;
 `
 
-export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationStateType> {
+class SAEvaluationComponent extends Component<SAEvaluationPropsType, SAEvaluationStateType> {
   private readonly _evaluationProvider: ISAEvaluationProvider
   private readonly _confirmModalId: string = makeId(12)
 
@@ -125,6 +129,12 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
           message: 'Evaluarea riscurilor a avut loc cu success!!!',
           type: 'success',
         })
+        const link = `/evaluationReport?processId=${evaluationProcessId}&categoryId=${
+          this.props.categoryId
+        }&organisationId=${organisationId}&organisationName=${base64.encode(
+          this.props.organisationName
+        )}&categoryName=${base64.encode(this.props.categoryName)}`
+        this.props.navigate(link)
       } else {
         toastMessage({
           message: 'Evaluarea riscurilor a avut loc erori, reîncărcați pagina!!!',
@@ -194,3 +204,5 @@ export class SAEvaluation extends Component<SAEvaluationPropsType, SAEvaluationS
     )
   }
 }
+
+export const SAEvaluation = SAEvaluationComponent

@@ -1,5 +1,6 @@
 import { ErrorResult } from './models/ErrorResult'
 import { IAnsweredQuestion } from './models/IAnsweredQuestion'
+import { IEvaluationReport } from './models/IEvaluationReport'
 import type { IQuestionData } from './models/IQuestionData'
 
 export interface ISAEvaluationProvider {
@@ -39,4 +40,6 @@ export interface ISAEvaluationProvider {
     processId: number,
     forced?: boolean
   ): Promise<boolean | null | ErrorResult>
+
+  getEvaluationReport(authToken: string, processId: number): Promise<IEvaluationReport | null | ErrorResult>
 }

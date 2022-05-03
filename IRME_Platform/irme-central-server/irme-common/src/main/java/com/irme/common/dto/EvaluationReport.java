@@ -15,4 +15,6 @@ public class EvaluationReport implements Serializable {
 
     private int totalProcessWeight;
 
+    private int expectedProcessWeight;
+
 }

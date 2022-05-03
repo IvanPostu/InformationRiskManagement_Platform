@@ -247,13 +247,14 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     }
 
     @Override
-    public EvaluationReport getEvaluationReport(int processId) throws DataAccessLayerException {
+    public Optional<EvaluationReport> getEvaluationReport(int processId) throws DataAccessLayerException {
         String sql = "{ call dbo.sa_get_evaluation_report( ? ) }";
         EvaluationReport report = new EvaluationReport();
         ResultSet rs;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setInt(1, processId);
+
             rs = statement.executeQuery();
             while (rs.next()) {
                 EvaluationReportItem reportItem = new EvaluationReportItem();
@@ -280,12 +281,11 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
             }
             rs.close();
 
+            return Optional.ofNullable(report);
         } catch (SQLException | IllegalArgumentException ex) {
             throw new DataAccessLayerException(ex.getMessage(),
                     DataAccessErrorCode.UNKNOWN_ERROR);
         }
-
-        return report;
     }
 
     /**

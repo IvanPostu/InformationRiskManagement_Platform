@@ -36,16 +36,17 @@ class EvaluationPageComponent extends Component<EvaluationPageComponentPropsType
 
   constructor(props: EvaluationPageComponentPropsType) {
     super(props)
-    const paramResolver = new URLSearchParams(this.props.location.search)
 
+    const paramResolver = new URLSearchParams(this.props.location.search)
     this._categoryId = Number(paramResolver.get('categoryId'))
     this._organisationId = Number(paramResolver.get('organisationId'))
     this._evaluationProvider = new SAEvaluationProvider()
     this._categoryName = base64.decode(paramResolver.get('categoryName') || '')
     this._organisationName = base64.decode(paramResolver.get('organisationName') || '')
+    const evaluationProcessId = Number(paramResolver.get('processId')) || -1
 
     this.state = {
-      evaluationProcessId: Number(paramResolver.get('processId')) || -1,
+      evaluationProcessId,
       questions: new Array<IQuestionData>(),
     }
 
@@ -95,6 +96,8 @@ class EvaluationPageComponent extends Component<EvaluationPageComponentPropsType
     return (
       <Fragment>
         <SAEvaluation
+          categoryId={this._categoryId}
+          navigate={this.props.navigate}
           token={this.props.token || ''}
           evaluationProcessId={evaluationProcessId}
           questions={questions}

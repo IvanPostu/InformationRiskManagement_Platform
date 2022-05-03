@@ -52,7 +52,7 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     public abstract List<EvaluationResult> getEvaluationsResults(int organisationId)
             throws DataAccessLayerException;
 
-    public abstract EvaluationReport getEvaluationReport(int processId)
+    public abstract Optional<EvaluationReport> getEvaluationReport(int processId)
             throws DataAccessLayerException;
 
     public abstract Optional<List<SAProcessAnsweredQuestion>> getProcessAnsweredQuestions(int processId)

@@ -48,6 +48,7 @@ type SAEvaluationReportItem {
 type SAEvaluationReport {
     maxCategoryWeight: Int,
     totalProcessWeight: Int,
+    expectedProcessWeight: Int,
     items: [SAEvaluationReportItem]
 }
 

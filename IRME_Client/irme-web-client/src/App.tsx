@@ -19,9 +19,11 @@ BaseApiProvider.config = {
 
 function App(): ReactElement {
   return (
-    <Provider store={store}>
-      <AppRouter />
-    </Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <AppRouter />
+      </Provider>
+    </React.StrictMode>
   )
 }
 export default App

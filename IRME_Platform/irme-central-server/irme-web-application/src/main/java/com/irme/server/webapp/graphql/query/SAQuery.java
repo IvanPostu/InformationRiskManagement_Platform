@@ -76,8 +76,8 @@ public class SAQuery implements GraphQLQueryResolver {
     }
 
     @PreAuthorize("!isAnonymous()")
-    public EvaluationReport getEvaluationReport(int processId) {
-        EvaluationReport result = sABusinessLogic.getEvaluationReport(processId);
+    public Optional<EvaluationReport> getEvaluationReport(int processId) {
+        Optional<EvaluationReport> result = sABusinessLogic.getEvaluationReport(processId);
         return result;
     }
 

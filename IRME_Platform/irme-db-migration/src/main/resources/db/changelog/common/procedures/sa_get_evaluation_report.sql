@@ -1,8 +1,15 @@
 
+
 CREATE OR ALTER PROCEDURE [dbo].[sa_get_evaluation_report]
     @process_id			INTEGER
 AS
 BEGIN TRY 
+
+	IF NOT EXISTS (SELECT TOP 1 1 FROM sa__processes AS sp WHERE sp.process_id=@process_id)
+	BEGIN 
+		RETURN
+	END
+	
 
     DECLARE @category_id INTEGER = (
         SELECT TOP 1 sp.category_id  FROM sa__processes AS sp WHERE sp.process_id=@process_id
@@ -55,3 +62,4 @@ END TRY
 BEGIN CATCH
 	EXECUTE dbo.report_error;
 END CATCH;
+

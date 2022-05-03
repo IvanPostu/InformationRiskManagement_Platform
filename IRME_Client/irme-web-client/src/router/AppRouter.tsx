@@ -5,6 +5,7 @@ import { GlobalAppWrapper } from '../components/GlobalAppWrapper'
 import { URLErrorWrapper } from '../components/URLErrorWrapper'
 import { CategoriesPage } from '../pages/CategoriesPage'
 import { EvaluationPage } from '../pages/EvaluationPage'
+import { EvaluationReportPage } from '../pages/EvaluationReportPage'
 import { LoginPage } from '../pages/LoginPage'
 import { MainPage } from '../pages/MainPage'
 import { GlobalStateType } from '../store/store'
@@ -17,7 +18,11 @@ function SessionExpiredComponent() {
   )
 }
 
-function AuthElement(element: JSX.Element, isAuthenticated: boolean): JSX.Element {
+function requireAuth(element: JSX.Element): JSX.Element {
+  const isAuthenticated = useSelector((state: GlobalStateType) => {
+    return state.auth.isAuthenticated
+  })
+
   if (!isAuthenticated) {
     return <SessionExpiredComponent />
   }
@@ -26,21 +31,16 @@ function AuthElement(element: JSX.Element, isAuthenticated: boolean): JSX.Elemen
 }
 
 export const AppRouter = () => {
-  const isAuthenticated = useSelector((state: GlobalStateType) => {
-    return state.auth.isAuthenticated
-  })
-
   return (
     <GlobalAppWrapper>
       <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/error/*" element={<SessionExpiredComponent />} />
-          <Route path="/categories/*" element={AuthElement(<CategoriesPage />, isAuthenticated)} />
+          <Route path="/categories/*" element={requireAuth(<CategoriesPage />)} />
 
-          {/* _categoryId
-          _organisationId */}
-          <Route path="/evaluation/*" element={AuthElement(<EvaluationPage />, isAuthenticated)} />
+          <Route path="/evaluationReport/*" element={requireAuth(<EvaluationReportPage />)} />
+          <Route path="/evaluation/*" element={requireAuth(<EvaluationPage />)} />
           <Route path="/login/*" element={<LoginPage />} />
           <Route path="*" element={<MainPage />} />
         </Routes>

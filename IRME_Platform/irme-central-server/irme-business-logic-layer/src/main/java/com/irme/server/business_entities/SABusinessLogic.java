@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Slf4j
 public class SABusinessLogic implements BusinessLogicEntity {
@@ -121,12 +122,33 @@ public class SABusinessLogic implements BusinessLogicEntity {
         }
     }
 
-    public EvaluationReport getEvaluationReport(int processId) {
+    public Optional<EvaluationReport> getEvaluationReport(int processId) {
         try {
-            return sADataAccessObject.getEvaluationReport(processId);
+            Optional<EvaluationReport> result = sADataAccessObject.getEvaluationReport(processId);
+
+            if (result.isPresent()) {
+                EvaluationReport r = result.get();
+                Random ran = new Random();
+
+                int delta = Math.round(r.getTotalProcessWeight() * 0.2f);
+                int delta1 = ran.nextInt(delta * 2) - delta;
+                int expectedWeight = r.getTotalProcessWeight() + delta1;
+
+                if (expectedWeight > r.getMaxCategoryWeight()) {
+                    expectedWeight = r.getMaxCategoryWeight() - Math.round(delta * 0.7f);
+                }
+
+                if (expectedWeight < 0) {
+                    expectedWeight = delta;
+                }
+
+                r.setExpectedProcessWeight(expectedWeight);
+            }
+
+            return result;
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
-            return new EvaluationReport();
+            return Optional.ofNullable(null);
         }
     }
 
