@@ -60,6 +60,11 @@ class SideNavComponent extends Component<SideNavPropsType> {
     const desktopElements = isAuthenticated ? (
       <Fragment>
         <li>
+          <Link onClick={this.hideSideMenu} className="" to={'/organisations'}>
+            Organizații asignate
+          </Link>
+        </li>
+        <li>
           <Link to={'/categories'}>Categorii de evaluari</Link>
         </li>
         <li>
@@ -128,12 +133,17 @@ class SideNavComponent extends Component<SideNavPropsType> {
           </div>
         </li>
         <li>
-          <a className="" href="#">
+          <a className="" href="">
             Informații
           </a>
         </li>
         <li>
           <div className="divider"></div>
+        </li>
+        <li>
+          <Link onClick={this.hideSideMenu} className="" to={'/organisations'}>
+            Organizații asignate
+          </Link>
         </li>
         <li>
           <Link onClick={this.hideSideMenu} className="" to={'/categories'}>
@@ -174,6 +184,11 @@ class SideNavComponent extends Component<SideNavPropsType> {
         </li>
         <li>
           <div className="divider"></div>
+        </li>
+        <li>
+          <Link onClick={this.hideSideMenu} className="subheader" to={'/organisations'}>
+            Organizații asignate
+          </Link>
         </li>
         <li>
           <Link className="subheader" to={'/categories'}>

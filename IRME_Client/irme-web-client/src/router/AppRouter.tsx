@@ -8,6 +8,7 @@ import { EvaluationPage } from '../pages/EvaluationPage'
 import { EvaluationReportPage } from '../pages/EvaluationReportPage'
 import { LoginPage } from '../pages/LoginPage'
 import { MainPage } from '../pages/MainPage'
+import { OrganisationsPage } from '../pages/OrganisationsPage'
 import { GlobalStateType } from '../store/store'
 
 function SessionExpiredComponent() {
@@ -38,6 +39,7 @@ export const AppRouter = () => {
           <Route path="/" element={<MainPage />} />
           <Route path="/error/*" element={<SessionExpiredComponent />} />
           <Route path="/categories/*" element={requireAuth(<CategoriesPage />)} />
+          <Route path="/organisations/*" element={requireAuth(<OrganisationsPage />)} />
 
           <Route path="/evaluationReport/*" element={requireAuth(<EvaluationReportPage />)} />
           <Route path="/evaluation/*" element={requireAuth(<EvaluationPage />)} />

@@ -1,6 +1,7 @@
 import React, { Fragment, PropsWithChildren, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { extendAuthentication } from '../store/auth/authActionCreators'
+import { authActionTypeConstants as T, DeauthenticateActionType } from '../store/auth/authTypes'
 import { AppDispatch, GlobalStateType } from '../store/store'
 import { getAuthDataFromLocalStorage } from '../utils/authStorage'
 import { FullScreenLoader } from './FullScreenLoader'
@@ -18,6 +19,8 @@ export const GlobalAppWrapper = (props: PropsWithChildren<unknown>) => {
     if (authData !== null) {
       const { email, firstName, lastName, token } = authData
       dispatch(extendAuthentication(email, firstName, lastName, token))
+    } else {
+      dispatch({ type: T.DEAUTHENTICATE_USER } as DeauthenticateActionType)
     }
   }, [])
 
