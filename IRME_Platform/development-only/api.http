@@ -274,7 +274,11 @@ query {
     }
 }
 
-GET  http://localhost:8080/api/securityAssessment/download?processId=1
+GET  http://localhost:8080/api/securityAssessment/download?processId=2016&organisationName=QjJCIFNvbHV0aW9ucw==&categoryName=UHJvdGVjyJtpZSBwZXJpbWV0cmFsxIM=&docType=docx
+
+
+
+
 
 
 POST http://localhost:8080/graphql
