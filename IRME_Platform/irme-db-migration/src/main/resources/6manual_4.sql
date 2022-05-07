@@ -2,7 +2,7 @@
 BEGIN
 
     DECLARE @loopCounter INTEGER = 1; --11
-
+    DECLARE @d DATETIME;
 
     WHILE @loopCounter <= 11
     BEGIN

@@ -5,7 +5,7 @@ import { MainLayout } from '../layouts/MainLayout'
 import { authenticate } from '../store/auth/authActionCreators'
 import { AppDispatch, GlobalStateType } from '../store/store'
 
-export function LoginPage(): ReactElement {
+export default function LoginPage(): ReactElement {
   const dispatch = useDispatch<AppDispatch>()
 
   const isAuthenticated = useSelector((state: GlobalStateType) => {

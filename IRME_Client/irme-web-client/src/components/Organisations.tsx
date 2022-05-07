@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { Button, CardPanel, Container, Table } from 'react-materialize'
+import { CardPanel, Container, Table } from 'react-materialize'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { ErrorResult } from '../api/models/ErrorResult'
 import { IOrganisation, OrganisationProvider } from '../api/OrganisationProvider'
 import { GlobalStateType } from '../store/store'
+import base64 from '../utils/base64'
 
 function mapStateToProps(state: GlobalStateType) {
   const { token } = state.auth
@@ -57,39 +59,28 @@ class OrganisationsComponent extends Component<OrganisationsComponentPropsType, 
           <td>{o.name}</td>
           <td>{o.created}</td>
           <td>
-            <Button
-              node="a"
-              className="grey darken-2"
-              small
+            <Link
+              to={'/'}
+              className="waves-effect waves-light btn-small grey darken-2"
               style={{
                 marginRight: '5px',
               }}
-              waves="light"
             >
               Rezultate evaluări
-            </Button>
-            <Button
-              node="a"
-              className="grey darken-2"
-              small
+            </Link>
+            {/* <a href="http://localhost:8080/api/securityAssessment/download?processId=2016&organisationName=QjJCIFNvbHV0aW9ucw==&categoryName=UHJvdGVjyJtpZSBwZXJpbWV0cmFsxIM=&docType=docx">
+              Raport
+            </a> */}
+
+            <Link
+              to={`/currentOrganisationEvaluations/?organisationId=${o.id}&organisationName=${base64.encode(o.name)}`}
+              className="waves-effect waves-light btn-small grey darken-2"
               style={{
                 marginRight: '5px',
               }}
-              waves="light"
             >
-              Raport general
-            </Button>
-            <Button
-              node="a"
-              className="grey darken-2"
-              small
-              style={{
-                marginRight: '5px',
-              }}
-              waves="light"
-            >
-              Info
-            </Button>
+              Evaluări curente
+            </Link>
           </td>
         </tr>
       )

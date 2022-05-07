@@ -146,7 +146,8 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     }
 
     @Override
-    public List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId)
+    public List<EvaluationProcessDto> getEvaluationProcesses(Optional<Integer> userId,
+            Optional<Integer> organisationId)
             throws DataAccessLayerException {
 
         String sql = "{ call dbo.sa_get_evaluation_processes( ?, ? ) }";
@@ -154,8 +155,8 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         ResultSet rs = null;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
-            statement.setInt(1, userId);
-            statement.setInt(2, organisationId);
+            statement.setInt(1, userId.orElse(-1));
+            statement.setInt(2, organisationId.orElse(-1));
 
             rs = statement.executeQuery();
             while (rs.next()) {
@@ -168,7 +169,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
                 processDto.setUserId(rs.getInt("author_user_id"));
                 processDto.setUserEmail(rs.getString("user_email"));
                 processDto.setStatusCode(rs.getInt("status"));
-                processDto.setCategoryId(rs.getInt("process_id"));
+                processDto.setCategoryId(rs.getInt("category_id"));
                 processDto.setCategoryName(rs.getString("category_name"));
 
                 result.add(processDto);
@@ -205,16 +206,18 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
     }
 
     @Override
-    public List<EvaluationResult> getEvaluationsResults(int organisationId, int categoryId)
+    public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId,
+            Optional<Integer> limitsPerCategory)
             throws DataAccessLayerException {
 
-        String sql = "{ call dbo.sa_get_evaluations_results( ?, ? ) }";
+        String sql = "{ call dbo.sa_get_evaluations_results( ?, ?, ? ) }";
         List<EvaluationResult> result = new LinkedList<>();
         ResultSet rs = null;
 
         try (CallableStatement statement = super.getConnection().prepareCall(sql)) {
             statement.setInt(1, organisationId);
-            statement.setInt(2, categoryId);
+            statement.setInt(2, categoryId.orElseGet(() -> -1));
+            statement.setInt(3, limitsPerCategory.orElseGet(() -> 5));
 
             rs = statement.executeQuery();
             while (rs.next()) {
@@ -237,13 +240,6 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
         }
 
         return result;
-    }
-
-    @Override
-    public List<EvaluationResult> getEvaluationsResults(int organisationId)
-            throws DataAccessLayerException {
-
-        return getEvaluationsResults(organisationId, -1);
     }
 
     @Override

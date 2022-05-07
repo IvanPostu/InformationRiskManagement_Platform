@@ -62,7 +62,7 @@ extend type Query {
 	getSecurityAssessmentCategories: [SACategory]
     getSecurityAssessmentQuestionsDataByCategory(categoryId: Int): [SAQuestionData]
     getEvaluationProcesses(organisationId: Int): [SAEvaluationProcess]
-    getEvaluationsResults(organisationId: Int!, categoryId: Int ): [SAEvaluationResult]
+    getEvaluationsResults(organisationId: Int!, categoryId: Int, limitsPerCategory: Int): [SAEvaluationResult]
     getEvaluationReport( processId: Int! ): SAEvaluationReport
     getProcessAnsweredQuestions( processId: Int! ): [SAProcessAnsweredQuestion]
 }

@@ -1,7 +1,8 @@
 
 CREATE OR ALTER PROCEDURE [dbo].[sa_get_evaluations_results]
     @organisation_id 			INTEGER,
-    @category_id 				INTEGER = -1
+    @category_id 				INTEGER = -1,
+    @limits_per_category        INTEGER = 5
 AS
 BEGIN TRY 
     DROP TABLE IF EXISTS #categories_with_max_weight;
@@ -26,24 +27,27 @@ BEGIN TRY
 
 	
 	DECLARE @result_query NVARCHAR(MAX) = CONCAT('
-		SELECT 
-			process_id 			 = sp.process_id,
-            category_id          = sp.category_id,
-			created    			 = MAX(sp.created),
-			answers_total_weight = SUM(qa.answer_weight),
-			answer_max_weight 	 = (SELECT TOP 1 max_weight FROM #categories_with_max_weight WHERE category_id=sp.category_id),
-			status_code 		 = MAX(sp.status) 
-		FROM sa__processes AS sp
-		INNER JOIN sa__results AS sr ON sr.process_id=sp.process_id  
-		INNER JOIN sa__questions_answers AS qa ON qa.id=sr.question_answer_id 
-		WHERE ', IIF(@category_id=-1, '', 'sp.category_id=@category_id AND '), ' sp.organisation_id=@organisation_id
-		GROUP BY sp.process_id, sp.category_id
-		ORDER BY sp.process_id
+		SELECT inner_query.* FROM (
+			SELECT 
+				process_id 			 = sp.process_id,
+	            category_id          = sp.category_id,
+				created    			 = MAX(sp.created),
+				answers_total_weight = SUM(qa.answer_weight),
+				answer_max_weight 	 = (SELECT TOP 1 max_weight FROM #categories_with_max_weight WHERE category_id=sp.category_id),
+				status_code 		 = MAX(sp.status),
+				rn = ROW_NUMBER() OVER(PARTITION BY sp.[category_id]
+				                          ORDER BY MAX(sp.[created]) DESC)
+			FROM sa__processes AS sp
+			INNER JOIN sa__results AS sr ON sr.process_id=sp.process_id  
+			INNER JOIN sa__questions_answers AS qa ON qa.id=sr.question_answer_id 
+			WHERE ', IIF(@category_id=-1, '', 'sp.category_id=@category_id AND '), ' sp.organisation_id=@organisation_id
+			GROUP BY sp.process_id, sp.category_id
+		) AS inner_query WHERE inner_query.rn <= @limits_per_category
 	');
 
 	EXECUTE sp_executesql @result_query,
-		N'@organisation_id INTEGER, @category_id INTEGER',
-		@organisation_id, @category_id;
+		N'@organisation_id INTEGER, @category_id INTEGER, @limits_per_category INTEGER',
+		@organisation_id, @category_id, @limits_per_category;
 	
 END TRY  
 BEGIN CATCH

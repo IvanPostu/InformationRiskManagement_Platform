@@ -10,7 +10,7 @@ const Section = styled.section`
   margin: 15px 0;
 `
 
-export function MainPage(): ReactElement {
+export default function MainPage(): ReactElement {
   const [previewCategories, setPreviewCategories] = useState<Array<ISACategory>>([])
   const { isAuthenticated, token } = useSelector((state: GlobalStateType) => {
     const { isAuthenticated, token } = state.auth

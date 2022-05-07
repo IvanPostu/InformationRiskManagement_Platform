@@ -3,6 +3,7 @@ import { BaseApiProvider } from './BaseApiProvider'
 import { ISAEvaluationProvider } from './ISAEvaluationProvider'
 import { ErrorResult } from './models/ErrorResult'
 import { IAnsweredQuestion } from './models/IAnsweredQuestion'
+import { IEvaluationProcess } from './models/IEvaluationProcess'
 import { IEvaluationReport } from './models/IEvaluationReport'
 import { IQuestionData } from './models/IQuestionData'
 
@@ -168,6 +169,37 @@ export class SAEvaluationProvider extends BaseApiProvider implements ISAEvaluati
       }
     `
     const data = await this._performCall<IEvaluationReport>({
+      action,
+      requestDocument: query,
+      authToken,
+    })
+
+    return data
+  }
+
+  public async getEvaluationProcesses(
+    authToken: string,
+    organisationId: number
+  ): Promise<Array<IEvaluationProcess> | null | ErrorResult> {
+    const action = 'getEvaluationProcesses'
+    const query = gql`
+      query {
+          getEvaluationProcesses(organisationId: ${organisationId})
+          {
+              processId,
+              organisationId,
+              organisationName,
+              created,
+              status,
+              statusCode,
+              userId,
+              userEmail,
+              categoryId,
+              categoryName,
+          }
+      }
+    `
+    const data = await this._performCall<Array<IEvaluationProcess>>({
       action,
       requestDocument: query,
       authToken,

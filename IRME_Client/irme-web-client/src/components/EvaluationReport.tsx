@@ -2,6 +2,7 @@ import React, { Component, Fragment, ReactElement } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { Button, CardPanel, Col, Container, Dropdown, Row } from 'react-materialize'
 import { IEvaluationReport } from '../api/models/IEvaluationReport'
+import { buildEvaluationReportLink } from '../utils/buildEvaluationReportLink'
 
 type EvaluationReportPropsType = {
   readonly report: IEvaluationReport
@@ -86,8 +87,12 @@ export class EvaluationReport extends Component<EvaluationReportPropsType> {
                   </Button>
                 }
               >
-                <a>Format: .DOCX</a>
-                <a>Format .PDF</a>
+                <a href={buildEvaluationReportLink(_processId, _organisationName, _categoryName, 'docx')}>
+                  Format: .DOCX
+                </a>
+                <a href={buildEvaluationReportLink(_processId, _organisationName, _categoryName, 'doc')}>
+                  Format: .DOC
+                </a>
               </Dropdown>
             </section>
 

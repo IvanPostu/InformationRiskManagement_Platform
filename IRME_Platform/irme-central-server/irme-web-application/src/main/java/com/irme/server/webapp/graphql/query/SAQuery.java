@@ -53,24 +53,21 @@ public class SAQuery implements GraphQLQueryResolver {
     }
 
     @PreAuthorize("!isAnonymous()")
-    public List<EvaluationProcessDto> getEvaluationProcesses(int organisationId) {
+    public List<EvaluationProcessDto> getEvaluationProcesses(Optional<Integer> organisationId) {
         AbstractAuthenticationToken auth = (AbstractAuthenticationToken) SecurityContextHolder.getContext()
                 .getAuthentication();
         JwtUser user = (JwtUser) auth.getPrincipal();
         int userId = user.getId();
 
-        return sABusinessLogic.getEvaluationProcesses(userId, organisationId);
+        return sABusinessLogic.getEvaluationProcesses(Optional.of(userId), organisationId);
     }
 
     @PreAuthorize("!isAnonymous()")
-    public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId) {
+    public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId,
+            Optional<Integer> limitsPerCategory) {
         List<EvaluationResult> result;
 
-        if (categoryId.isPresent()) {
-            result = sABusinessLogic.getEvaluationsResults(organisationId, categoryId.get());
-        } else {
-            result = sABusinessLogic.getEvaluationsResults(organisationId);
-        }
+        result = sABusinessLogic.getEvaluationsResults(organisationId, categoryId, limitsPerCategory);
 
         return result;
     }

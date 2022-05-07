@@ -11,7 +11,7 @@ import { FullScreenLoader } from '../components/FullScreenLoader'
 import { GenericModal, GenericModalTriggerButton } from '../components/modal'
 import { MainLayout } from '../layouts/MainLayout'
 import { GlobalStateType } from '../store/store'
-import base64 from '../utils/base64'
+import { buildEvaluationLink } from '../utils/buildEvaluationLink'
 import { makeId } from '../utils/makeId'
 const M = require('materialize-css/dist/js/materialize.min.js')
 
@@ -29,7 +29,7 @@ type CategoriesPageStateType = {
   organisations: Record<number, string>
 }
 
-export function CategoriesPage(): ReactElement {
+export default function CategoriesPage(): ReactElement {
   const modalId = useRef(makeId(15))
   const isMounted = useRef<boolean>(false)
   const navigate = useNavigate()
@@ -108,9 +108,7 @@ export function CategoriesPage(): ReactElement {
         if (!isMounted.current) return
 
         if (data !== null && !(data instanceof ErrorResult) && data > 0) {
-          const link = `/evaluation?processId=${data}&categoryId=${categoryId}&organisationId=${organisationId}&organisationName=${base64.encode(
-            organisationName
-          )}&categoryName=${base64.encode(categoryName)}`
+          const link = buildEvaluationLink(data, categoryId, organisationId, organisationName, categoryName)
 
           navigate(link)
         }

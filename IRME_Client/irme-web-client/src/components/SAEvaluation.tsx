@@ -1,18 +1,18 @@
 import React, { Component, ReactElement } from 'react'
 import { CardPanel } from 'react-materialize'
+import { NavigateFunction } from 'react-router-dom'
 import styled from 'styled-components'
 import { ISAEvaluationProvider } from '../api/ISAEvaluationProvider'
 import { ErrorResult } from '../api/models/ErrorResult'
 import { IQuestionData } from '../api/models/IQuestionData'
 import { SAEvaluationProvider } from '../api/SAEvaluationProvider'
 import { MainLayout } from '../layouts/MainLayout'
+import { buildEvaluationReportPageLink } from '../utils/buildEvaluationReportPageLink'
 import { makeId } from '../utils/makeId'
 import { toastMessage } from '../utils/toastMessage'
-import { ConfirmModal, GenericModalTriggerButton as ConfirmModalTriggerButton } from './modal'
 import { FullScreenLoader } from './FullScreenLoader'
+import { ConfirmModal, GenericModalTriggerButton as ConfirmModalTriggerButton } from './modal'
 import { SAEvaluationItem } from './SAEvaluationItem'
-import base64 from '../utils/base64'
-import { NavigateFunction } from 'react-router-dom'
 
 interface SAEvaluationPropsType {
   navigate: NavigateFunction
@@ -129,11 +129,13 @@ class SAEvaluationComponent extends Component<SAEvaluationPropsType, SAEvaluatio
           message: 'Evaluarea riscurilor a avut loc cu success!!!',
           type: 'success',
         })
-        const link = `/evaluationReport?processId=${evaluationProcessId}&categoryId=${
-          this.props.categoryId
-        }&organisationId=${organisationId}&organisationName=${base64.encode(
-          this.props.organisationName
-        )}&categoryName=${base64.encode(this.props.categoryName)}`
+        const link = buildEvaluationReportPageLink(
+          evaluationProcessId,
+          this.props.categoryId,
+          organisationId,
+          this.props.organisationName,
+          this.props.categoryName
+        )
         this.props.navigate(link)
       } else {
         toastMessage({

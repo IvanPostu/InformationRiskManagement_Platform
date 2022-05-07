@@ -110,4 +110,6 @@ class EvaluationReportPageComponent extends Component<EvaluationReportPagePropsT
   }
 }
 
-export const EvaluationReportPage = connect(mapStateToProps)(withRouter(EvaluationReportPageComponent))
+const EvaluationReportPage = connect(mapStateToProps)(withRouter(EvaluationReportPageComponent))
+
+export default EvaluationReportPage

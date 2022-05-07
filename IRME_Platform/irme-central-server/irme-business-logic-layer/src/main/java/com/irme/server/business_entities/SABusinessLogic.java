@@ -59,7 +59,8 @@ public class SABusinessLogic implements BusinessLogicEntity {
         }
     }
 
-    public List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId) {
+    public List<EvaluationProcessDto> getEvaluationProcesses(Optional<Integer> userId,
+            Optional<Integer> organisationId) {
         try {
             return sADataAccessObject.getEvaluationProcesses(userId, organisationId);
         } catch (DataAccessLayerException e) {
@@ -104,18 +105,10 @@ public class SABusinessLogic implements BusinessLogicEntity {
         }
     }
 
-    public List<EvaluationResult> getEvaluationsResults(int organisationId, int categoryId) {
+    public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId,
+            Optional<Integer> limitsPerCategory) {
         try {
-            return sADataAccessObject.getEvaluationsResults(organisationId, categoryId);
-        } catch (DataAccessLayerException e) {
-            log.error(e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    public List<EvaluationResult> getEvaluationsResults(int organisationId) {
-        try {
-            return sADataAccessObject.getEvaluationsResults(organisationId);
+            return sADataAccessObject.getEvaluationsResults(organisationId, categoryId, limitsPerCategory);
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
             return new ArrayList<>();

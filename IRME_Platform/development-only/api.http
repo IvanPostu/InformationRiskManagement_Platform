@@ -170,7 +170,7 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTQ2NzI0MSwiZXhwIjoxNjUxNDcwODQxfQ.q5v9i5VXomm4vjN5TSym9Je2npeEh-qRSiFB1OW6aTQ
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTk0NzE3MSwiZXhwIjoxNjUxOTUwNzcxfQ.a2egIIahqgda0CzY7vaYSaRqHc9Ov_DYO2KNdVwe5QU
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -234,11 +234,11 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTM5MjMyOSwiZXhwIjoxNjUxMzk1OTI5fQ.aG_c2sZleQ-C6DF7Yz3jjK1iu8VZW0KML5IdjA7fabE
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTk0NzE3MSwiZXhwIjoxNjUxOTUwNzcxfQ.a2egIIahqgda0CzY7vaYSaRqHc9Ov_DYO2KNdVwe5QU
 X-REQUEST-TYPE: GraphQL
 
 query {
-    getEvaluationsResults(organisationId: 4, categoryId: null)
+    getEvaluationsResults(organisationId: 4, categoryId: null, limitsPerCategory: 3)
     {
         processId,
         categoryId,

@@ -31,7 +31,8 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     public abstract int createEvaluationProcess(int userId, int organisationId, int categoryId)
             throws DataAccessLayerException;
 
-    public abstract List<EvaluationProcessDto> getEvaluationProcesses(int userId, int organisationId)
+    public abstract List<EvaluationProcessDto> getEvaluationProcesses(Optional<Integer> userId,
+            Optional<Integer> organisationId)
             throws DataAccessLayerException;
 
     public abstract boolean putAnswerToQuestion(int questionId, int answerId, int processId)
@@ -46,10 +47,8 @@ public abstract class SADataAccessObject extends BaseDataAccessObject {
     public abstract boolean finalizeEvaluationForced(int organisationId, int processId)
             throws DataAccessLayerException;
 
-    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId, int categoryId)
-            throws DataAccessLayerException;
-
-    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId)
+    public abstract List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId,
+            Optional<Integer> limitsPerCategory)
             throws DataAccessLayerException;
 
     public abstract Optional<EvaluationReport> getEvaluationReport(int processId)
