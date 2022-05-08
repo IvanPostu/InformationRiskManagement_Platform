@@ -1,11 +1,32 @@
+import {
+  ArcElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+} from 'chart.js'
 import React from 'react'
 import { render } from 'react-dom'
-import './index.css'
 import App from './App'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+)
 
 const rootNode = document.getElementById('root')
 

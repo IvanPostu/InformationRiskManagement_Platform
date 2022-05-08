@@ -18,9 +18,13 @@ public class EvaluationResult implements Serializable {
 
     private int categoryId;
 
+    private String categoryName;
+
     private Date created;
 
     private int answerTotalWeight;
+
+    private int answerExpectedWeight;
 
     private int answerMaxWeight;
 

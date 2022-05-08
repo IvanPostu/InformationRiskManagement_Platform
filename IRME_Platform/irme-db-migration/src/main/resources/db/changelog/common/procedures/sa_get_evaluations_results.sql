@@ -31,6 +31,7 @@ BEGIN TRY
 			SELECT 
 				process_id 			 = sp.process_id,
 	            category_id          = sp.category_id,
+				category_name		 = (SELECT TOP 1 sc.name  FROM sa__categories AS sc WHERE sc.category_id=sp.category_id),
 				created    			 = MAX(sp.created),
 				answers_total_weight = SUM(qa.answer_weight),
 				answer_max_weight 	 = (SELECT TOP 1 max_weight FROM #categories_with_max_weight WHERE category_id=sp.category_id),

@@ -225,6 +225,7 @@ public class SADataAccessObjectImpl extends SADataAccessObject {
 
                 evaluationResult.setProcessId(rs.getInt("process_id"));
                 evaluationResult.setCategoryId(rs.getInt("category_id"));
+                evaluationResult.setCategoryName(rs.getString("category_name"));
                 evaluationResult.setCreated(rs.getDate("created"));
                 evaluationResult.setAnswerTotalWeight(rs.getInt("answers_total_weight"));
                 evaluationResult.setAnswerMaxWeight(rs.getInt("answer_max_weight"));

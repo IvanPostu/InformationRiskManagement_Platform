@@ -53,6 +53,8 @@ class OrganisationsComponent extends Component<OrganisationsComponentPropsType, 
   render() {
     const { organisations } = this.state
     const tableElements = organisations.map((o) => {
+      const organisationDataLink = `?organisationId=${o.id}&organisationName=${base64.encode(o.name)}`
+
       return (
         <tr key={o.id}>
           <td>{o.id}</td>
@@ -60,7 +62,7 @@ class OrganisationsComponent extends Component<OrganisationsComponentPropsType, 
           <td>{o.created}</td>
           <td>
             <Link
-              to={'/'}
+              to={'/categoriesEvaluationsSummary/' + organisationDataLink}
               className="waves-effect waves-light btn-small grey darken-2"
               style={{
                 marginRight: '5px',
@@ -68,12 +70,9 @@ class OrganisationsComponent extends Component<OrganisationsComponentPropsType, 
             >
               Rezultate evaluări
             </Link>
-            {/* <a href="http://localhost:8080/api/securityAssessment/download?processId=2016&organisationName=QjJCIFNvbHV0aW9ucw==&categoryName=UHJvdGVjyJtpZSBwZXJpbWV0cmFsxIM=&docType=docx">
-              Raport
-            </a> */}
 
             <Link
-              to={`/currentOrganisationEvaluations/?organisationId=${o.id}&organisationName=${base64.encode(o.name)}`}
+              to={'/currentOrganisationEvaluations/' + organisationDataLink}
               className="waves-effect waves-light btn-small grey darken-2"
               style={{
                 marginRight: '5px',
@@ -81,6 +80,13 @@ class OrganisationsComponent extends Component<OrganisationsComponentPropsType, 
             >
               Evaluări curente
             </Link>
+
+            <a
+              className="waves-effect waves-light btn-small grey darken-2"
+              href="http://localhost:8080/api/securityAssessment/download?processId=2016&organisationName=QjJCIFNvbHV0aW9ucw==&categoryName=UHJvdGVjyJtpZSBwZXJpbWV0cmFsxIM=&docType=docx"
+            >
+              Raport General
+            </a>
           </td>
         </tr>
       )

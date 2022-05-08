@@ -234,7 +234,7 @@ mutation {
 
 POST http://localhost:8080/graphql
 Content-Type: application/json
-Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTk0NzE3MSwiZXhwIjoxNjUxOTUwNzcxfQ.a2egIIahqgda0CzY7vaYSaRqHc9Ov_DYO2KNdVwe5QU
+Authorization: Bearer_eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiIsIlJPTEVfREVWIl0sImlhdCI6MTY1MTk1MzU4NywiZXhwIjoxNjUxOTU3MTg3fQ.mzy9ma8ZF_t0yq4GuAc7kRn2PTWFOa1U8rOeoXk5QjA
 X-REQUEST-TYPE: GraphQL
 
 query {
@@ -242,6 +242,8 @@ query {
     {
         processId,
         categoryId,
+        categoryName,
+        answerExpectedWeight,
         created,
         answerTotalWeight,
         answerMaxWeight,

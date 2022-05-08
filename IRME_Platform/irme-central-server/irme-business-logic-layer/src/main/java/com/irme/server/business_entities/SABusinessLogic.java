@@ -10,6 +10,7 @@ import com.irme.server.dal.DataAccessObjectFactory;
 import com.irme.server.dal.dao.SADataAccessObject;
 import com.irme.server.dal.dao.SADataAccessObjectImpl;
 import com.irme.server.dal.exceptions.DataAccessLayerException;
+import com.irme.server.utils.ReportWeightUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
@@ -17,7 +18,6 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Slf4j
 public class SABusinessLogic implements BusinessLogicEntity {
@@ -108,7 +108,18 @@ public class SABusinessLogic implements BusinessLogicEntity {
     public List<EvaluationResult> getEvaluationsResults(int organisationId, Optional<Integer> categoryId,
             Optional<Integer> limitsPerCategory) {
         try {
-            return sADataAccessObject.getEvaluationsResults(organisationId, categoryId, limitsPerCategory);
+
+            List<EvaluationResult> evaluationResults = sADataAccessObject
+                    .getEvaluationsResults(organisationId, categoryId, limitsPerCategory);
+
+            evaluationResults.forEach(r -> {
+                int expectedWeight = ReportWeightUtils
+                        .RandomByValue(r.getAnswerMaxWeight(), r.getAnswerTotalWeight());
+
+                r.setAnswerExpectedWeight(expectedWeight);
+            });
+
+            return evaluationResults;
         } catch (DataAccessLayerException e) {
             log.error(e.getMessage());
             return new ArrayList<>();
@@ -121,19 +132,8 @@ public class SABusinessLogic implements BusinessLogicEntity {
 
             if (result.isPresent()) {
                 EvaluationReport r = result.get();
-                Random ran = new Random();
-
-                int delta = Math.round(r.getTotalProcessWeight() * 0.2f);
-                int delta1 = ran.nextInt(delta * 2) - delta;
-                int expectedWeight = r.getTotalProcessWeight() + delta1;
-
-                if (expectedWeight > r.getMaxCategoryWeight()) {
-                    expectedWeight = r.getMaxCategoryWeight() - Math.round(delta * 0.7f);
-                }
-
-                if (expectedWeight < 0) {
-                    expectedWeight = delta;
-                }
+                int expectedWeight = ReportWeightUtils
+                        .RandomByValue(r.getMaxCategoryWeight(), r.getTotalProcessWeight());
 
                 r.setExpectedProcessWeight(expectedWeight);
             }

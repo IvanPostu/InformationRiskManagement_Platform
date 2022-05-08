@@ -5,6 +5,7 @@ import { ErrorResult } from './models/ErrorResult'
 import { IAnsweredQuestion } from './models/IAnsweredQuestion'
 import { IEvaluationProcess } from './models/IEvaluationProcess'
 import { IEvaluationReport } from './models/IEvaluationReport'
+import { IEvaluationResult } from './models/IEvaluationResult'
 import { IQuestionData } from './models/IQuestionData'
 
 export class SAEvaluationProvider extends BaseApiProvider implements ISAEvaluationProvider {
@@ -200,6 +201,37 @@ export class SAEvaluationProvider extends BaseApiProvider implements ISAEvaluati
       }
     `
     const data = await this._performCall<Array<IEvaluationProcess>>({
+      action,
+      requestDocument: query,
+      authToken,
+    })
+
+    return data
+  }
+
+  public async getEvaluationsResults(
+    authToken: string,
+    organisationId: number,
+    limitsPerCategory: number,
+    categoryId: number | null
+  ): Promise<Array<IEvaluationResult> | null | ErrorResult> {
+    const action = 'getEvaluationsResults'
+    const query = gql`
+      query {
+          ${action}(organisationId: ${organisationId}, categoryId: ${categoryId}, limitsPerCategory: ${limitsPerCategory})
+          {
+            processId,
+            categoryId,
+            categoryName,
+            answerExpectedWeight,
+            created,
+            answerTotalWeight,
+            answerMaxWeight,
+            statusCode,
+          }
+      }
+    `
+    const data = await this._performCall<Array<IEvaluationResult>>({
       action,
       requestDocument: query,
       authToken,

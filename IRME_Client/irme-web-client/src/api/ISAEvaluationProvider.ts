@@ -2,6 +2,7 @@ import { ErrorResult } from './models/ErrorResult'
 import { IAnsweredQuestion } from './models/IAnsweredQuestion'
 import { IEvaluationProcess } from './models/IEvaluationProcess'
 import { IEvaluationReport } from './models/IEvaluationReport'
+import { IEvaluationResult } from './models/IEvaluationResult'
 import type { IQuestionData } from './models/IQuestionData'
 
 export interface ISAEvaluationProvider {
@@ -48,4 +49,11 @@ export interface ISAEvaluationProvider {
     authToken: string,
     organisationId: number
   ): Promise<Array<IEvaluationProcess> | null | ErrorResult>
+
+  getEvaluationsResults(
+    authToken: string,
+    organisationId: number,
+    categoryId: number,
+    limitsPerCategory: number
+  ): Promise<Array<IEvaluationResult> | null | ErrorResult>
 }
